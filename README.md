@@ -1,3 +1,4 @@
+![PPMS Logo](../readme-assets/Logo.svg "PPMS Logo")
 # PPMS
 The most advanced mesh editor for PewPew Live out there.
 
