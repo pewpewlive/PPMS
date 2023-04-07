@@ -1,5 +1,5 @@
 <img src="https://meshstudio.pewpew.live/Logo.png" 
-alt="PPMS Logo" width="128" height="128"/></a>
+alt="PPMS Logo" width="128" height="128"/>
 
 # PPMS
 The most advanced mesh editor for PewPew Live out there.
