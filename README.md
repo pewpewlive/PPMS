@@ -1,4 +1,6 @@
-![PPMS Logo](https://meshstudio.pewpew.live/Logo.png "PPMS Logo")
+<img src="https://meshstudio.pewpew.live/Logo.png" 
+alt="PPMS Logo" width="128" height="128"/></a>
+
 # PPMS
 The most advanced mesh editor for PewPew Live out there.
 
