@@ -1,3 +1,4 @@
+![PPMS Logo](https://meshstudio.pewpew.live/assets/PPMS_Banner-08beaf6e.svg "PPMS Logo")
 # PPMS
 The most advanced mesh editor for PewPew Live out there.
 
