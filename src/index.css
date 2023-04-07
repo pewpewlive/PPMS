@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.btn{
+.btn {
   @apply bg-slate-300 text-white text-sm py-2 px-4 rounded-md mt-auto w-fit self-start hover:outline outline-1 outline-zinc-300;
+}
+
+.ppms-window {
+  @apply w-screen h-screen;
 }
