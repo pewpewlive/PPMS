@@ -1,14 +1,28 @@
-import { useRef, useEffect, Suspense } from "react"
+import { useRef, useEffect, useState, Suspense } from "react"
 import * as THREE from "three"
 import { Canvas, LineSegmentsProps } from "@react-three/fiber"
 import { Stats, OrbitControls, Grid } from "@react-three/drei"
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
 import { useControls, folder, buttonGroup } from "leva"
 
+//@ts-ignore (wasmoon 1.13.0 doesn't provide TypeScript types, and we cannot update to newest due to 32-bit number overflow)
+import { LuaFactory } from "wasmoon"
+
 interface PPLMeshProps extends LineSegmentsProps {
   vertexes: number[][]
   segments: number[][]
   colors: number[] | null | undefined
+}
+
+interface PPLMeshObj {
+  vertexes: number[][]
+  segments: number[][]
+  colors: number[] | null | undefined
+}
+
+interface LuaMeshProps extends LineSegmentsProps {
+  luaSrc: string
+  index: number
 }
 
 function convertToFloatColors(color: number): number[] {
@@ -65,8 +79,42 @@ function PPLMesh(props: PPLMeshProps) {
   )
 }
 
+//! DOES NOT WORK!!!
+function LuaMesh(props: LuaMeshProps) {
+  const [pplMesh, setPplMesh] = useState<PPLMeshObj>(null!)
+
+  useEffect(() => {
+    const parseMesh = async (): Promise<PPLMeshObj> => {
+      const factory = new LuaFactory()
+
+      const lua = await factory.createEngine()
+
+      try {
+        // disable potentially dangerous or not supported by PPL libraries from loading (and remove require to replace with js alternative)
+        await lua.doString("os = nil io = nil debug = nil crypto = nil coroutine = nil utf8 = nil")
+
+        await lua.doString(props.luaSrc)
+        const meshes: PPLMeshObj = lua.global.get("meshes")
+        //@ts-ignore
+        return meshes[props.index]
+      } finally {
+        // Close the lua environment, so it can be freed
+        lua.global.close()
+      }
+    }
+
+    parseMesh()
+      .then((obj) => {
+        setPplMesh(obj)
+      })
+      .catch(console.error)
+  }, [props.luaSrc, props.index])
+
+  return <PPLMesh {...pplMesh} {...props} />
+}
+
 function PPMSWindow() {
-  useControls(
+  const {scale, isHidden, mPosition} = useControls(
     {
       Toolbox: { value: "", editable: false, order: -3 },
       Tools: folder(
@@ -81,7 +129,7 @@ function PPMSWindow() {
       ),
       Inspector: folder({
         Mesh: folder({
-          mPosition: { value: [0, 0, 0], label: "Position" },
+          mPosition: { value: [0, 0, 0], label: "Position", step: 1 },
           scale: { value: 1, label: "Scale" },
           isHidden: { value: false, label: "Hidden" },
         }),
@@ -96,8 +144,12 @@ function PPMSWindow() {
 
   return (
     <div className="ppms-window">
-      <Canvas camera={{ position: [0, 0, 1000], far: 3000 }}>
+      <Canvas camera={{ position: [0, 10, 1000], far: 3000 }}>
         <Suspense fallback={null}>
+          {/*<LuaMesh
+            luaSrc="meshes = {vertexes = {{0,0,0}, {500,0,0}, {500,500,0}, {0,500,0}}, colors = {0xffffffff, 0xffff00ff, 0xff00ffff, 0xff0000ff}, segments = {{0,1,2,3,0}}}"
+            index={0}
+          />*/}
           <PPLMesh
             vertexes={[
               [0, 0, 0],
@@ -106,7 +158,9 @@ function PPMSWindow() {
             ]}
             segments={[[0, 1, 2, 0]]}
             colors={[0xffff00ff, 0xff00ffff, 0xff0000ff]}
-            scale={0.5}
+            scale={scale}
+            visible={!isHidden}
+            position={mPosition}
           />
         </Suspense>
         <Grid
