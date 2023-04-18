@@ -38,7 +38,7 @@ function convertToFloatColors(color: number): number[] {
 function PPLMesh(props: PPLMeshProps) {
   const mesh = useRef<THREE.LineSegments>(null!)
   useEffect(() => {
-    console.log("useEffect was called")
+    console.log("Computed the mesh")
 
     const points: THREE.Vector3[] = []
     const colors: number[] = []
@@ -71,6 +71,7 @@ function PPLMesh(props: PPLMeshProps) {
     mesh.current.geometry.setFromPoints(points)
     mesh.current.geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 4))
   }, [props.vertexes, props.segments, props.colors])
+
   return (
     <lineSegments {...props} ref={mesh}>
       <bufferGeometry />
@@ -79,42 +80,46 @@ function PPLMesh(props: PPLMeshProps) {
   )
 }
 
-//! DOES NOT WORK!!!
 function LuaMesh(props: LuaMeshProps) {
-  const [pplMesh, setPplMesh] = useState<PPLMeshObj>(null!)
+  const [pplMesh, setPplMesh] = useState<PPLMeshObj>({
+    vertexes: [
+      [0, 0, 0],
+      [500, 0, 0],
+      [250, 0, 0],
+      [250, 250, 0],
+    ],
+    segments: [[0, 1, 0], [2, 3, 2]],
+    colors: [0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff],
+  })
 
   useEffect(() => {
-    const parseMesh = async (): Promise<PPLMeshObj> => {
+    ;(async () => {
+      console.log("Parsed the Lua code")
       const factory = new LuaFactory()
 
       const lua = await factory.createEngine()
-
       try {
         // disable potentially dangerous or not supported by PPL libraries from loading (and remove require to replace with js alternative)
         await lua.doString("os = nil io = nil debug = nil crypto = nil coroutine = nil utf8 = nil")
 
         await lua.doString(props.luaSrc)
         const meshes: PPLMeshObj = lua.global.get("meshes")
+
+        console.log(meshes)
         //@ts-ignore
-        return meshes[props.index]
+        setPplMesh(meshes[props.index])
       } finally {
         // Close the lua environment, so it can be freed
         lua.global.close()
       }
-    }
-
-    parseMesh()
-      .then((obj) => {
-        setPplMesh(obj)
-      })
-      .catch(console.error)
-  }, [props.luaSrc, props.index])
+    })()
+  }, [])
 
   return <PPLMesh {...pplMesh} {...props} />
 }
 
 function PPMSWindow() {
-  const {scale, isHidden, mPosition} = useControls(
+  const { scale, isHidden, mPosition } = useControls(
     {
       Toolbox: { value: "", editable: false, order: -3 },
       Tools: folder(
@@ -146,10 +151,10 @@ function PPMSWindow() {
     <div className="ppms-window">
       <Canvas camera={{ position: [0, 10, 1000], far: 3000 }}>
         <Suspense fallback={null}>
-          {/*<LuaMesh
-            luaSrc="meshes = {vertexes = {{0,0,0}, {500,0,0}, {500,500,0}, {0,500,0}}, colors = {0xffffffff, 0xffff00ff, 0xff00ffff, 0xff0000ff}, segments = {{0,1,2,3,0}}}"
+          <LuaMesh
+            luaSrc="meshes = { {vertexes = {{0,0,0}, {500,0,0}, {500,500,0}, {0,500,0}}, colors = {0xffffffff, 0xffff00ff, 0xff00ffff, 0xff0000ff}, segments = {{0,1,2,3,0}}} }"
             index={0}
-          />*/}
+          />
           <PPLMesh
             vertexes={[
               [0, 0, 0],
