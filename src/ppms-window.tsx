@@ -4,6 +4,7 @@ import { Canvas, LineSegmentsProps } from "@react-three/fiber"
 import { Stats, OrbitControls, Grid } from "@react-three/drei"
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
 import { useControls, folder, buttonGroup } from "leva"
+import { useDeepCompareEffect } from "react-use"
 
 //@ts-ignore (wasmoon 1.13.0 doesn't provide TypeScript types, and we cannot update to newest due to 32-bit number overflow)
 import { LuaFactory } from "wasmoon"
@@ -35,10 +36,9 @@ function convertToFloatColors(color: number): number[] {
 }
 
 // TODO: handle errors & make the parser's code cleaner
-//! useEffect is called every render, which is not what we want
 function PPLMesh(props: PPLMeshProps) {
   const mesh = useRef<THREE.LineSegments>(null!)
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     console.log("Computed the mesh")
 
     const points: THREE.Vector3[] = []
