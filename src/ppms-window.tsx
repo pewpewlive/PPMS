@@ -35,6 +35,7 @@ function convertToFloatColors(color: number): number[] {
 }
 
 // TODO: handle errors & make the parser's code cleaner
+//! useEffect is called every render, which is not what we want
 function PPLMesh(props: PPLMeshProps) {
   const mesh = useRef<THREE.LineSegments>(null!)
   useEffect(() => {
