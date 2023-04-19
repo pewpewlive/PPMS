@@ -4,7 +4,7 @@ import { Canvas, LineSegmentsProps } from "@react-three/fiber"
 import { Stats, OrbitControls, Grid } from "@react-three/drei"
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
 import { useControls, folder, buttonGroup } from "leva"
-import { useDeepCompareEffect, useAsync, useDropArea } from "react-use"
+import { useDeepCompareEffect, useAsync, useDropArea, useError } from "react-use"
 
 //@ts-ignore (wasmoon 1.13.0 doesn't provide TypeScript types, and we cannot update to newest due to 32-bit number overflow)
 import { LuaFactory } from "wasmoon"
@@ -36,25 +36,38 @@ function convertToFloatColors(color: number): number[] {
 }
 
 // TODO: handle errors & make the parser's code cleaner
-// use useError for error handling and make it null-tolerant
 function PPLMesh(props: PPLMeshProps) {
   const mesh = useRef<THREE.LineSegments>(null!)
+  const dispatchError = useError()
+
   useDeepCompareEffect(() => {
     const points: THREE.Vector3[] = []
     const colors: number[] = []
+
+    if (!props.colors)
+      console.warn("No colors detected in the mesh. Falling back to white...");
+    if (props.colors && props.vertexes.length !== props.colors.length)
+      dispatchError(new Error("Invalid color table length"))
     props.segments.forEach((segment) => {
-      if (segment.length < 2) throw `Invalid segment detected: ${JSON.stringify(segment)}`
+      if (segment.length < 2)
+        dispatchError(new Error(`Invalid segment detected: ${JSON.stringify(segment)}`))
       for (let i = 1; i < segment.length; i++) {
         if (props.vertexes[segment[i - 1]].length === 3)
           points.push(new THREE.Vector3(...props.vertexes[segment[i - 1]]))
         else if (props.vertexes[segment[i - 1]].length === 2)
           points.push(new THREE.Vector3(...props.vertexes[segment[i - 1]], 0))
-        else throw `Invalid vertex detected: ${JSON.stringify(props.vertexes[segment[i - 1]])}`
+        else
+          dispatchError(
+            new Error(`Invalid vertex detected: ${JSON.stringify(props.vertexes[segment[i - 1]])}`)
+          )
         if (props.vertexes[segment[i]].length === 3)
           points.push(new THREE.Vector3(...props.vertexes[segment[i]]))
         else if (props.vertexes[segment[i]].length === 2)
           points.push(new THREE.Vector3(...props.vertexes[segment[i]], 0))
-        else throw `Invalid vertex detected: ${JSON.stringify(props.vertexes[segment[i]])}`
+        else
+          dispatchError(
+            new Error(`Invalid vertex detected: ${JSON.stringify(props.vertexes[segment[i]])}`)
+          )
       }
       if (props.colors) {
         for (let i = 1; i < segment.length; i++) {
@@ -82,19 +95,9 @@ function PPLMesh(props: PPLMeshProps) {
 }
 
 function LuaMesh(props: LuaMeshProps) {
-  const [pplMesh, setPplMesh] = useState<PPLMeshObj>({
-    vertexes: [
-      [0, 0, 0],
-      [500, 0, 0],
-      [250, 0, 0],
-      [250, 250, 0],
-    ],
-    segments: [
-      [0, 1, 0],
-      [2, 3, 2],
-    ],
-    colors: [0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff],
-  })
+  // insert a dummy mesh to prevent errors
+  const [pplMesh, setPplMesh] = useState<PPLMeshObj>({ vertexes: [], segments: [], colors: [] })
+  const dispatchError = useError()
 
   useAsync(async () => {
     const factory = new LuaFactory()
@@ -110,6 +113,8 @@ function LuaMesh(props: LuaMeshProps) {
       //@ts-ignore
       setPplMesh(meshes[props.index])
       console.log("Parsed the Lua code")
+    } catch (err) {
+      dispatchError(new Error(`Error while parsing Lua code: ${err}`))
     } finally {
       // Close the lua environment, so it can be freed
       lua.global.close()
@@ -156,7 +161,7 @@ function PPMSWindow() {
   )
 
   // TODO: implement drop area
-  const [bond, state] = useDropArea({
+  const [bond, dropState] = useDropArea({
     onFiles: (files) => console.log("files", files),
     onUri: (uri) => console.log("uri", uri),
     onText: (text) => console.log("text", text),
