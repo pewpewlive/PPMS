@@ -4,7 +4,7 @@ import { Canvas, LineSegmentsProps } from "@react-three/fiber"
 import { Stats, OrbitControls, Grid } from "@react-three/drei"
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
 import { useControls, folder, buttonGroup } from "leva"
-import { useDeepCompareEffect } from "react-use"
+import { useDeepCompareEffect, useAsync, useDropArea } from "react-use"
 
 //@ts-ignore (wasmoon 1.13.0 doesn't provide TypeScript types, and we cannot update to newest due to 32-bit number overflow)
 import { LuaFactory } from "wasmoon"
@@ -36,11 +36,10 @@ function convertToFloatColors(color: number): number[] {
 }
 
 // TODO: handle errors & make the parser's code cleaner
+// use useError for error handling and make it null-tolerant
 function PPLMesh(props: PPLMeshProps) {
   const mesh = useRef<THREE.LineSegments>(null!)
   useDeepCompareEffect(() => {
-    console.log("Computed the mesh")
-
     const points: THREE.Vector3[] = []
     const colors: number[] = []
     props.segments.forEach((segment) => {
@@ -71,6 +70,7 @@ function PPLMesh(props: PPLMeshProps) {
     })
     mesh.current.geometry.setFromPoints(points)
     mesh.current.geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 4))
+    console.log("Computed the mesh")
   }, [props.vertexes, props.segments, props.colors])
 
   return (
@@ -89,46 +89,53 @@ function LuaMesh(props: LuaMeshProps) {
       [250, 0, 0],
       [250, 250, 0],
     ],
-    segments: [[0, 1, 0], [2, 3, 2]],
+    segments: [
+      [0, 1, 0],
+      [2, 3, 2],
+    ],
     colors: [0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff],
   })
 
-  useEffect(() => {
-    ;(async () => {
+  useAsync(async () => {
+    const factory = new LuaFactory()
+
+    const lua = await factory.createEngine()
+    try {
+      // disable potentially dangerous or not supported by PPL libraries from loading (and remove require to replace with js alternative)
+      await lua.doString("os = nil io = nil debug = nil crypto = nil coroutine = nil utf8 = nil")
+
+      await lua.doString(props.luaSrc)
+      const meshes: PPLMeshObj = lua.global.get("meshes")
+
+      //@ts-ignore
+      setPplMesh(meshes[props.index])
       console.log("Parsed the Lua code")
-      const factory = new LuaFactory()
-
-      const lua = await factory.createEngine()
-      try {
-        // disable potentially dangerous or not supported by PPL libraries from loading (and remove require to replace with js alternative)
-        await lua.doString("os = nil io = nil debug = nil crypto = nil coroutine = nil utf8 = nil")
-
-        await lua.doString(props.luaSrc)
-        const meshes: PPLMeshObj = lua.global.get("meshes")
-
-        console.log(meshes)
-        //@ts-ignore
-        setPplMesh(meshes[props.index])
-      } finally {
-        // Close the lua environment, so it can be freed
-        lua.global.close()
-      }
-    })()
-  }, [])
+    } finally {
+      // Close the lua environment, so it can be freed
+      lua.global.close()
+    }
+  }, [props.luaSrc, props.index])
 
   return <PPLMesh {...pplMesh} {...props} />
 }
 
+enum Cursor {
+  Pan,
+  MeshPicker,
+  VertexPicker,
+}
+
 function PPMSWindow() {
+  const [cursor, setCursor] = useState<Cursor>(Cursor.Pan)
   const { scale, isHidden, mPosition } = useControls(
     {
       Toolbox: { value: "", editable: false, order: -3 },
       Tools: folder(
         {
           Cursor: buttonGroup({
-            Pan: () => console.log("Pan cursor"),
-            MeshPicker: () => console.log("Mesh picker cursor"),
-            VertexPicker: () => console.log("Vertex picker cursor"),
+            Pan: () => setCursor(Cursor.Pan),
+            MeshPicker: () => setCursor(Cursor.MeshPicker),
+            VertexPicker: () => setCursor(Cursor.VertexPicker),
           }),
         },
         { order: -2 }
@@ -148,8 +155,15 @@ function PPMSWindow() {
     { order: -1 }
   )
 
+  // TODO: implement drop area
+  const [bond, state] = useDropArea({
+    onFiles: (files) => console.log("files", files),
+    onUri: (uri) => console.log("uri", uri),
+    onText: (text) => console.log("text", text),
+  })
+
   return (
-    <div className="ppms-window">
+    <div className="ppms-window" {...bond}>
       <Canvas camera={{ position: [0, 10, 1000], far: 3000 }}>
         <Suspense fallback={null}>
           <LuaMesh
@@ -178,6 +192,8 @@ function PPMSWindow() {
           args={[1000, 1000]}
           cellSize={50}
           sectionSize={100}
+          sectionThickness={1.5}
+          cellThickness={1}
         />
         <OrbitControls enableDamping={false} />
         <Stats />
