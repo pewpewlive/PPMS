@@ -4,9 +4,14 @@ import { Canvas, LineSegmentsProps } from "@react-three/fiber"
 import { Stats, OrbitControls, Grid } from "@react-three/drei"
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
 import { useControls, folder, buttonGroup } from "leva"
-import { useDeepCompareEffect, useAsync, useDropArea, useError } from "react-use"
+import {
+  useDeepCompareEffect,
+  useAsync,
+  useDropArea,
+  useError,
+} from "react-use"
 
-//@ts-ignore (wasmoon 1.13.0 doesn't provide TypeScript types, and we cannot update to newest due to 32-bit number overflow)
+//@ts-expect-error (wasmoon 1.13.0 doesn't provide TypeScript types, and we cannot update to newest due to 32-bit number overflow)
 import { LuaFactory } from "wasmoon"
 
 interface PPLMeshProps extends LineSegmentsProps {
@@ -26,6 +31,11 @@ interface LuaMeshProps extends LineSegmentsProps {
   index: number
 }
 
+/**
+ * Converts a color from a 32-bit integer/Hexadecimal to a float array.
+ * @param color  - The color to convert (in 32-bit integer/Hexadecimal)
+ * @returns The color in float array (RGBA)
+ */
 function convertToFloatColors(color: number): number[] {
   return [
     ((color >> 24) & 255) / 255,
@@ -35,7 +45,13 @@ function convertToFloatColors(color: number): number[] {
   ]
 }
 
-// TODO: handle errors & make the parser's code cleaner
+/**
+ * Renders a mesh from given vertexes, segments and colors.
+ *
+ * @param props - The mesh's properties (vertexes, segments, colors and config)
+ * @returns The mesh component used by React Three Fiber
+ * @todo Handle errors & make the parser's code cleaner
+ */
 function PPLMesh(props: PPLMeshProps) {
   const mesh = useRef<THREE.LineSegments>(null!)
   const dispatchError = useError()
@@ -45,12 +61,14 @@ function PPLMesh(props: PPLMeshProps) {
     const colors: number[] = []
 
     if (!props.colors)
-      console.warn("No colors detected in the mesh. Falling back to white...");
+      console.warn("No colors detected in the mesh. Falling back to white...")
     if (props.colors && props.vertexes.length !== props.colors.length)
       dispatchError(new Error("Invalid color table length"))
-    props.segments.forEach((segment) => {
+    props.segments.forEach(segment => {
       if (segment.length < 2)
-        dispatchError(new Error(`Invalid segment detected: ${JSON.stringify(segment)}`))
+        dispatchError(
+          new Error(`Invalid segment detected: ${JSON.stringify(segment)}`)
+        )
       for (let i = 1; i < segment.length; i++) {
         if (props.vertexes[segment[i - 1]].length === 3)
           points.push(new THREE.Vector3(...props.vertexes[segment[i - 1]]))
@@ -58,7 +76,11 @@ function PPLMesh(props: PPLMeshProps) {
           points.push(new THREE.Vector3(...props.vertexes[segment[i - 1]], 0))
         else
           dispatchError(
-            new Error(`Invalid vertex detected: ${JSON.stringify(props.vertexes[segment[i - 1]])}`)
+            new Error(
+              `Invalid vertex detected: ${JSON.stringify(
+                props.vertexes[segment[i - 1]]
+              )}`
+            )
           )
         if (props.vertexes[segment[i]].length === 3)
           points.push(new THREE.Vector3(...props.vertexes[segment[i]]))
@@ -66,7 +88,11 @@ function PPLMesh(props: PPLMeshProps) {
           points.push(new THREE.Vector3(...props.vertexes[segment[i]], 0))
         else
           dispatchError(
-            new Error(`Invalid vertex detected: ${JSON.stringify(props.vertexes[segment[i]])}`)
+            new Error(
+              `Invalid vertex detected: ${JSON.stringify(
+                props.vertexes[segment[i]]
+              )}`
+            )
           )
       }
       if (props.colors) {
@@ -82,21 +108,37 @@ function PPLMesh(props: PPLMeshProps) {
       }
     })
     mesh.current.geometry.setFromPoints(points)
-    mesh.current.geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 4))
+    mesh.current.geometry.setAttribute(
+      "color",
+      new THREE.Float32BufferAttribute(colors, 4)
+    )
     console.log("Computed the mesh")
   }, [props.vertexes, props.segments, props.colors])
 
   return (
     <lineSegments {...props} ref={mesh}>
       <bufferGeometry />
-      <lineBasicMaterial linejoin="miter" vertexColors={true} transparent={true} />
+      <lineBasicMaterial
+        linejoin="miter"
+        vertexColors={true}
+        transparent={true}
+      />
     </lineSegments>
   )
 }
 
+/**
+ * Renders a mesh from a Lua script.
+ * @param props - The mesh's properties (Lua script and mesh index)
+ * @returns - `<PPLMesh/>` component which renders the mesh from the parsed Lua script using React Three Fiber
+ */
 function LuaMesh(props: LuaMeshProps) {
   // insert a dummy mesh to prevent errors
-  const [pplMesh, setPplMesh] = useState<PPLMeshObj>({ vertexes: [], segments: [], colors: [] })
+  const [pplMesh, setPplMesh] = useState<PPLMeshObj>({
+    vertexes: [],
+    segments: [],
+    colors: [],
+  })
   const dispatchError = useError()
 
   useAsync(async () => {
@@ -105,7 +147,9 @@ function LuaMesh(props: LuaMeshProps) {
     const lua = await factory.createEngine()
     try {
       // disable potentially dangerous or not supported by PPL libraries from loading (and remove require to replace with js alternative)
-      await lua.doString("os = nil io = nil debug = nil crypto = nil coroutine = nil utf8 = nil")
+      await lua.doString(
+        "os = nil io = nil debug = nil crypto = nil coroutine = nil utf8 = nil"
+      )
 
       await lua.doString(props.luaSrc)
       const meshes: PPLMeshObj = lua.global.get("meshes")
@@ -124,12 +168,16 @@ function LuaMesh(props: LuaMeshProps) {
   return <PPLMesh {...pplMesh} {...props} />
 }
 
-enum Cursor {
+const enum Cursor {
   Pan,
   MeshPicker,
   VertexPicker,
 }
 
+/**
+ * The main window of the PPMS application.
+ * @returns The main window of the PPMS application.
+ */
 function PPMSWindow() {
   const [cursor, setCursor] = useState<Cursor>(Cursor.Pan)
   const { scale, isHidden, mPosition } = useControls(
@@ -162,11 +210,10 @@ function PPMSWindow() {
 
   // TODO: implement drop area
   const [bond, dropState] = useDropArea({
-    onFiles: (files) => console.log("files", files),
-    onUri: (uri) => console.log("uri", uri),
-    onText: (text) => console.log("text", text),
+    onFiles: files => console.log("files", files),
+    onUri: uri => console.log("uri", uri),
+    onText: text => console.log("text", text),
   })
-
   return (
     <div className="ppms-window" {...bond}>
       <Canvas camera={{ position: [0, 10, 1000], far: 3000 }}>
