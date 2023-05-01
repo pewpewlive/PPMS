@@ -48,7 +48,6 @@ function convertToFloatColors(color: number): number[] {
 /**
  * Renders a mesh from given vertexes, segments and colors.
  *
- * @param props - The mesh's properties (vertexes, segments, colors and config)
  * @returns The mesh component used by React Three Fiber
  * @todo Handle errors & make the parser's code cleaner
  */
@@ -129,7 +128,6 @@ function PPLMesh(props: PPLMeshProps) {
 
 /**
  * Renders a mesh from a Lua script.
- * @param props - The mesh's properties (Lua script and mesh index)
  * @returns - `<PPLMesh/>` component which renders the mesh from the parsed Lua script using React Three Fiber
  */
 function LuaMesh(props: LuaMeshProps) {
