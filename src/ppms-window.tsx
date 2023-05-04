@@ -15,13 +15,13 @@ import {
 import { LuaFactory } from "wasmoon"
 
 interface PPLMeshProps extends LineSegmentsProps {
-  vertexes: number[][]
+  vertexes: Array<[x: number, y: number, z: number] | [x: number, y: number]>
   segments: number[][]
   colors?: number[]
 }
 
 interface PPLMeshObj {
-  vertexes: number[][]
+  vertexes: Array<[x: number, y: number, z: number] | [x: number, y: number]>
   segments: number[][]
   colors?: number[]
 }
