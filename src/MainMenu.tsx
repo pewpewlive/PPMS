@@ -9,9 +9,20 @@ import {
   CardPreview,
   Body1,
   Caption1,
+  Dialog,
+  DialogTrigger,
+  DialogSurface,
+  DialogTitle,
+  DialogBody,
+  DialogActions,
+  DialogContent,
 } from "@fluentui/react-components"
 
-import { AddRegular, ArrowImportRegular } from "@fluentui/react-icons"
+import {
+  AddRegular,
+  ArrowImportRegular,
+  Dismiss24Regular,
+} from "@fluentui/react-icons"
 
 const useStyles = makeStyles({
   container: {
@@ -35,7 +46,7 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
     columnGap: "15px",
     marginTop: "1rem",
-    marginBottom: "1rem"
+    marginBottom: "1rem",
   },
 })
 
@@ -45,9 +56,36 @@ function MainMenu() {
     <div className={styles.container}>
       <Display>PewPew Mesh Studio</Display>
       <div className={styles.buttonGroup}>
-        <Button appearance="primary" icon={<AddRegular />}>
-          New
-        </Button>
+        <Dialog>
+          <DialogTrigger disableButtonEnhancement>
+            <Button appearance="primary" icon={<AddRegular />}>
+              New
+            </Button>
+          </DialogTrigger>
+          <DialogSurface>
+            <DialogBody>
+              <DialogTitle
+                action={
+                  <DialogTrigger action="close">
+                    <Button
+                      appearance="subtle"
+                      aria-label="close"
+                      icon={<Dismiss24Regular />}
+                    />
+                  </DialogTrigger>
+                }
+              >
+                New Project
+              </DialogTitle>
+              <DialogContent>TBA.</DialogContent>
+              <DialogActions>
+                <DialogTrigger disableButtonEnhancement>
+                  <Button appearance="primary">Create</Button>
+                </DialogTrigger>
+              </DialogActions>
+            </DialogBody>
+          </DialogSurface>
+        </Dialog>
         <Button appearance="primary" icon={<ArrowImportRegular />}>
           Import
         </Button>
