@@ -126,9 +126,32 @@ function MainMenu() {
             </DialogBody>
           </DialogSurface>
         </Dialog>
-        <Button appearance="primary" icon={<ArrowImportRegular />}>
-          Import
-        </Button>
+        <Dialog>
+
+        <DialogTrigger disableButtonEnhancement>
+          <Button appearance="primary" icon={<ArrowImportRegular />}>
+            Import
+          </Button>
+        </DialogTrigger>
+          <DialogSurface>
+            <DialogBody>
+              <DialogTitle
+                action={
+                  <DialogTrigger action="close">
+                    <Button
+                      appearance="subtle"
+                      aria-label="close"
+                      icon={<Dismiss24Regular />}
+                    />
+                  </DialogTrigger>
+                }
+              >
+                This feature is WIP
+              </DialogTitle>
+            </DialogBody>
+          </DialogSurface>
+        </Dialog>
+        
       </div>
       <div className={styles.cards}>
         <Card>
