@@ -21,6 +21,7 @@ import {
   Radio,
   RadioGroup,
   Text,
+  LargeTitle,
 } from "@fluentui/react-components"
 
 import {
@@ -60,7 +61,7 @@ function MainMenu() {
   const styles = useStyles()
   return (
     <div className={styles.container}>
-      <Display>PewPew Mesh Studio</Display>
+        <LargeTitle>PewPew Mesh Studio</LargeTitle>
       <div className={styles.buttonGroup}>
         <Dialog>
           <DialogTrigger disableButtonEnhancement>
@@ -126,8 +127,8 @@ function MainMenu() {
             </DialogBody>
           </DialogSurface>
         </Dialog>
+        
         <Dialog>
-
         <DialogTrigger disableButtonEnhancement>
           <Button appearance="primary" icon={<ArrowImportRegular />}>
             Import
