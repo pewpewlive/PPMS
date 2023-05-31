@@ -16,6 +16,11 @@ import {
   DialogBody,
   DialogActions,
   DialogContent,
+  Field,
+  Input,
+  Radio,
+  RadioGroup,
+  Text,
 } from "@fluentui/react-components"
 
 import {
@@ -78,7 +83,41 @@ function MainMenu() {
               >
                 New Project
               </DialogTitle>
-              <DialogContent>TBA.</DialogContent>
+              <DialogContent>
+                <Field label="Project name">
+                  <Input />
+                </Field>
+                <Field label="Project type">
+                  <RadioGroup>
+                    <Radio
+                      value="mesh"
+                      label={
+                        <>
+                          Mesh
+                          <br />
+                          <Text size={200}>
+                            A mesh project without animation support.
+                          </Text>
+                        </>
+                      }
+                      defaultChecked={true}
+                    />
+                    <Radio
+                      value="animation"
+                      label={
+                        <>
+                          Animation (coming soon)
+                          <br />
+                          <Text size={200}>
+                            A mesh project with advanced animations.
+                          </Text>
+                        </>
+                      }
+                      disabled
+                    />
+                  </RadioGroup>
+                </Field>
+              </DialogContent>
               <DialogActions>
                 <DialogTrigger disableButtonEnhancement>
                   <Button appearance="primary">Create</Button>
