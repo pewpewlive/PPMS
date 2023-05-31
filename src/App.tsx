@@ -1,10 +1,7 @@
-import PPMSWindow from "./ppms-window"
-
+import MainMenu from "./MainMenu"
 function App() {
   return (
-    <>
-      <PPMSWindow />
-    </>
+    <MainMenu />
   )
 }
 
