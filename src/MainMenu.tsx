@@ -42,11 +42,12 @@ const useStyles = makeStyles({
     display: "flex",
   },
   cards: {
-    display: "flex",
-    flexWrap: "wrap",
-    columnGap: "15px",
-    marginTop: "1rem",
-    marginBottom: "1rem",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+    rowGap: "1rem",
+    columnGap: "1rem",
+    width: "90%",
+    ...shorthands.margin("1rem"),
   },
 })
 
