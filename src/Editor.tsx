@@ -38,7 +38,7 @@ const useStyles = makeStyles({
   toolbar: {
     justifyContent: "space-between",
     backgroundColor: tokens.colorNeutralBackground2,
-    ...shorthands.padding("8px", "24px"),
+    ...shorthands.padding("8px", "12px"),
   },
   toolbarGroup: {
     display: "flex",
