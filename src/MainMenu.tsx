@@ -30,11 +30,14 @@ import {
   Dismiss24Regular,
 } from "@fluentui/react-icons"
 
+import { useLocation } from "wouter"
+
 const useStyles = makeStyles({
   container: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    marginTop: "5rem",
   },
   textContainer: {
     display: "flex",
@@ -59,9 +62,11 @@ const useStyles = makeStyles({
 
 function MainMenu() {
   const styles = useStyles()
+  const [_, setLocation] = useLocation()
+
   return (
     <div className={styles.container}>
-        <LargeTitle>PewPew Mesh Studio</LargeTitle>
+      <LargeTitle>PewPew Mesh Studio</LargeTitle>
       <div className={styles.buttonGroup}>
         <Dialog>
           <DialogTrigger disableButtonEnhancement>
@@ -121,19 +126,25 @@ function MainMenu() {
               </DialogContent>
               <DialogActions>
                 <DialogTrigger disableButtonEnhancement>
-                  <Button appearance="primary">Create</Button>
+                  <Button
+                    onClick={() => {
+                      setLocation("/editor")
+                    }}
+                    appearance="primary"
+                  >
+                    Create
+                  </Button>
                 </DialogTrigger>
               </DialogActions>
             </DialogBody>
           </DialogSurface>
         </Dialog>
-        
         <Dialog>
-        <DialogTrigger disableButtonEnhancement>
-          <Button appearance="primary" icon={<ArrowImportRegular />}>
-            Import
-          </Button>
-        </DialogTrigger>
+          <DialogTrigger disableButtonEnhancement>
+            <Button appearance="primary" icon={<ArrowImportRegular />}>
+              Import
+            </Button>
+          </DialogTrigger>
           <DialogSurface>
             <DialogBody>
               <DialogTitle
@@ -152,7 +163,6 @@ function MainMenu() {
             </DialogBody>
           </DialogSurface>
         </Dialog>
-        
       </div>
       <div className={styles.cards}>
         <Card>
