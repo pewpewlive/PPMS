@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/pewpewlive/PPMS/Rewrite/public/Logo.svg" alt="PPMS Logo" width="128" height="128"/>
+<img src="https://github.com/pewpewlive/PPMS/blob/master/public/Logo.svg" alt="PPMS Logo" width="128" height="128"/>
 
 # PPMS
 The most advanced mesh editor for PewPew Live out there.
