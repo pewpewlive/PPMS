@@ -141,7 +141,7 @@ function MainMenu() {
         </Dialog>
         <Dialog>
           <DialogTrigger disableButtonEnhancement>
-            <Button appearance="primary" icon={<ArrowImportRegular />}>
+            <Button appearance="primary" disabled icon={<ArrowImportRegular />}>
               Import
             </Button>
           </DialogTrigger>
@@ -165,78 +165,17 @@ function MainMenu() {
         </Dialog>
       </div>
       <div className={styles.cards}>
-        <Card>
-          <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
-          <CardPreview>
-            <img src="https://placehold.co/300x200/" />
-          </CardPreview>
-          <CardFooter className={styles.textContainer}>
-            <Caption1 align="end">June 1st, 2023</Caption1>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
-          <CardPreview>
-            <img src="https://placehold.co/300x200/" />
-          </CardPreview>
-          <CardFooter className={styles.textContainer}>
-            <Caption1 align="end">June 1st, 2023</Caption1>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
-          <CardPreview>
-            <img src="https://placehold.co/300x200/" />
-          </CardPreview>
-          <CardFooter className={styles.textContainer}>
-            <Caption1 align="end">June 1st, 2023</Caption1>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
-          <CardPreview>
-            <img src="https://placehold.co/300x200/" />
-          </CardPreview>
-          <CardFooter className={styles.textContainer}>
-            <Caption1 align="end">June 1st, 2023</Caption1>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
-          <CardPreview>
-            <img src="https://placehold.co/300x200/" />
-          </CardPreview>
-          <CardFooter className={styles.textContainer}>
-            <Caption1 align="end">June 1st, 2023</Caption1>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
-          <CardPreview>
-            <img src="https://placehold.co/300x200/" />
-          </CardPreview>
-          <CardFooter className={styles.textContainer}>
-            <Caption1 align="end">June 1st, 2023</Caption1>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
-          <CardPreview>
-            <img src="https://placehold.co/300x200/" />
-          </CardPreview>
-          <CardFooter className={styles.textContainer}>
-            <Caption1 align="end">June 1st, 2023</Caption1>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
-          <CardPreview>
-            <img src="https://placehold.co/300x200/" />
-          </CardPreview>
-          <CardFooter className={styles.textContainer}>
-            <Caption1 align="end">June 1st, 2023</Caption1>
-          </CardFooter>
-        </Card>
+        {[...Array(10)].map((x, i) => (
+          <Card onClick={() => setLocation(`/editor/project${i}`)}>
+            <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
+            <CardPreview>
+              <img src="https://placehold.co/300x200/" />
+            </CardPreview>
+            <CardFooter className={styles.textContainer}>
+              <Caption1 align="end">June 1st, 2023</Caption1>
+            </CardFooter>
+          </Card>
+        ))}
       </div>
     </div>
   )

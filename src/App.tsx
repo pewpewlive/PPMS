@@ -4,11 +4,11 @@ import { Route } from "wouter"
 import { lazy, Suspense } from "react"
 import { makeStyles, shorthands, Spinner } from "@fluentui/react-components"
 
-const Editor = lazy(() => import("./Editor"))
+const Editor = lazy(() => import("./Editor/Editor"))
 
 const useStyles = makeStyles({
   loadingContainer: {
-    ...shorthands.margin("auto") /*TODO: Center it vertically*/,
+    ...shorthands.margin("auto"), // TODO: Center it vertically
   },
 })
 
@@ -26,7 +26,7 @@ function App() {
   return (
     <div>
       <Route path="/" component={MainMenu} />
-      <Route path="/editor">
+      <Route path="/editor/:projectName">
         <Suspense fallback={<LoadingScreen />}>
           <Editor />
         </Suspense>
