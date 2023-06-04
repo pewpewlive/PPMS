@@ -22,6 +22,7 @@ import {
   RadioGroup,
   Text,
   LargeTitle,
+  InputProps,
 } from "@fluentui/react-components"
 
 import {
@@ -29,6 +30,7 @@ import {
   ArrowImportRegular,
   Dismiss24Regular,
 } from "@fluentui/react-icons"
+import { useState } from "react"
 
 import { useLocation } from "wouter"
 
@@ -64,6 +66,10 @@ function MainMenu() {
   const styles = useStyles()
   const [_, setLocation] = useLocation()
 
+  const [value, setValue] = useState<string>("NewProject")
+  const onChange: InputProps["onChange"] = (ev, data) => {
+    setValue(data.value)
+  }
   return (
     <div className={styles.container}>
       <LargeTitle>PewPew Mesh Studio</LargeTitle>
@@ -91,7 +97,7 @@ function MainMenu() {
               </DialogTitle>
               <DialogContent>
                 <Field label="Project name">
-                  <Input />
+                  <Input onChange={onChange} defaultValue="NewProject" />
                 </Field>
                 <Field label="Project type">
                   <RadioGroup>
@@ -128,7 +134,7 @@ function MainMenu() {
                 <DialogTrigger disableButtonEnhancement>
                   <Button
                     onClick={() => {
-                      setLocation("/editor")
+                      setLocation(`/editor/${value}`)
                     }}
                     appearance="primary"
                   >
