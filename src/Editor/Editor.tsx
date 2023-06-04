@@ -1,6 +1,5 @@
 import {
   makeStyles,
-  LargeTitle,
   Button,
   shorthands,
   Text,

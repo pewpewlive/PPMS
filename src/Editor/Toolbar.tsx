@@ -15,6 +15,7 @@ import {
   MenuTrigger,
   ToolbarRadioButton,
   ToolbarRadioGroup,
+  Tooltip,
 } from "@fluentui/react-components"
 
 import {
@@ -52,7 +53,6 @@ const useStyles = makeStyles({
   },
 })
 
-
 function EditorToolbar() {
   const styles = useStyles()
   const [_, setLocation] = useLocation()
@@ -66,10 +66,12 @@ function EditorToolbar() {
       }}
     >
       <ToolbarGroup className={styles.toolbarGroup}>
-        <ToolbarButton
-          icon={<Image src={PpmsLogo}></Image>}
-          onClick={() => setLocation("/")}
-        />
+        <Tooltip content="Home" relationship="label">
+          <ToolbarButton
+            icon={<Image src={PpmsLogo}></Image>}
+            onClick={() => setLocation("/")}
+          />
+        </Tooltip>
         <ToolbarDivider />
         <Menu>
           <MenuTrigger disableButtonEnhancement>
@@ -84,46 +86,65 @@ function EditorToolbar() {
         </Menu>
         <ToolbarDivider />
         <ToolbarRadioGroup>
-          <ToolbarRadioButton
-            name="currentCursorOptions"
-            value="select"
-            appearance="subtle"
-            size="medium"
-            icon={<Cursor24Regular />}
-          />
-          <ToolbarRadioButton
-            name="currentCursorOptions"
-            value="move"
-            appearance="subtle"
-            size="medium"
-            icon={<Drag24Regular />}
-          />
-          <ToolbarRadioButton
-            name="currentCursorOptions"
-            value="edit"
-            size="medium"
-            appearance="subtle"
-            icon={<Edit24Regular />}
-          />
+          <Tooltip content="Select" relationship="label">
+            <ToolbarRadioButton
+              name="currentCursorOptions"
+              value="select"
+              appearance="subtle"
+              size="medium"
+              icon={<Cursor24Regular />}
+            />
+          </Tooltip>
+
+          <Tooltip content="Move" relationship="label">
+            <ToolbarRadioButton
+              name="currentCursorOptions"
+              value="move"
+              appearance="subtle"
+              size="medium"
+              icon={<Drag24Regular />}
+            />
+          </Tooltip>
+          <Tooltip content="Edit" relationship="label">
+            <ToolbarRadioButton
+              name="currentCursorOptions"
+              value="edit"
+              size="medium"
+              appearance="subtle"
+              icon={<Edit24Regular />}
+            />
+          </Tooltip>
         </ToolbarRadioGroup>
         <ToolbarDivider />
-        {/*@ts-expect-error*/}
-        <ToolbarButton appearance="secondary" icon={<DataLine24Regular />}>
-          Connect vertices
-        </ToolbarButton>
-        {/*@ts-expect-error*/}
-        <ToolbarButton appearance="secondary" icon={<DismissSquareRegular />}>
-          Disconnect vertices
-        </ToolbarButton>
+        <Tooltip
+          content="Connects vertices into a segment."
+          relationship="description"
+        >
+          {/*@ts-expect-error*/}
+          <ToolbarButton appearance="secondary" icon={<DataLine24Regular />}>
+            Connect vertices
+          </ToolbarButton>
+        </Tooltip>
+        <Tooltip content="Disconnects vertices from a segment." relationship="description">
+          {/*@ts-expect-error*/}
+          <ToolbarButton appearance="secondary" icon={<DismissSquareRegular />}>
+            Disconnect vertices
+          </ToolbarButton>
+        </Tooltip>
         {/*@ts-expect-error*/}
         <ToolbarButton appearance="secondary" icon={<PaintBrush24Regular />}>
           Color vertices
         </ToolbarButton>
       </ToolbarGroup>
       <ToolbarGroup className={styles.revtoolbarGroup}>
-        <ToolbarButton appearance="primary" icon={<QuestionCircle24Regular />}>
-          Help
-        </ToolbarButton>
+        <Tooltip content="Join our Discord server" relationship="description">
+          <ToolbarButton
+            appearance="primary"
+            icon={<QuestionCircle24Regular />}
+          >
+            Help
+          </ToolbarButton>
+        </Tooltip>
         <ToolbarDivider />
         {/*@ts-expect-error*/}
         <ToolbarButton appearance="secondary" icon={<AppsAddIn24Regular />}>
