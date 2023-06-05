@@ -16,6 +16,7 @@ import {
   Field,
   tokens,
   Subtitle1,
+  Body1Stronger,
 } from "@fluentui/react-components"
 
 import {
@@ -79,10 +80,10 @@ function ValueField(props: Props) {
   return (
     <div
       className={styles.valueField}
-      style={{ backgroundColor: props.color, borderRadius: "5px" }}
+      style={{ backgroundColor: props.color, borderRadius: "4.6px" }}
     >
-      <Subtitle2>{props.label}</Subtitle2>
-      <SpinButton appearance="filled-darker" />
+      <Body1Stronger>{props.label}</Body1Stronger>
+      <SpinButton appearance="filled-darker" size="small" />
     </div>
   )
 }
