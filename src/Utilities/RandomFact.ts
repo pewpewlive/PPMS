@@ -1,4 +1,4 @@
-const facts: Array<string> = [
+const facts: string[] = [
   "PPMS used to be made using C#!",
   "PPMS uses FluentUI to create a user-friendly interface.",
   "PPMS is made using React.",
