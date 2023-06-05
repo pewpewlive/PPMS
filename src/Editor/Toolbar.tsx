@@ -1,6 +1,7 @@
 import {
   makeStyles,
   shorthands,
+  Text,
   Toolbar,
   ToolbarGroup,
   ToolbarButton,
@@ -16,6 +17,8 @@ import {
   ToolbarRadioButton,
   ToolbarRadioGroup,
   Tooltip,
+  ToolbarProps,
+  ToggleButton,
 } from "@fluentui/react-components"
 
 import {
@@ -33,6 +36,7 @@ import {
 } from "@fluentui/react-icons"
 
 import { useLocation, useRoute } from "wouter"
+import { useState } from "react"
 
 import PpmsLogo from "../assets/PPMS_Logo.svg"
 
@@ -44,16 +48,21 @@ const useStyles = makeStyles({
   },
   toolbarGroup: {
     display: "flex",
-    columnGap: "4px",
+    columnGap: "8px",
   },
   revtoolbarGroup: {
     display: "flex",
-    columnGap: "4px",
+    columnGap: "8px",
     flexDirection: "row-reverse",
   },
 })
 
-function EditorToolbar() {
+interface Props {
+  isDrawerOpen: boolean
+  clickCallback: (value: boolean) => void
+}
+
+function EditorToolbar(props: Props) {
   const styles = useStyles()
   const [_, setLocation] = useLocation()
 
@@ -85,12 +94,11 @@ function EditorToolbar() {
           </MenuPopover>
         </Menu>
         <ToolbarDivider />
-        <ToolbarRadioGroup>
+        <ToolbarRadioGroup className={styles.toolbarGroup}>
           <Tooltip content="Select" relationship="label">
             <ToolbarRadioButton
               name="currentCursorOptions"
               value="select"
-              appearance="subtle"
               size="medium"
               icon={<Cursor24Regular />}
             />
@@ -100,7 +108,6 @@ function EditorToolbar() {
             <ToolbarRadioButton
               name="currentCursorOptions"
               value="move"
-              appearance="subtle"
               size="medium"
               icon={<Drag24Regular />}
             />
@@ -110,7 +117,6 @@ function EditorToolbar() {
               name="currentCursorOptions"
               value="edit"
               size="medium"
-              appearance="subtle"
               icon={<Edit24Regular />}
             />
           </Tooltip>
@@ -125,7 +131,10 @@ function EditorToolbar() {
             Connect vertices
           </ToolbarButton>
         </Tooltip>
-        <Tooltip content="Disconnects vertices from a segment." relationship="description">
+        <Tooltip
+          content="Disconnects vertices from a segment."
+          relationship="description"
+        >
           {/*@ts-expect-error*/}
           <ToolbarButton appearance="secondary" icon={<DismissSquareRegular />}>
             Disconnect vertices
@@ -161,10 +170,13 @@ function EditorToolbar() {
         <ToolbarButton appearance="secondary" icon={<BoxMultiple24Regular />}>
           Prefabs
         </ToolbarButton>
-        {/*@ts-expect-error*/}
-        <ToolbarButton appearance="secondary" icon={<Braces24Regular />}>
+        <ToggleButton
+          checked={props.isDrawerOpen}
+          onClick={() => props.clickCallback(!props.isDrawerOpen)}
+          icon={<Braces24Regular />}
+        >
           Tree view
-        </ToolbarButton>
+        </ToggleButton>
       </ToolbarGroup>
     </Toolbar>
   )

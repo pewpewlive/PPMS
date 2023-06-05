@@ -41,8 +41,6 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "flex-start",
   },
-
-
 })
 
 function Editor() {
@@ -52,7 +50,10 @@ function Editor() {
 
   return (
     <div>
-      <EditorToolbar />
+      <EditorToolbar
+        isDrawerOpen={leftOpen}
+        clickCallback={value => setLeftOpen(value)}
+      />
       <div className={styles.root}>
         <DrawerInline separator open={leftOpen}>
           <DrawerHeader>
@@ -126,13 +127,7 @@ function Editor() {
           </DrawerBody>
         </DrawerInline>
         <div className={styles.content}>
-          <Button
-            onClick={() => {
-              setLeftOpen(!leftOpen)
-            }}
-          >
-            Open
-          </Button>
+          <Text>{params?.projectName}</Text>
         </div>
         <DrawerInline separator position="right" open>
           <DrawerHeader>
