@@ -50,11 +50,6 @@ const useStyles = makeStyles({
     display: "flex",
     columnGap: "8px",
   },
-  revtoolbarGroup: {
-    display: "flex",
-    columnGap: "8px",
-    flexDirection: "row-reverse",
-  },
 })
 
 interface Props {
@@ -145,7 +140,27 @@ function EditorToolbar(props: Props) {
           Color vertices
         </ToolbarButton>
       </ToolbarGroup>
-      <ToolbarGroup className={styles.revtoolbarGroup}>
+      <ToolbarGroup className={styles.toolbarGroup}>
+        <ToggleButton
+          checked={props.isDrawerOpen}
+          onClick={() => props.clickCallback(!props.isDrawerOpen)}
+          icon={<Braces24Regular />}
+        >
+          Tree view
+        </ToggleButton>
+        {/*@ts-expect-error*/}
+        <ToolbarButton appearance="secondary" icon={<BoxMultiple24Regular />}>
+          Prefabs
+        </ToolbarButton>
+        {/*@ts-expect-error*/}
+        <ToolbarButton appearance="secondary" icon={<BoxArrowLeftRegular />}>
+          Open Marketplace
+        </ToolbarButton>
+        {/*@ts-expect-error*/}
+        <ToolbarButton appearance="secondary" icon={<AppsAddIn24Regular />}>
+          Plugins
+        </ToolbarButton>
+        <ToolbarDivider />
         <Tooltip content="Join our Discord server" relationship="description">
           <ToolbarButton
             appearance="primary"
@@ -157,26 +172,6 @@ function EditorToolbar(props: Props) {
             Help
           </ToolbarButton>
         </Tooltip>
-        <ToolbarDivider />
-        {/*@ts-expect-error*/}
-        <ToolbarButton appearance="secondary" icon={<AppsAddIn24Regular />}>
-          Plugins
-        </ToolbarButton>
-        {/*@ts-expect-error*/}
-        <ToolbarButton appearance="secondary" icon={<BoxArrowLeftRegular />}>
-          Open Marketplace
-        </ToolbarButton>
-        {/*@ts-expect-error*/}
-        <ToolbarButton appearance="secondary" icon={<BoxMultiple24Regular />}>
-          Prefabs
-        </ToolbarButton>
-        <ToggleButton
-          checked={props.isDrawerOpen}
-          onClick={() => props.clickCallback(!props.isDrawerOpen)}
-          icon={<Braces24Regular />}
-        >
-          Tree view
-        </ToggleButton>
       </ToolbarGroup>
     </Toolbar>
   )

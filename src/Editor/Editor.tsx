@@ -46,16 +46,16 @@ const useStyles = makeStyles({
 function Editor() {
   const styles = useStyles()
   const [match, params] = useRoute("/editor/:projectName")
-  const [leftOpen, setLeftOpen] = useState<boolean>(false)
+  const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false)
 
   return (
     <div>
       <EditorToolbar
-        isDrawerOpen={leftOpen}
-        clickCallback={value => setLeftOpen(value)}
+        isDrawerOpen={isDrawerOpen}
+        clickCallback={value => setDrawerOpen(value)}
       />
       <div className={styles.root}>
-        <DrawerInline separator open={leftOpen}>
+        <DrawerInline separator open={isDrawerOpen}>
           <DrawerHeader>
             <DrawerHeaderTitle
               action={
@@ -63,7 +63,7 @@ function Editor() {
                   appearance="subtle"
                   aria-label="Close"
                   icon={<Dismiss24Regular />}
-                  onClick={() => setLeftOpen(false)}
+                  onClick={() => setDrawerOpen(false)}
                 />
               }
             >
