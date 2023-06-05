@@ -51,6 +51,13 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "flex-start",
   },
+  renderingCanvas: {
+    ...shorthands.flex(1),
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    minWidth: "10px",
+  },
   inspectorDivider: {
     marginTop: "0.5rem",
     marginBottom: "0.5rem",
@@ -174,7 +181,7 @@ function Editor() {
           </DrawerBody>
         </DrawerInline>
 
-        <div className={styles.content}>
+        <div className={styles.renderingCanvas}>
           <Canvas camera={{ position: [0, 0, 1000], far: 3000 }}>
             <color attach="background" args={["#000000"]} />
             <Segments limit={1000} lineWidth={1.0}>
