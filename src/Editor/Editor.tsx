@@ -35,8 +35,15 @@ import EditorToolbar from "./Toolbar"
 import { Dismiss24Regular } from "@fluentui/react-icons"
 import { useState } from "react"
 import { Canvas } from "@react-three/fiber"
-import { Stats, OrbitControls, Grid, Segments, Segment } from "@react-three/drei"
+import {
+  Stats,
+  OrbitControls,
+  Grid,
+  Segments,
+  Segment,
+} from "@react-three/drei"
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
+import TreeViewDrawer from "./Drawers/TreeView"
 
 const useStyles = makeStyles({
   root: {
@@ -109,87 +116,36 @@ function Editor() {
         clickCallback={value => setDrawerOpen(value)}
       />
       <div className={styles.root}>
-        <DrawerInline separator open={isDrawerOpen}>
-          <DrawerHeader>
-            <DrawerHeaderTitle
-              action={
-                <Button
-                  appearance="subtle"
-                  aria-label="Close"
-                  icon={<Dismiss24Regular />}
-                  onClick={() => setDrawerOpen(false)}
-                />
-              }
-            >
-              Tree View
-            </DrawerHeaderTitle>
-          </DrawerHeader>
-
-          <DrawerBody>
-            <Tree aria-label="Tree">
-              <TreeItem itemType="branch">
-                <TreeItemLayout>Vertices</TreeItemLayout>
-                <Tree>
-                  <TreeItem itemType="leaf">
-                    <TreeItemLayout>
-                      <Text font="monospace">
-                        [0]: X: 0, Y: 0, Z: 50, Color: 0xff00ffff
-                      </Text>
-                    </TreeItemLayout>
-                  </TreeItem>
-                  <TreeItem itemType="leaf">
-                    <TreeItemLayout>
-                      <Text font="monospace">
-                        [1]: X: 100, Y: 0, Z: 50, Color: 0xff00ffff
-                      </Text>
-                    </TreeItemLayout>
-                  </TreeItem>
-                  <TreeItem itemType="leaf">
-                    <TreeItemLayout>
-                      <Text font="monospace">
-                        [2]: X: 100, Y: 100, Z: 50, Color: 0xff00ffff
-                      </Text>
-                    </TreeItemLayout>
-                  </TreeItem>
-                  <TreeItem itemType="leaf">
-                    <TreeItemLayout>
-                      <Text font="monospace">
-                        [3]: X: 0, Y: 100, Z: 50, Color: 0xff00ffff
-                      </Text>
-                    </TreeItemLayout>
-                  </TreeItem>
-                </Tree>
-              </TreeItem>
-              <TreeItem itemType="branch">
-                <TreeItemLayout>Segments</TreeItemLayout>
-                <Tree>
-                  <TreeItem itemType="leaf">
-                    <TreeItemLayout>
-                      <Text font="monospace">
-                        [0]: 0 -&gt; 1 -&gt; 2 -&gt; 3 -&gt; 0
-                      </Text>
-                    </TreeItemLayout>
-                  </TreeItem>
-                  <TreeItem itemType="leaf">
-                    <TreeItemLayout>
-                      <Text font="monospace">[1]: 3 -&gt; 1</Text>
-                    </TreeItemLayout>
-                  </TreeItem>
-                </Tree>
-              </TreeItem>
-            </Tree>
-          </DrawerBody>
-        </DrawerInline>
+        <TreeViewDrawer
+          isDrawerOpen={isDrawerOpen}
+          clickCallback={value => setDrawerOpen(value)}
+        />
 
         <div className={styles.renderingCanvas}>
           <Canvas camera={{ position: [0, 0, 1000], far: 3000 }}>
             <color attach="background" args={["#000000"]} />
             <Segments limit={1000} lineWidth={1.0}>
               <Segment start={[0, 0, 0]} end={[0, 200, 0]} color="red" />
-              <Segment start={[0, 0, 0]} end={[0, 200, 200]} color={[1, 0, 1]} />
-              <Segment start={[0, 0, 0]} end={[0, 200, -200]} color={[1, 1, 0]} />
-              <Segment start={[0, 0, 0]} end={[200, 200, 0]} color={[0, 1, 0]} />
-              <Segment start={[0, 0, 0]} end={[-200, 200, 0]} color={[0, 1, 1]} />
+              <Segment
+                start={[0, 0, 0]}
+                end={[0, 200, 200]}
+                color={[1, 0, 1]}
+              />
+              <Segment
+                start={[0, 0, 0]}
+                end={[0, 200, -200]}
+                color={[1, 1, 0]}
+              />
+              <Segment
+                start={[0, 0, 0]}
+                end={[200, 200, 0]}
+                color={[0, 1, 0]}
+              />
+              <Segment
+                start={[0, 0, 0]}
+                end={[-200, 200, 0]}
+                color={[0, 1, 1]}
+              />
             </Segments>
             <Grid
               cellColor="#6f6f6f"
