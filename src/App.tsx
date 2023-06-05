@@ -2,6 +2,8 @@ import { Route, Switch } from "wouter"
 import { lazy, Suspense } from "react"
 
 import LoadingScreen from "./Utilities/LoadingScreen"
+import NoPageFound from "./Utilities/404"
+
 import MainMenu from "./MainMenu"
 
 const Editor = lazy(() => import("./Editor/Editor"))
@@ -16,7 +18,7 @@ function App() {
             <Editor />
           </Suspense>
         </Route>
-        <Route>Unknown path</Route>
+        <Route component={NoPageFound} />
       </Switch>
     </div>
   )
