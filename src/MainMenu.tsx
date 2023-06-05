@@ -133,7 +133,7 @@ function MainMenu() {
               <DialogActions>
                 <DialogTrigger disableButtonEnhancement>
                   <Button
-                    onClick={() => setLocation(`/editor/${value}`)}
+                    onClick={() => setLocation(`/editor/${encodeURIComponent(value)}`)}
                     appearance="primary"
                   >
                     Create
@@ -170,7 +170,7 @@ function MainMenu() {
       </div>
       <div className={styles.cards}>
         {[...Array(10)].map((x, i) => (
-          <Card onClick={() => setLocation(`/editor/project${i}`)} key={i}> 
+          <Card onClick={() => setLocation(`/editor/project${encodeURIComponent(i)}`)} key={i}> 
           {/* TODO: Replace Key with useable ID*/}
             <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
             <CardPreview>
