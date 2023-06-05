@@ -34,9 +34,6 @@ const useStyles = makeStyles({
     display: "flex",
     height: "90vh",
   },
-  fixMargin:{
-    ...shorthands.margin("-0.5rem"),
-  },
   content: {
     ...shorthands.flex(1),
     ...shorthands.padding("16px"),
@@ -54,7 +51,7 @@ function Editor() {
   const [leftOpen, setLeftOpen] = useState<boolean>(false)
 
   return (
-    <div className={styles.fixMargin}>
+    <div>
       <EditorToolbar />
       <div className={styles.root}>
         <DrawerInline separator open={leftOpen}>
