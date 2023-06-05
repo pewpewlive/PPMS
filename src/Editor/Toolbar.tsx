@@ -141,6 +141,8 @@ function EditorToolbar() {
           <ToolbarButton
             appearance="primary"
             icon={<QuestionCircle24Regular />}
+            as="a"
+            href="https://discord.gg/NSYtnxxSPN"
           >
             Help
           </ToolbarButton>
