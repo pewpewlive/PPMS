@@ -133,9 +133,7 @@ function MainMenu() {
               <DialogActions>
                 <DialogTrigger disableButtonEnhancement>
                   <Button
-                    onClick={() => {
-                      setLocation(`/editor/${value}`)
-                    }}
+                    onClick={() => setLocation(`/editor/${value}`)}
                     appearance="primary"
                   >
                     Create
