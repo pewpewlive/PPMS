@@ -34,7 +34,9 @@ import { useRoute } from "wouter"
 import EditorToolbar from "./Toolbar"
 import { Dismiss24Regular } from "@fluentui/react-icons"
 import { useState } from "react"
-import { Subtitle } from "@fluentui/keyboard-keys"
+import { Canvas } from "@react-three/fiber"
+import { Stats, OrbitControls, Grid, Segments, Segment } from "@react-three/drei"
+import { EffectComposer, Bloom } from "@react-three/postprocessing"
 
 const useStyles = makeStyles({
   root: {
@@ -171,9 +173,37 @@ function Editor() {
             </Tree>
           </DrawerBody>
         </DrawerInline>
+
         <div className={styles.content}>
-          <Text>{params?.projectName}</Text>
+          <Canvas camera={{ position: [0, 0, 1000], far: 3000 }}>
+            <color attach="background" args={["#000000"]} />
+            <Segments limit={1000} lineWidth={1.0}>
+              <Segment start={[0, 0, 0]} end={[0, 200, 0]} color="red" />
+              <Segment start={[0, 0, 0]} end={[0, 200, 200]} color={[1, 0, 1]} />
+              <Segment start={[0, 0, 0]} end={[0, 200, -200]} color={[1, 1, 0]} />
+              <Segment start={[0, 0, 0]} end={[200, 200, 0]} color={[0, 1, 0]} />
+              <Segment start={[0, 0, 0]} end={[-200, 200, 0]} color={[0, 1, 1]} />
+            </Segments>
+            <Grid
+              cellColor="#6f6f6f"
+              sectionColor="#9d4b4b"
+              infiniteGrid={true}
+              fadeStrength={1.0}
+              fadeDistance={1500}
+              args={[1000, 1000]}
+              cellSize={50}
+              sectionSize={100}
+              sectionThickness={1.5}
+              cellThickness={1}
+            />
+            <OrbitControls enableDamping={false} />
+            <Stats />
+            <EffectComposer>
+              <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} />
+            </EffectComposer>
+          </Canvas>
         </div>
+
         <DrawerInline separator position="right" open>
           <DrawerHeader>
             <DrawerHeaderTitle>Inspector</DrawerHeaderTitle>
