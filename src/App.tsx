@@ -4,7 +4,7 @@ import { lazy, Suspense } from "react"
 import LoadingScreen from "./Utilities/LoadingScreen"
 import NoPageFound from "./Utilities/404"
 
-import MainMenu from "./MainMenu"
+import MainMenu from "./Home/MainMenu"
 
 const Editor = lazy(() => import("./Editor/Editor"))
 

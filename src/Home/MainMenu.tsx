@@ -23,6 +23,7 @@ import {
   Text,
   LargeTitle,
   InputProps,
+  DataGrid,
 } from "@fluentui/react-components"
 
 import {
@@ -33,6 +34,8 @@ import {
 import { useState } from "react"
 
 import { useLocation } from "wouter"
+
+import ProjectTable from "./ProjectTable"
 
 const useStyles = makeStyles({
   container: {
@@ -57,6 +60,10 @@ const useStyles = makeStyles({
     gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
     rowGap: "1rem",
     columnGap: "1rem",
+    width: "90%",
+    ...shorthands.margin("1rem"),
+  },
+  dataGrid: {
     width: "90%",
     ...shorthands.margin("1rem"),
   },
@@ -133,7 +140,9 @@ function MainMenu() {
               <DialogActions>
                 <DialogTrigger disableButtonEnhancement>
                   <Button
-                    onClick={() => setLocation(`/editor/${encodeURIComponent(value)}`)}
+                    onClick={() =>
+                      setLocation(`/editor/${encodeURIComponent(value)}`)
+                    }
                     appearance="primary"
                   >
                     Create
@@ -168,10 +177,18 @@ function MainMenu() {
           </DialogSurface>
         </Dialog>
       </div>
+      <div className={styles.dataGrid}>
+        <ProjectTable />
+      </div>
       <div className={styles.cards}>
         {[...Array(10)].map((x, i) => (
-          <Card onClick={() => setLocation(`/editor/project${encodeURIComponent(i)}`)} key={i}> 
-          {/* TODO: Replace Key with useable ID*/}
+          <Card
+            onClick={() =>
+              setLocation(`/editor/project${encodeURIComponent(i)}`)
+            }
+            key={i}
+          >
+            {/* TODO: Replace Key with useable ID*/}
             <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
             <CardPreview>
               <img src="https://placehold.co/300x200/" />
