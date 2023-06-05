@@ -172,7 +172,7 @@ function MainMenu() {
       </div>
       <div className={styles.cards}>
         {[...Array(10)].map((x, i) => (
-          <Card onClick={() => setLocation(`/editor/project${i}`)}>
+          <Card onClick={() => setLocation(`/editor/project${i}`)} key={i}> // TODO: Replace Key with useable ID
             <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
             <CardPreview>
               <img src="https://placehold.co/300x200/" />
