@@ -12,8 +12,10 @@ import {
   Divider,
   SpinButton,
   Label,
-  Subtitle1,
+  Subtitle2,
   Field,
+  tokens,
+  Subtitle1,
 } from "@fluentui/react-components"
 
 import {
@@ -46,20 +48,44 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "flex-start",
   },
-
   inspectorDivider: {
     marginTop: "0.5rem",
     marginBottom: "0.5rem",
   },
-
   multiValueField: {
-      display: "flex",
+    display: "flex",
+    flexWrap: "wrap",
+    columnGap: "0.5rem",
+    rowGap: "0.5rem",
   },
   valueField: {
-    marginLeft: "0.15rem",
-    marginRight: "0.15rem",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    columnGap: "5px",
+    paddingLeft: "5px",
+    width: "80px",
   },
 })
+
+interface Props {
+  color: string
+  label: string
+}
+
+function ValueField(props: Props) {
+  const styles = useStyles()
+
+  return (
+    <div
+      className={styles.valueField}
+      style={{ backgroundColor: props.color, borderRadius: "5px" }}
+    >
+      <Subtitle2>{props.label}</Subtitle2>
+      <SpinButton appearance="filled-darker" />
+    </div>
+  )
+}
 
 function Editor() {
   const styles = useStyles()
@@ -166,27 +192,36 @@ function Editor() {
                     </TabList>
                   </div>
                 </AccordionPanel>
-                
               </AccordionItem>
             </Accordion>
             <Divider className={styles.inspectorDivider} />
 
-            <Subtitle1> Vertex </Subtitle1>
-
-            <Label size="large"> Position </Label>
-            <Field className={styles.multiValueField}>
-              <Text size={400}> X </Text>
-              <Field className={styles.valueField}>
-                <SpinButton defaultValue={10} />
-              </Field>
-              <Field className={styles.valueField}>
-                <SpinButton defaultValue={10} />
-              </Field>
-              <Field className={styles.valueField}>
-                <SpinButton defaultValue={10} />
-              </Field>
+            <Subtitle1>Vertex</Subtitle1>
+            <Field label="Position">
+              <div className={styles.multiValueField}>
+                {/*<Field label="X" size="large">
+                  <SpinButton defaultValue={10} />
+                </Field>
+                <Field label="Y" size="large">
+                  <SpinButton defaultValue={10} />
+                </Field>
+                <Field label="Z" size="large">
+                  <SpinButton defaultValue={10} />
+                </Field>*/}
+                <ValueField
+                  color={tokens.colorPaletteRedBackground3}
+                  label="X"
+                />
+                <ValueField
+                  color={tokens.colorPaletteLightGreenBackground3}
+                  label="Y"
+                />
+                <ValueField
+                  color={tokens.colorCompoundBrandStrokePressed}
+                  label="Z"
+                />
+              </div>
             </Field>
-
           </DrawerBody>
         </DrawerInline>
       </div>
