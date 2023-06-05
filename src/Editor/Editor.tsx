@@ -10,6 +10,10 @@ import {
   Tab,
   TabList,
   Divider,
+  SpinButton,
+  Label,
+  Subtitle1,
+  Field,
 } from "@fluentui/react-components"
 
 import {
@@ -27,6 +31,7 @@ import { useRoute } from "wouter"
 import EditorToolbar from "./Toolbar"
 import { Dismiss24Regular } from "@fluentui/react-icons"
 import { useState } from "react"
+import { Subtitle } from "@fluentui/keyboard-keys"
 
 const useStyles = makeStyles({
   root: {
@@ -40,6 +45,19 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-start",
+  },
+
+  inspectorDivider: {
+    marginTop: "0.5rem",
+    marginBottom: "0.5rem",
+  },
+
+  multiValueField: {
+      display: "flex",
+  },
+  valueField: {
+    marginLeft: "0.15rem",
+    marginRight: "0.15rem",
   },
 })
 
@@ -148,9 +166,27 @@ function Editor() {
                     </TabList>
                   </div>
                 </AccordionPanel>
+                
               </AccordionItem>
             </Accordion>
-            <Divider />
+            <Divider className={styles.inspectorDivider} />
+
+            <Subtitle1> Vertex </Subtitle1>
+
+            <Label size="large"> Position </Label>
+            <Field className={styles.multiValueField}>
+              <Text size={400}> X </Text>
+              <Field className={styles.valueField}>
+                <SpinButton defaultValue={10} />
+              </Field>
+              <Field className={styles.valueField}>
+                <SpinButton defaultValue={10} />
+              </Field>
+              <Field className={styles.valueField}>
+                <SpinButton defaultValue={10} />
+              </Field>
+            </Field>
+
           </DrawerBody>
         </DrawerInline>
       </div>
