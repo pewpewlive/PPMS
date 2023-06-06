@@ -9,7 +9,7 @@ import {
 } from "@fluentui/react-components"
 
 import PPMSLogo from "../assets/PPMS_Logo.svg"
-import facts from "./RandomFact"
+import { randomFact } from "./RandomFact"
 
 const useStyles = makeStyles({
   loadingContainer: {
@@ -52,7 +52,7 @@ function LoadingScreen(props: LoadingScreenProps) {
       {props.showFact && (
         <div className={styles.centering}>
           <Subtitle2>Did you know?</Subtitle2>
-          <Body1>{facts[Math.floor(Math.random() * facts.length)]}</Body1>
+          <Body1>{randomFact()}</Body1>
         </div>
       )}
     </div>

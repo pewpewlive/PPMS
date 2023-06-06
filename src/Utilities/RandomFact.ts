@@ -1,4 +1,4 @@
-const facts: string[] = [
+export const facts: string[] = [
   "PPMS used to be made using C#!",
   "PPMS uses FluentUI to create a user-friendly interface.",
   "PPMS is made using React.",
@@ -10,4 +10,4 @@ const facts: string[] = [
   "You can use prefabs to easily start making meshes.", // TODO: Add more random quotes
 ]
 
-export default facts
+export const randomFact = () => facts[Math.floor(Math.random() * facts.length)]
