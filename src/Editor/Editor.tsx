@@ -36,8 +36,13 @@ import {
   GizmoHelper,
   GizmoViewport,
   TransformControls,
+  Point,
+  Points,
+  PointMaterial,
 } from "@react-three/drei"
+
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
+
 import TreeViewDrawer from "./Drawers/TreeView"
 
 const useStyles = makeStyles({
@@ -120,30 +125,72 @@ function Editor() {
           <Canvas camera={{ position: [0, 0, 1000], far: 3000 }}>
             <color attach="background" args={["#000000"]} />
             <TransformControls mode="translate">
-              <Segments limit={1000} lineWidth={1.0}>
-                <Segment start={[0, 0, 0]} end={[0, 200, 0]} color="red" />
-                <Segment
-                  start={[0, 0, 0]}
-                  end={[0, 200, 200]}
-                  color={[1, 0, 1]}
-                />
-                <Segment
-                  start={[0, 0, 0]}
-                  end={[0, 200, -200]}
-                  color={[1, 1, 0]}
-                />
-                <Segment
-                  start={[0, 0, 0]}
-                  end={[200, 200, 0]}
-                  color={[0, 1, 0]}
-                />
-                <Segment
-                  start={[0, 0, 0]}
-                  end={[-200, 200, 0]}
-                  color={[0, 1, 1]}
-                />
-              </Segments>
+              <group>
+                <Segments limit={1000} lineWidth={1.0}>
+                  <Segment start={[0, 0, 0]} end={[0, 200, 0]} color="red" />
+                  <Segment
+                    start={[0, 0, 0]}
+                    end={[0, 200, 200]}
+                    color={[1, 0, 1]}
+                  />
+                  <Segment
+                    start={[0, 0, 0]}
+                    end={[0, 200, -200]}
+                    color={[1, 1, 0]}
+                  />
+                  <Segment
+                    start={[0, 0, 0]}
+                    end={[200, 200, 0]}
+                    color={[0, 1, 0]}
+                  />
+                  <Segment
+                    start={[0, 0, 0]}
+                    end={[-200, 200, 0]}
+                    color={[0, 1, 1]}
+                  />
+                </Segments>
+                <Points>
+                  <PointMaterial
+                    transparent
+                    vertexColors
+                    size={7.5}
+                    sizeAttenuation={false}
+                    depthWrite={false}
+                  />
+                  <Point
+                    position={[0, 200, 0]}
+                    color="white"
+                    onClick={() => console.log("Vertex selected")}
+                  />
+                  <Point
+                    position={[0, 0, 0]}
+                    color="white"
+                    onClick={() => console.log("Vertex selected")}
+                  />
+                  <Point
+                    position={[0, 200, 200]}
+                    color="white"
+                    onClick={() => console.log("Vertex selected")}
+                  />
+                  <Point
+                    position={[0, 200, -200]}
+                    color="white"
+                    onClick={() => console.log("Vertex selected")}
+                  />
+                  <Point
+                    position={[200, 200, 0]}
+                    color="white"
+                    onClick={() => console.log("Vertex selected")}
+                  />
+                  <Point
+                    position={[-200, 200, 0]}
+                    color="white"
+                    onClick={() => console.log("Vertex selected")}
+                  />
+                </Points>
+              </group>
             </TransformControls>
+
             <Grid
               cellColor="#6f6f6f"
               sectionColor="#9d4b4b"
@@ -167,6 +214,7 @@ function Editor() {
                 labelColor="black"
               />
             </GizmoHelper>
+            {/* TODO: implement selective bloom */}
             {/*<EffectComposer>
               <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} />
             </EffectComposer>*/}
