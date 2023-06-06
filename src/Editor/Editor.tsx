@@ -1,8 +1,6 @@
 import {
   makeStyles,
-  Button,
   shorthands,
-  Text,
   Accordion,
   AccordionHeader,
   AccordionItem,
@@ -11,8 +9,6 @@ import {
   TabList,
   Divider,
   SpinButton,
-  Label,
-  Subtitle2,
   Field,
   tokens,
   Subtitle1,
@@ -24,15 +20,11 @@ import {
   DrawerHeader,
   DrawerHeaderTitle,
   DrawerInline,
-  Tree,
-  TreeItem,
-  TreeItemLayout,
 } from "@fluentui/react-components/unstable"
 
 import { useRoute } from "wouter"
 
 import EditorToolbar from "./Toolbar"
-import { Dismiss24Regular } from "@fluentui/react-icons"
 import { useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import {
@@ -41,6 +33,9 @@ import {
   Grid,
   Segments,
   Segment,
+  GizmoHelper,
+  GizmoViewport,
+  TransformControls,
 } from "@react-three/drei"
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
 import TreeViewDrawer from "./Drawers/TreeView"
@@ -124,29 +119,31 @@ function Editor() {
         <div className={styles.renderingCanvas}>
           <Canvas camera={{ position: [0, 0, 1000], far: 3000 }}>
             <color attach="background" args={["#000000"]} />
-            <Segments limit={1000} lineWidth={1.0}>
-              <Segment start={[0, 0, 0]} end={[0, 200, 0]} color="red" />
-              <Segment
-                start={[0, 0, 0]}
-                end={[0, 200, 200]}
-                color={[1, 0, 1]}
-              />
-              <Segment
-                start={[0, 0, 0]}
-                end={[0, 200, -200]}
-                color={[1, 1, 0]}
-              />
-              <Segment
-                start={[0, 0, 0]}
-                end={[200, 200, 0]}
-                color={[0, 1, 0]}
-              />
-              <Segment
-                start={[0, 0, 0]}
-                end={[-200, 200, 0]}
-                color={[0, 1, 1]}
-              />
-            </Segments>
+            <TransformControls mode="translate">
+              <Segments limit={1000} lineWidth={1.0}>
+                <Segment start={[0, 0, 0]} end={[0, 200, 0]} color="red" />
+                <Segment
+                  start={[0, 0, 0]}
+                  end={[0, 200, 200]}
+                  color={[1, 0, 1]}
+                />
+                <Segment
+                  start={[0, 0, 0]}
+                  end={[0, 200, -200]}
+                  color={[1, 1, 0]}
+                />
+                <Segment
+                  start={[0, 0, 0]}
+                  end={[200, 200, 0]}
+                  color={[0, 1, 0]}
+                />
+                <Segment
+                  start={[0, 0, 0]}
+                  end={[-200, 200, 0]}
+                  color={[0, 1, 1]}
+                />
+              </Segments>
+            </TransformControls>
             <Grid
               cellColor="#6f6f6f"
               sectionColor="#9d4b4b"
@@ -159,11 +156,20 @@ function Editor() {
               sectionThickness={1.5}
               cellThickness={1}
             />
-            <OrbitControls enableDamping={false} />
+            <OrbitControls enableDamping={false} makeDefault />
             <Stats />
-            <EffectComposer>
+            <GizmoHelper
+              alignment="bottom-right" // widget alignment within scene
+              margin={[80, 80]} // widget margins (X, Y)
+            >
+              <GizmoViewport
+                axisColors={["red", "green", "blue"]}
+                labelColor="black"
+              />
+            </GizmoHelper>
+            {/*<EffectComposer>
               <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} />
-            </EffectComposer>
+            </EffectComposer>*/}
           </Canvas>
         </div>
 
