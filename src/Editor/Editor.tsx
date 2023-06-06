@@ -149,6 +149,7 @@ function Editor() {
                     color={[0, 1, 1]}
                   />
                 </Segments>
+                {/* TODO: Implement instanced selection */}
                 <Points>
                   <PointMaterial
                     transparent
@@ -204,7 +205,7 @@ function Editor() {
               cellThickness={1}
             />
             <OrbitControls enableDamping={false} makeDefault />
-            <Stats />
+            {/* <Stats /> */}
             <GizmoHelper
               alignment="bottom-right" // widget alignment within scene
               margin={[80, 80]} // widget margins (X, Y)
@@ -214,10 +215,10 @@ function Editor() {
                 labelColor="black"
               />
             </GizmoHelper>
-            {/* TODO: implement selective bloom */}
-            {/*<EffectComposer>
+            {/* TODO: implement selective bloom
+            <EffectComposer>
               <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} />
-            </EffectComposer>*/}
+            </EffectComposer> */}
           </Canvas>
         </div>
 
