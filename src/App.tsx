@@ -7,7 +7,7 @@ import NoPageFound from "./Utilities/404"
 import MainMenu from "./Home/MainMenu"
 
 const Editor = lazy(() => import("./Editor/Editor"))
-const NothingToSeeHere = lazy(() => import("./Utilities/Secret"))
+const NothingToSeeHere = lazy(() => import("./Utilities/NothingHere"))
 
 function App() {
   return (
