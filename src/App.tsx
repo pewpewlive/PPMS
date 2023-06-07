@@ -7,6 +7,7 @@ import NoPageFound from "./Utilities/404"
 import MainMenu from "./Home/MainMenu"
 
 const Editor = lazy(() => import("./Editor/Editor"))
+const NothingToSeeHere = lazy(() => import("./Utilities/Secret"))
 
 function App() {
   return (
@@ -16,6 +17,11 @@ function App() {
         <Route path="/editor/:projectName">
           <Suspense fallback={<LoadingScreen showFact showLogo />}>
             <Editor />
+          </Suspense>
+        </Route>
+        <Route path="/xlkfa">
+          <Suspense fallback={<LoadingScreen />}>
+            <NothingToSeeHere />
           </Suspense>
         </Route>
         <Route component={NoPageFound} />
