@@ -38,7 +38,7 @@ import {
 import { useLocation, useRoute } from "wouter"
 import { useState } from "react"
 
-import PpmsLogo from "../assets/PPMS_Logo.svg"
+import PpmsLogo from "../../assets/PPMS_Logo.svg"
 
 const useStyles = makeStyles({
   toolbar: {

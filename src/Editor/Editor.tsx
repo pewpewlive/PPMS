@@ -24,7 +24,8 @@ import {
 
 import { useRoute } from "wouter"
 
-import EditorToolbar from "./Toolbar"
+import EditorToolbar from "./Toolbars/Toolbar"
+import BottomEditorToolbar from "./Toolbars/BottomToolbar"
 import { useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import {
@@ -64,6 +65,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "flex-start",
     minWidth: "10px",
+    position: "relative",
   },
   inspectorDivider: {
     marginTop: "0.5rem",
@@ -220,6 +222,7 @@ function Editor() {
               <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} />
             </EffectComposer> */}
           </Canvas>
+          <BottomEditorToolbar />
         </div>
 
         <DrawerInline separator position="right" open>
