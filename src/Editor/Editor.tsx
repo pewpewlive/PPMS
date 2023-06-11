@@ -27,8 +27,9 @@ import {
 
 import { useRoute } from "wouter"
 
-import EditorToolbar from "./Toolbar"
 import { useCallback, useState } from "react"
+import BottomEditorToolbar from "./Toolbars/BottomToolbar"
+import EditorToolbar from "./Toolbar"
 import { Canvas } from "@react-three/fiber"
 import {
   Stats,
@@ -55,7 +56,8 @@ const useStyles = makeStyles({
   root: {
     ...shorthands.overflow("hidden"),
     display: "flex",
-    height: "90vh",
+    flexDirection: "row",
+    flexGrow: 1,
   },
   content: {
     ...shorthands.flex(1),
@@ -70,6 +72,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "flex-start",
     minWidth: "10px",
+    position: "relative",
   },
   inspectorDivider: {
     marginTop: "0.5rem",
@@ -134,7 +137,7 @@ function Editor() {
   const [selectedVertex, setSelectedVertex] = useState<number>(0)
 
   return (
-    <div>
+    <div style={{height: "100vh",display:"flex",flexDirection:"column"}}>
       <EditorToolbar
         isDrawerOpen={isDrawerOpen}
         clickCallback={value => setDrawerOpen(value)}
@@ -207,6 +210,7 @@ function Editor() {
               <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} />
             </EffectComposer> */}
           </Canvas>
+          <BottomEditorToolbar />
         </div>
 
         <DrawerInline separator position="right" open>

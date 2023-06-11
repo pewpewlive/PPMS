@@ -11,7 +11,7 @@ const NothingToSeeHere = lazy(() => import("./Utilities/NothingHere"))
 
 function App() {
   return (
-    <div>
+    <div style={{ minHeight: "100vh" }}>
       <Switch>
         <Route path="/" component={MainMenu} />
         <Route path="/editor/:projectName">
