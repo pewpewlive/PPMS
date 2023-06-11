@@ -13,6 +13,9 @@ import {
   tokens,
   Subtitle1,
   Body1Stronger,
+  SpinButtonProps,
+  SpinButtonChangeEvent,
+  SpinButtonOnChangeData,
 } from "@fluentui/react-components"
 
 import {
@@ -25,7 +28,7 @@ import {
 import { useRoute } from "wouter"
 
 import EditorToolbar from "./Toolbar"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import {
   Stats,
@@ -41,9 +44,12 @@ import {
   PointMaterial,
 } from "@react-three/drei"
 
+import { Color, Vector3 } from "three"
+
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
 
 import TreeViewDrawer from "./Drawers/TreeView"
+import { Mesh, Vertex, MeshSegment } from "./Meshes/Mesh"
 
 const useStyles = makeStyles({
   root: {
@@ -85,12 +91,13 @@ const useStyles = makeStyles({
   },
 })
 
-interface Props {
+interface ValueFieldProps {
   color: string
   label: string
+  value: number
 }
 
-function ValueField(props: Props) {
+function ValueField(props: ValueFieldProps) {
   const styles = useStyles()
 
   return (
@@ -99,7 +106,7 @@ function ValueField(props: Props) {
       style={{ backgroundColor: props.color, borderRadius: "4.6px" }}
     >
       <Body1Stronger>{props.label}</Body1Stronger>
-      <SpinButton appearance="filled-darker" size="small" />
+      <SpinButton appearance="filled-darker" size="small" value={props.value} />
     </div>
   )
 }
@@ -108,6 +115,23 @@ function Editor() {
   const styles = useStyles()
   const [match, params] = useRoute("/editor/:projectName")
   const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false)
+  const [mesh, setMesh] = useState<Mesh>(
+    new Mesh(
+      [
+        new Vertex(new Vector3(0, 0, 0), new Color(1, 1, 1)),
+        new Vertex(new Vector3(100, 0, 0), new Color(1, 1, 1)),
+        new Vertex(new Vector3(100, 100, 0), new Color(1, 1, 1)),
+        new Vertex(new Vector3(0, 100, 0), new Color(1, 1, 1)),
+      ],
+      [
+        new MeshSegment([0, 1]),
+        new MeshSegment([1, 2]),
+        new MeshSegment([2, 3]),
+        new MeshSegment([3, 0]),
+      ]
+    )
+  )
+  const [selectedVertex, setSelectedVertex] = useState<number>(0)
 
   return (
     <div>
@@ -127,27 +151,13 @@ function Editor() {
             <TransformControls mode="translate">
               <group>
                 <Segments limit={1000} lineWidth={1.0}>
-                  <Segment start={[0, 0, 0]} end={[0, 200, 0]} color="red" />
-                  <Segment
-                    start={[0, 0, 0]}
-                    end={[0, 200, 200]}
-                    color={[1, 0, 1]}
-                  />
-                  <Segment
-                    start={[0, 0, 0]}
-                    end={[0, 200, -200]}
-                    color={[1, 1, 0]}
-                  />
-                  <Segment
-                    start={[0, 0, 0]}
-                    end={[200, 200, 0]}
-                    color={[0, 1, 0]}
-                  />
-                  <Segment
-                    start={[0, 0, 0]}
-                    end={[-200, 200, 0]}
-                    color={[0, 1, 1]}
-                  />
+                  {mesh?.segments.map((segment, index) => (
+                    <Segment
+                      start={mesh?.vertexes[segment.indexes[0]].position}
+                      end={mesh?.vertexes[segment.indexes[1]].position}
+                      color={mesh?.vertexes[segment.indexes[0]].color}
+                    />
+                  ))}
                 </Segments>
                 {/* TODO: Implement instanced selection */}
                 <Points>
@@ -158,36 +168,13 @@ function Editor() {
                     sizeAttenuation={false}
                     depthWrite={false}
                   />
-                  <Point
-                    position={[0, 200, 0]}
-                    color="white"
-                    onClick={() => console.log("Vertex selected")}
-                  />
-                  <Point
-                    position={[0, 0, 0]}
-                    color="white"
-                    onClick={() => console.log("Vertex selected")}
-                  />
-                  <Point
-                    position={[0, 200, 200]}
-                    color="white"
-                    onClick={() => console.log("Vertex selected")}
-                  />
-                  <Point
-                    position={[0, 200, -200]}
-                    color="white"
-                    onClick={() => console.log("Vertex selected")}
-                  />
-                  <Point
-                    position={[200, 200, 0]}
-                    color="white"
-                    onClick={() => console.log("Vertex selected")}
-                  />
-                  <Point
-                    position={[-200, 200, 0]}
-                    color="white"
-                    onClick={() => console.log("Vertex selected")}
-                  />
+                  {mesh?.segments.map((segment, index) => (
+                    <Point
+                      position={mesh?.vertexes[segment.indexes[0]].position}
+                      color="white"
+                      onClick={() => setSelectedVertex(index)}
+                    />
+                  ))}
                 </Points>
               </group>
             </TransformControls>
@@ -260,14 +247,17 @@ function Editor() {
                 <ValueField
                   color={tokens.colorPaletteRedBackground3}
                   label="X"
+                  value={mesh?.vertexes[selectedVertex].position.x}
                 />
                 <ValueField
                   color={tokens.colorPaletteLightGreenBackground3}
                   label="Y"
+                  value={mesh?.vertexes[selectedVertex].position.y}
                 />
                 <ValueField
                   color={tokens.colorCompoundBrandStrokePressed}
                   label="Z"
+                  value={mesh?.vertexes[selectedVertex].position.z}
                 />
               </div>
             </Field>
