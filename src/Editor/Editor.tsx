@@ -29,7 +29,7 @@ import { useRoute } from "wouter"
 
 import { useCallback, useState } from "react"
 import BottomEditorToolbar from "./Toolbars/BottomToolbar"
-import EditorToolbar from "./Toolbar"
+import EditorToolbar from "./Toolbars/Toolbar"
 import { Canvas } from "@react-three/fiber"
 import {
   Stats,
@@ -137,7 +137,7 @@ function Editor() {
   const [selectedVertex, setSelectedVertex] = useState<number>(0)
 
   return (
-    <div style={{height: "100vh",display:"flex",flexDirection:"column"}}>
+    <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       <EditorToolbar
         isDrawerOpen={isDrawerOpen}
         clickCallback={value => setDrawerOpen(value)}
