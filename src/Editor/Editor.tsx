@@ -50,7 +50,8 @@ const useStyles = makeStyles({
   root: {
     ...shorthands.overflow("hidden"),
     display: "flex",
-    height: "90vh",
+    flexDirection: "row",
+    flexGrow: 1,
   },
   content: {
     ...shorthands.flex(1),
@@ -112,7 +113,7 @@ function Editor() {
   const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false)
 
   return (
-    <div>
+    <div style={{height: "100vh",display:"flex",flexDirection:"column"}}>
       <EditorToolbar
         isDrawerOpen={isDrawerOpen}
         clickCallback={value => setDrawerOpen(value)}
