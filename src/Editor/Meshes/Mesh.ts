@@ -1,3 +1,4 @@
+import { create } from 'zustand'
 import { Color, Vector3, Vector4 } from "three"
 
 export class Mesh {
@@ -11,10 +12,6 @@ export class Mesh {
 
   addVertex(position: Vector3, color: Color) {
     this.vertices.push(new Vertex(position, color))
-  }
-
-  setVertex(position: Vector3, color: Color, vertex: number) {
-    this.vertices[vertex] = new Vertex(position, color)
   }
   
   createSegment(vertices: number[]) {
@@ -80,3 +77,43 @@ export class VertexColor {
     return new Color(this.color.x, this.color.y, this.color.z)
   }
 }
+
+// Using zustand to store the mesh
+
+interface MeshStore {
+  mesh: Mesh
+  setMesh: (mesh: Mesh) => void
+  addVertex: (position: Vector3, color: Color) => void
+  createSegment: (vertices: number[]) => void
+  deleteSegment: (segment: number) => void
+}
+
+export const useMeshStore = create<MeshStore>((set) => ({
+  mesh: new Mesh([
+    new Vertex(new Vector3(0, 0, 0), new Color(1, 1, 1)),
+    new Vertex(new Vector3(100, 0, 0), new Color(1, 1, 1)),
+    new Vertex(new Vector3(100, 100, 0), new Color(1, 1, 1)),
+    new Vertex(new Vector3(0, 100, 0), new Color(1, 1, 1)),
+  ],
+  [
+    new MeshSegment(0, 1),
+    new MeshSegment(1, 2),
+    new MeshSegment(2, 3),
+    new MeshSegment(3, 0),
+  ]),
+  setMesh: (mesh: Mesh) => set({
+    mesh: new Mesh(mesh.vertices, mesh.segments)
+  }),
+  addVertex: (position: Vector3, color: Color) => set((state) => {
+    state.mesh.addVertex(position, color)
+    return state
+  }),
+  createSegment: (vertices: number[]) => set((state) => {
+    state.mesh.createSegment(vertices)
+    return state
+  }),
+  deleteSegment: (segment: number) => set((state) => {
+    state.mesh.deleteSegment(segment)
+    return state
+  })
+}))

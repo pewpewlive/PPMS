@@ -1,7 +1,6 @@
 import {
   makeStyles,
   shorthands,
-  Text,
   Toolbar,
   ToolbarGroup,
   ToolbarButton,
