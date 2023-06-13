@@ -86,6 +86,10 @@ interface MeshStore {
   addVertex: (position: Vector3, color: Color) => void
   createSegment: (vertices: number[]) => void
   deleteSegment: (segment: number) => void
+  setVertexPosition: (vertex: number, position: Vector3) => void
+  setVertexPosX: (vertex: number, x: number) => void
+  setVertexPosY: (vertex: number, y: number) => void
+  setVertexPosZ: (vertex: number, z: number) => void
 }
 
 export const useMeshStore = create<MeshStore>(set => ({
@@ -110,16 +114,50 @@ export const useMeshStore = create<MeshStore>(set => ({
   addVertex: (position: Vector3, color: Color) =>
     set(state => {
       state.mesh.addVertex(position, color)
-      return state
+      return {
+        mesh: new Mesh(state.mesh.vertices, state.mesh.segments),
+      }
     }),
   createSegment: (vertices: number[]) =>
     set(state => {
       state.mesh.createSegment(vertices)
-      return state
+      return {
+        mesh: new Mesh(state.mesh.vertices, state.mesh.segments),
+      }
     }),
   deleteSegment: (segment: number) =>
     set(state => {
       state.mesh.deleteSegment(segment)
-      return state
+      return {
+        mesh: new Mesh(state.mesh.vertices, state.mesh.segments),
+      }
+    }),
+  setVertexPosition: (vertex: number, position: Vector3) =>
+    set(state => {
+      state.mesh.vertices[vertex].position = position
+      return {
+        mesh: new Mesh(state.mesh.vertices, state.mesh.segments),
+      }
+    }),
+  setVertexPosX: (vertex: number, x: number) =>
+    set(state => {
+      state.mesh.vertices[vertex].position.x = x
+      return {
+        mesh: new Mesh(state.mesh.vertices, state.mesh.segments),
+      }
+    }),
+  setVertexPosY: (vertex: number, y: number) =>
+    set(state => {
+      state.mesh.vertices[vertex].position.y = y
+      return {
+        mesh: new Mesh(state.mesh.vertices, state.mesh.segments),
+      }
+    }),
+  setVertexPosZ: (vertex: number, z: number) =>
+    set(state => {
+      state.mesh.vertices[vertex].position.z = z
+      return {
+        mesh: new Mesh(state.mesh.vertices, state.mesh.segments),
+      }
     }),
 }))

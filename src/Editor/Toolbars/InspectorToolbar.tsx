@@ -88,7 +88,7 @@ function ValueField(props: ValueFieldProps) {
 }
 export default function InspectorToolbar() {
   const styles = useStyles()
-  const [mesh, setMesh] = useMeshStore(state => [state.mesh, state.setMesh])
+  const [mesh, setVertexPosX,setVertexPosY,setVertexPosZ] = useMeshStore(state => [state.mesh, state.setVertexPosX, state.setVertexPosY, state.setVertexPosZ])  
   const [selectedVertex] = selectedVertexStore(state => [state.selectedVertex])
   return (
     <DrawerInline separator position="right" open>
@@ -132,8 +132,7 @@ export default function InspectorToolbar() {
               value={mesh?.vertices[selectedVertex].position.x}
               onChange={value => {
                 if (value === null || value === undefined) value = 0
-                mesh?.vertices[selectedVertex].position.setX(value)
-                setMesh(mesh)
+                setVertexPosX(selectedVertex, value)
               }}
             />
             <ValueField
@@ -142,8 +141,7 @@ export default function InspectorToolbar() {
               value={mesh?.vertices[selectedVertex].position.y}
               onChange={value => {
                 if (value === null || value === undefined) value = 0
-                mesh?.vertices[selectedVertex].position.setY(value)
-                setMesh(mesh)
+                setVertexPosY(selectedVertex, value)
               }}
             />
             <ValueField
@@ -152,8 +150,7 @@ export default function InspectorToolbar() {
               value={mesh?.vertices[selectedVertex].position.z}
               onChange={value => {
                 if (value === null || value === undefined) value = 0
-                mesh?.vertices[selectedVertex].position.setZ(value)
-                setMesh(mesh)
+                setVertexPosZ(selectedVertex, value)
               }}
             />
           </div>
