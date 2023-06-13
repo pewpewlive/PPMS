@@ -1,11 +1,11 @@
 import { useCallback } from "react"
 import {
-    DrawerBody,
-    DrawerHeader,
-    DrawerHeaderTitle,
-    DrawerInline,
-  } from "@fluentui/react-components/unstable"
-  import {
+  DrawerBody,
+  DrawerHeader,
+  DrawerHeaderTitle,
+  DrawerInline,
+} from "@fluentui/react-components/unstable"
+import {
   makeStyles,
   Accordion,
   AccordionHeader,
@@ -23,8 +23,8 @@ import {
   SpinButtonChangeEvent,
   SpinButtonOnChangeData,
 } from "@fluentui/react-components"
-import { useMeshStore } from "../Meshes/Mesh";
-import { selectedVertexStore } from "../EditorState";
+import { useMeshStore } from "../Meshes/Mesh"
+import { selectedVertexStore } from "../EditorState"
 const useStyles = makeStyles({
   inspectorDivider: {
     marginTop: "0.5rem",
@@ -44,7 +44,7 @@ const useStyles = makeStyles({
     paddingLeft: "5px",
     width: "80px",
   },
-});
+})
 interface ValueFieldProps {
   color: string
   label: string
@@ -87,9 +87,9 @@ function ValueField(props: ValueFieldProps) {
   )
 }
 export default function InspectorToolbar() {
-  const styles = useStyles();
+  const styles = useStyles()
   const [mesh, setMesh] = useMeshStore(state => [state.mesh, state.setMesh])
-  const [selectedVertex] = selectedVertexStore((state) => [state.selectedVertex])
+  const [selectedVertex] = selectedVertexStore(state => [state.selectedVertex])
   return (
     <DrawerInline separator position="right" open>
       <DrawerHeader>
