@@ -129,7 +129,7 @@ function ValueField(props: ValueFieldProps) {
       <SpinButton
         appearance="filled-darker"
         size="small"
-        value={props.value}
+        defaultValue={props.value}
         onChange={onSpinButtonChange}
       />
     </div>
@@ -277,7 +277,7 @@ function Editor() {
                 <ValueField
                   color={tokens.colorPaletteRedBackground3}
                   label="X"
-                  value={mesh?.vertices[selectedVertex].position.x}
+                  value={0}
                   onChange={value => {
                     if (value === null || value === undefined) value = 0
                     mesh?.vertices[selectedVertex].position.setX(value)
