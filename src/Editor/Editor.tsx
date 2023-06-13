@@ -31,7 +31,6 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import BottomEditorToolbar from "./Toolbars/BottomToolbar"
 import EditorToolbar from "./Toolbars/Toolbar"
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Raytracer } from '@react-three/lgl'
 
 import {
   Stats,
