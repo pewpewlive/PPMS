@@ -27,10 +27,10 @@ import {
 
 import { useRoute } from "wouter"
 
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import BottomEditorToolbar from "./Toolbars/BottomToolbar"
 import EditorToolbar from "./Toolbars/Toolbar"
-import { Canvas } from "@react-three/fiber"
+import { Canvas, useFrame } from "@react-three/fiber"
 import {
   Stats,
   OrbitControls,
@@ -43,6 +43,7 @@ import {
   Point,
   Points,
   PointMaterial,
+  SegmentObject,
 } from "@react-three/drei"
 
 import { Color, Vector3 } from "three"
@@ -157,7 +158,23 @@ function Editor() {
     )
   )
   const [selectedVertex, setSelectedVertex] = useState<number>(0)
-  
+
+  const segmentRef = useRef<SegmentObject[]>([])
+  useEffect(() => {
+    mesh?.segments.forEach((segment, index) => {
+      segmentRef.current[index]?.start?.set(
+        mesh?.vertices[segment.indices[0]].position.x,
+        mesh?.vertices[segment.indices[0]].position.y,
+        mesh?.vertices[segment.indices[0]].position.z
+      )
+      segmentRef.current[index]?.end?.set(
+        mesh?.vertices[segment.indices[1]].position.x,
+        mesh?.vertices[segment.indices[1]].position.y,
+        mesh?.vertices[segment.indices[1]].position.z
+      )
+    })
+  }, [mesh])
+
   console.log(mesh?.vertices[selectedVertex].position)
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
@@ -180,6 +197,9 @@ function Editor() {
                 <Segments limit={1000} lineWidth={1.0}>
                   {mesh?.segments.map((segment, index) => (
                     <Segment
+                      ref={r => {
+                        if (r) segmentRef.current[index] = r
+                      }}
                       start={mesh?.vertices[segment.indices[0]].position}
                       end={mesh?.vertices[segment.indices[1]].position}
                       color={mesh?.vertices[segment.indices[0]].color}
@@ -277,11 +297,13 @@ function Editor() {
                 <ValueField
                   color={tokens.colorPaletteRedBackground3}
                   label="X"
-                  value={0}
+                  value={mesh?.vertices[selectedVertex].position.x}
                   onChange={value => {
-                    if (value === null || value === undefined) value = 0
-                    mesh?.vertices[selectedVertex].position.setX(value)
-                    setMesh(mesh)
+                    setMesh(mesh => {
+                      if (value === null || value === undefined) value = 0
+                      mesh?.vertices[selectedVertex].position.setX(value)
+                      return new Mesh(mesh?.vertices, mesh?.segments)
+                    })
                   }}
                 />
                 <ValueField
@@ -289,9 +311,11 @@ function Editor() {
                   label="Y"
                   value={mesh?.vertices[selectedVertex].position.y}
                   onChange={value => {
-                    if (value === null || value === undefined) value = 0
-                    mesh?.vertices[selectedVertex].position.setY(value)
-                    setMesh(mesh)
+                    setMesh(mesh => {
+                      if (value === null || value === undefined) value = 0
+                      mesh?.vertices[selectedVertex].position.setY(value)
+                      return new Mesh(mesh?.vertices, mesh?.segments)
+                    })
                   }}
                 />
                 <ValueField
@@ -299,9 +323,11 @@ function Editor() {
                   label="Z"
                   value={mesh?.vertices[selectedVertex].position.z}
                   onChange={value => {
-                    if (value === null || value === undefined) value = 0
-                    mesh?.vertices[selectedVertex].position.setZ(value)
-                    setMesh(mesh)
+                    setMesh(mesh => {
+                      if (value === null || value === undefined) value = 0
+                      mesh?.vertices[selectedVertex].position.setZ(value)
+                      return new Mesh(mesh?.vertices, mesh?.segments)
+                    })
                   }}
                 />
               </div>

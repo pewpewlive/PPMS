@@ -13,6 +13,10 @@ export class Mesh {
     this.vertices.push(new Vertex(position, color))
   }
 
+  setVertex(position: Vector3, color: Color, vertex: number) {
+    this.vertices[vertex] = new Vertex(position, color)
+  }
+  
   createSegment(vertices: number[]) {
     this.segments.push(new MeshSegment(...vertices))
   }
