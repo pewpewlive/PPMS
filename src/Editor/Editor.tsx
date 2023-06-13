@@ -117,7 +117,8 @@ function ValueField(props: ValueFieldProps) {
           console.error(`Cannot parse "${data.displayValue}" as a number.`)
         }
       }
-    }, [props.onChange]
+    },
+    [props.onChange]
   )
   return (
     <div
@@ -148,15 +149,16 @@ function Editor() {
         new Vertex(new Vector3(0, 100, 0), new Color(1, 1, 1)),
       ],
       [
-        new MeshSegment([0, 1]),
-        new MeshSegment([1, 2]),
-        new MeshSegment([2, 3]),
-        new MeshSegment([3, 0]),
+        new MeshSegment(0, 1),
+        new MeshSegment(1, 2),
+        new MeshSegment(2, 3),
+        new MeshSegment(3, 0),
       ]
     )
   )
   const [selectedVertex, setSelectedVertex] = useState<number>(0)
-
+  
+  console.log(mesh?.vertices[selectedVertex].position)
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       <EditorToolbar
@@ -276,19 +278,31 @@ function Editor() {
                   color={tokens.colorPaletteRedBackground3}
                   label="X"
                   value={mesh?.vertices[selectedVertex].position.x}
-                  onChange={(value) => {}}
+                  onChange={value => {
+                    if (value === null || value === undefined) value = 0
+                    mesh?.vertices[selectedVertex].position.setX(value)
+                    setMesh(mesh)
+                  }}
                 />
                 <ValueField
                   color={tokens.colorPaletteLightGreenBackground3}
                   label="Y"
                   value={mesh?.vertices[selectedVertex].position.y}
-                  onChange={(value) => {}}
+                  onChange={value => {
+                    if (value === null || value === undefined) value = 0
+                    mesh?.vertices[selectedVertex].position.setY(value)
+                    setMesh(mesh)
+                  }}
                 />
                 <ValueField
                   color={tokens.colorCompoundBrandStrokePressed}
                   label="Z"
                   value={mesh?.vertices[selectedVertex].position.z}
-                  onChange={(value) => {}}
+                  onChange={value => {
+                    if (value === null || value === undefined) value = 0
+                    mesh?.vertices[selectedVertex].position.setZ(value)
+                    setMesh(mesh)
+                  }}
                 />
               </div>
             </Field>
