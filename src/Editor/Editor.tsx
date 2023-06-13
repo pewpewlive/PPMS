@@ -46,7 +46,7 @@ import {
   SegmentObject,
 } from "@react-three/drei"
 
-import { Color, Vector3 } from "three"
+import { Color, Object3D, Vector3 } from "three"
 
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
 
@@ -160,6 +160,7 @@ function Editor() {
   const [selectedVertex, setSelectedVertex] = useState<number>(0)
 
   const segmentRef = useRef<SegmentObject[]>([])
+  const pointRef = useRef<Object3D[]>([])
   useEffect(() => {
     mesh?.segments.forEach((segment, index) => {
       segmentRef.current[index]?.start?.set(
@@ -173,9 +174,15 @@ function Editor() {
         mesh?.vertices[segment.indices[1]].position.z
       )
     })
+    mesh?.vertices.forEach((vertex, index) => {
+      pointRef.current[index]?.position.set(
+        vertex.position.x,
+        vertex.position.y,
+        vertex.position.z
+      )
+    })
   }, [mesh])
 
-  console.log(mesh?.vertices[selectedVertex].position)
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       <EditorToolbar
@@ -218,6 +225,9 @@ function Editor() {
                   />
                   {mesh?.segments.map((segment, index) => (
                     <Point
+                      ref={r => {
+                        if (r) pointRef.current[index] = r
+                      }}
                       position={mesh?.vertices[segment.indices[0]].position}
                       color="white"
                       onClick={() => setSelectedVertex(index)}
