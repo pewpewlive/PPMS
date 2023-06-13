@@ -98,18 +98,39 @@ interface ValueFieldProps {
   color: string
   label: string
   value: number
+  onChange: (value: number | null | undefined) => void
 }
 
 function ValueField(props: ValueFieldProps) {
   const styles = useStyles()
 
+  const onSpinButtonChange: SpinButtonProps["onChange"] = useCallback(
+    (_ev: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
+      //console.log("onSpinButtonChange", data.value, data.displayValue)
+      if (data.value !== undefined) {
+        props.onChange(data.value)
+      } else if (data.displayValue !== undefined) {
+        const newValue = parseFloat(data.displayValue)
+        if (!Number.isNaN(newValue)) {
+          props.onChange(data.value)
+        } else {
+          console.error(`Cannot parse "${data.displayValue}" as a number.`)
+        }
+      }
+    }, [props.onChange]
+  )
   return (
     <div
       className={styles.valueField}
       style={{ backgroundColor: props.color, borderRadius: "4.6px" }}
     >
       <Body1Stronger>{props.label}</Body1Stronger>
-      <SpinButton appearance="filled-darker" size="small" value={props.value} />
+      <SpinButton
+        appearance="filled-darker"
+        size="small"
+        value={props.value}
+        onChange={onSpinButtonChange}
+      />
     </div>
   )
 }
@@ -153,12 +174,14 @@ function Editor() {
             <color attach="background" args={["#000000"]} />
             <TransformControls mode="translate">
               <group>
+                {/* TODO: Use ref instead of segment components */}
                 <Segments limit={1000} lineWidth={1.0}>
                   {mesh?.segments.map((segment, index) => (
                     <Segment
-                      start={mesh?.vertexes[segment.indexes[0]].position}
-                      end={mesh?.vertexes[segment.indexes[1]].position}
-                      color={mesh?.vertexes[segment.indexes[0]].color}
+                      start={mesh?.vertices[segment.indices[0]].position}
+                      end={mesh?.vertices[segment.indices[1]].position}
+                      color={mesh?.vertices[segment.indices[0]].color}
+                      key={index}
                     />
                   ))}
                 </Segments>
@@ -173,9 +196,10 @@ function Editor() {
                   />
                   {mesh?.segments.map((segment, index) => (
                     <Point
-                      position={mesh?.vertexes[segment.indexes[0]].position}
+                      position={mesh?.vertices[segment.indices[0]].position}
                       color="white"
                       onClick={() => setSelectedVertex(index)}
+                      key={index}
                     />
                   ))}
                 </Points>
@@ -185,7 +209,7 @@ function Editor() {
             <Grid
               cellColor="#6f6f6f"
               sectionColor="#9d4b4b"
-              infiniteGrid={true}
+              infiniteGrid
               fadeStrength={1.0}
               fadeDistance={1500}
               args={[1000, 1000]}
@@ -251,17 +275,20 @@ function Editor() {
                 <ValueField
                   color={tokens.colorPaletteRedBackground3}
                   label="X"
-                  value={mesh?.vertexes[selectedVertex].position.x}
+                  value={mesh?.vertices[selectedVertex].position.x}
+                  onChange={(value) => {}}
                 />
                 <ValueField
                   color={tokens.colorPaletteLightGreenBackground3}
                   label="Y"
-                  value={mesh?.vertexes[selectedVertex].position.y}
+                  value={mesh?.vertices[selectedVertex].position.y}
+                  onChange={(value) => {}}
                 />
                 <ValueField
                   color={tokens.colorCompoundBrandStrokePressed}
                   label="Z"
-                  value={mesh?.vertexes[selectedVertex].position.z}
+                  value={mesh?.vertices[selectedVertex].position.z}
+                  onChange={(value) => {}}
                 />
               </div>
             </Field>

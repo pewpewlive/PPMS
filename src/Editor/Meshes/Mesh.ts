@@ -1,20 +1,20 @@
 import { Color, Vector3 } from "three"
 
 export class Mesh {
-  vertexes: Vertex[]
+  vertices: Vertex[]
   segments: MeshSegment[]
 
-  constructor(vertexes: Vertex[], segments: MeshSegment[]) {
-    this.vertexes = vertexes
+  constructor(vertices: Vertex[], segments: MeshSegment[]) {
+    this.vertices = vertices
     this.segments = segments
   }
 
   addVertex(position: Vector3, color: Color) {
-    this.vertexes.push(new Vertex(position, color))
+    this.vertices.push(new Vertex(position, color))
   }
 
-  createSegment(vertexes: number[]) {
-    this.segments.push(new MeshSegment(vertexes))
+  createSegment(vertices: number[]) {
+    this.segments.push(new MeshSegment(vertices))
   }
 
   deleteSegment(segment: number) {
@@ -23,10 +23,10 @@ export class Mesh {
 }
 
 export class MeshSegment {
-  indexes: number[]
+  indices: number[]
 
-  constructor(indexes: number[]) {
-    this.indexes = indexes
+  constructor(indices: number[]) {
+    this.indices = indices
   }
 }
 
