@@ -91,7 +91,14 @@ function BottomEditorToolbar() {
         <ToolbarDivider />
         <Dropdown appearance="filled-darker" placeholder="Wireframe" />
         <ToolbarDivider />
-        <Warning24Regular color={tokens.colorPaletteYellowForeground1} />
+        <Tooltip
+          content="The mesh has more vertices than PewPew Live can handle."
+          relationship="description"
+        >
+          <div>
+            <Warning24Regular color={tokens.colorPaletteYellowForeground1} />
+          </div>
+        </Tooltip>
         <Label disabled>Vertex count: 1560</Label>
         <ToolbarDivider />
         <Label disabled>Segment count: 69</Label>
