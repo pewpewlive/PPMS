@@ -31,6 +31,8 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import BottomEditorToolbar from "./Toolbars/BottomToolbar"
 import EditorToolbar from "./Toolbars/Toolbar"
 import { Canvas, useFrame } from "@react-three/fiber"
+import { Raytracer } from '@react-three/lgl'
+
 import {
   Stats,
   OrbitControls,
@@ -157,6 +159,8 @@ function Editor() {
       ]
     )
   )
+
+  const [zoom, setZoom] = useState<number>(0)
   const [selectedVertex, setSelectedVertex] = useState<number>(0)
 
   const segmentRef = useRef<SegmentObject[]>([])
@@ -225,7 +229,7 @@ function Editor() {
                   />
                   {mesh?.segments.map((segment, index) => (
                     <Point
-                      ref={r => {
+                      ref={(r:Object3D) => {
                         if (r) pointRef.current[index] = r
                       }}
                       position={mesh?.vertices[segment.indices[0]].position}
