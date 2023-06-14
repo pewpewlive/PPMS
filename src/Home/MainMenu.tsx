@@ -53,12 +53,7 @@ const useStyles = makeStyles({
 
 function MainMenu() {
   const styles = useStyles()
-  const [_, setLocation] = useLocation()
-
-  const [value, setValue] = useState<string>("NewProject")
-  const onChange: InputProps["onChange"] = (ev, data) => {
-    setValue(data.value)
-  }
+  
   return (
     <div className={styles.container}>
       <LargeTitle>PewPew Mesh Studio</LargeTitle>

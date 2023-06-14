@@ -13,8 +13,7 @@ import { randomFact } from "./RandomFact"
 
 const useStyles = makeStyles({
   loadingContainer: {
-    ...shorthands.margin("auto"),
-    height: "90vh", // TODO: Center it vertically correctly
+    ...shorthands.margin("auto")
   },
   centering: {
     display: "flex",
@@ -42,7 +41,7 @@ function LoadingScreen(props: LoadingScreenProps) {
   )
 
   return (
-    <div className={loadingContainer}>
+    <div className={loadingContainer} style={{ height: "100vh" }}>
       {props.showLogo && (
         <div style={{ height: 72, width: 69 }}>
           <Image fit="contain" src={PPMSLogo}></Image>
