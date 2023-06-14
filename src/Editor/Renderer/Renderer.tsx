@@ -31,7 +31,7 @@ const PointEvent = forwardRef((props: { isSelected?: boolean } & ComponentProps<
     <Point
       {...props}
       ref={ref}
-      color={clicked ? "hotpink" : hovered ? "red" : color}
+      color={clicked ? "green" : hovered ? "red" : color}
       onPointerOver={e => (e.stopPropagation(), setHover(true))}
       onPointerOut={e => setHover(false)}
       onPointerDown={e => (e.stopPropagation(), setClick(true))}
@@ -104,7 +104,7 @@ export default function Renderer() {
                   if (r) pointRef.current[index] = r
                 }}
                 position={mesh?.vertices[segment.indices[0]].position}
-                color="white"
+                color="ivory"
                 onClick={() => setSelectedVertex(index)}
                 isSelected={selectedVertex === index}
                 key={index}
