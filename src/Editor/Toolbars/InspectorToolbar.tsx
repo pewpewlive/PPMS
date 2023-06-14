@@ -99,53 +99,25 @@ const VertexField = () => {
     setVertexPosY(selectedVertex, y)
     setVertexPosZ(selectedVertex, z)
   }, [x, y, z])
-  const onChangeX: SpinButtonProps["onChange"] = useCallback(
-    (_ev: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
+  const onChangeHandler = useCallback(
+    (
+      _ev: SpinButtonChangeEvent,
+      data: SpinButtonOnChangeData,
+      callback: (newValue: number) => void
+    ) => {
       console.log("onSpinButtonChange", data.value, data.displayValue)
       if (data.value !== undefined && data.value !== null) {
-        setX(data.value)
+        callback(data.value)
       } else if (data.displayValue !== undefined) {
         const newValue = parseFloat(data.displayValue)
         if (!Number.isNaN(newValue)) {
-          setX(newValue)
+          callback(newValue)
         } else {
           console.error(`Cannot parse "${data.displayValue}" as a number.`)
         }
       }
     },
-    [setX]
-  )
-  const onChangeY: SpinButtonProps["onChange"] = useCallback(
-    (_ev: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
-      console.log("onSpinButtonChange", data.value, data.displayValue)
-      if (data.value !== undefined && data.value !== null) {
-        setY(data.value)
-      } else if (data.displayValue !== undefined) {
-        const newValue = parseFloat(data.displayValue)
-        if (!Number.isNaN(newValue)) {
-          setY(newValue)
-        } else {
-          console.error(`Cannot parse "${data.displayValue}" as a number.`)
-        }
-      }
-    },
-    [setY]
-  )
-  const onChangeZ: SpinButtonProps["onChange"] = useCallback(
-    (_ev: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
-      console.log("onSpinButtonChange", data.value, data.displayValue)
-      if (data.value !== undefined && data.value !== null) {
-        setZ(data.value)
-      } else if (data.displayValue !== undefined) {
-        const newValue = parseFloat(data.displayValue)
-        if (!Number.isNaN(newValue)) {
-          setZ(newValue)
-        } else {
-          console.error(`Cannot parse "${data.displayValue}" as a number.`)
-        }
-      }
-    },
-    [setZ]
+    [setX, setY, setZ]
   )
 
   return (
@@ -155,19 +127,19 @@ const VertexField = () => {
           color={tokens.colorPaletteRedBackground3}
           label="X"
           value={x}
-          onChange={onChangeX}
+          onChange={(ev, data) => onChangeHandler(ev, data, setX)}
         />
         <ValueField
           color={tokens.colorPaletteLightGreenBackground3}
           label="Y"
           value={y}
-          onChange={onChangeY}
+          onChange={(ev, data) => onChangeHandler(ev, data, setY)}
         />
         <ValueField
           color={tokens.colorCompoundBrandStrokePressed}
           label="Z"
           value={z}
-          onChange={onChangeZ}
+          onChange={(ev, data) => onChangeHandler(ev, data, setZ)}
         />
       </div>
     </Field>
