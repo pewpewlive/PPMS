@@ -24,18 +24,23 @@ import {
   LargeTitle,
   InputProps,
   DataGrid,
+  CompoundButton,
 } from "@fluentui/react-components"
 
 import {
   AddRegular,
   ArrowImportRegular,
+  CalendarMonthRegular,
   Dismiss24Regular,
+  Folder24Regular,
 } from "@fluentui/react-icons"
 import { useState } from "react"
 
 import { useLocation } from "wouter"
 
 import ProjectTable from "./ProjectTable"
+import ImportDialog from "./Dialogs/ImportDialog"
+import NewProjectDialog from "./Dialogs/NewProjectDialog"
 
 const useStyles = makeStyles({
   container: {
@@ -81,101 +86,8 @@ function MainMenu() {
     <div className={styles.container}>
       <LargeTitle>PewPew Mesh Studio</LargeTitle>
       <div className={styles.buttonGroup}>
-        <Dialog>
-          <DialogTrigger disableButtonEnhancement>
-            <Button appearance="primary" icon={<AddRegular />}>
-              New
-            </Button>
-          </DialogTrigger>
-          <DialogSurface>
-            <DialogBody>
-              <DialogTitle
-                action={
-                  <DialogTrigger action="close">
-                    <Button
-                      appearance="subtle"
-                      aria-label="close"
-                      icon={<Dismiss24Regular />}
-                    />
-                  </DialogTrigger>
-                }
-              >
-                New Project
-              </DialogTitle>
-              <DialogContent>
-                <Field label="Project name">
-                  <Input onChange={onChange} defaultValue="NewProject" />
-                </Field>
-                <Field label="Project type">
-                  <RadioGroup>
-                    <Radio
-                      value="mesh"
-                      label={
-                        <>
-                          Mesh
-                          <br />
-                          <Text size={200}>
-                            A mesh project without animation support.
-                          </Text>
-                        </>
-                      }
-                      defaultChecked={true}
-                    />
-                    <Radio
-                      value="animation"
-                      label={
-                        <>
-                          Animation (coming soon)
-                          <br />
-                          <Text size={200}>
-                            A mesh project with advanced animations.
-                          </Text>
-                        </>
-                      }
-                      disabled
-                    />
-                  </RadioGroup>
-                </Field>
-              </DialogContent>
-              <DialogActions>
-                <DialogTrigger disableButtonEnhancement>
-                  <Button
-                    onClick={() =>
-                      setLocation(`/editor/${encodeURIComponent(value)}`)
-                    }
-                    appearance="primary"
-                  >
-                    Create
-                  </Button>
-                </DialogTrigger>
-              </DialogActions>
-            </DialogBody>
-          </DialogSurface>
-        </Dialog>
-        <Dialog>
-          <DialogTrigger disableButtonEnhancement>
-            <Button appearance="primary" disabled icon={<ArrowImportRegular />}>
-              Import
-            </Button>
-          </DialogTrigger>
-          <DialogSurface>
-            <DialogBody>
-              <DialogTitle
-                action={
-                  <DialogTrigger action="close">
-                    <Button
-                      appearance="subtle"
-                      aria-label="close"
-                      icon={<Dismiss24Regular />}
-                    />
-                  </DialogTrigger>
-                }
-              >
-                This feature is WIP
-              </DialogTitle>
-            </DialogBody>
-          </DialogSurface>
-        </Dialog>
+        <NewProjectDialog />
+        <ImportDialog />
       </div>
       <div className={styles.dataGrid}>
         <ProjectTable />
