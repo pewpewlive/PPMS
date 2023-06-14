@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { SetStateAction, useCallback, useEffect, useState } from "react"
 import {
   DrawerBody,
   DrawerHeader,
@@ -49,28 +49,12 @@ interface ValueFieldProps {
   color: string
   label: string
   value: number
-  onChange: (value: number | null | undefined) => void
+  onChange: SpinButtonProps["onChange"]
 }
 
 function ValueField(props: ValueFieldProps) {
   const styles = useStyles()
 
-  const onSpinButtonChange: SpinButtonProps["onChange"] = useCallback(
-    (_ev: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
-      //console.log("onSpinButtonChange", data.value, data.displayValue)
-      if (data.value !== undefined) {
-        props.onChange(data.value)
-      } else if (data.displayValue !== undefined) {
-        const newValue = parseFloat(data.displayValue)
-        if (!Number.isNaN(newValue)) {
-          props.onChange(data.value)
-        } else {
-          console.error(`Cannot parse "${data.displayValue}" as a number.`)
-        }
-      }
-    },
-    [props.onChange]
-  )
   return (
     <div
       className={styles.valueField}
@@ -81,7 +65,7 @@ function ValueField(props: ValueFieldProps) {
         appearance="filled-darker"
         size="small"
         value={props.value}
-        onChange={onSpinButtonChange}
+        onChange={props.onChange}
       />
     </div>
   )
@@ -115,6 +99,55 @@ const VertexField = () => {
     setVertexPosY(selectedVertex, y)
     setVertexPosZ(selectedVertex, z)
   }, [x, y, z])
+  const onChangeX: SpinButtonProps["onChange"] = useCallback(
+    (_ev: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
+      console.log("onSpinButtonChange", data.value, data.displayValue)
+      if (data.value !== undefined && data.value !== null) {
+        setX(data.value)
+      } else if (data.displayValue !== undefined) {
+        const newValue = parseFloat(data.displayValue)
+        if (!Number.isNaN(newValue)) {
+          setX(newValue)
+        } else {
+          console.error(`Cannot parse "${data.displayValue}" as a number.`)
+        }
+      }
+    },
+    [setX]
+  )
+  const onChangeY: SpinButtonProps["onChange"] = useCallback(
+    (_ev: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
+      console.log("onSpinButtonChange", data.value, data.displayValue)
+      if (data.value !== undefined && data.value !== null) {
+        setY(data.value)
+      } else if (data.displayValue !== undefined) {
+        const newValue = parseFloat(data.displayValue)
+        if (!Number.isNaN(newValue)) {
+          setY(newValue)
+        } else {
+          console.error(`Cannot parse "${data.displayValue}" as a number.`)
+        }
+      }
+    },
+    [setY]
+  )
+  const onChangeZ: SpinButtonProps["onChange"] = useCallback(
+    (_ev: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
+      console.log("onSpinButtonChange", data.value, data.displayValue)
+      if (data.value !== undefined && data.value !== null) {
+        setZ(data.value)
+      } else if (data.displayValue !== undefined) {
+        const newValue = parseFloat(data.displayValue)
+        if (!Number.isNaN(newValue)) {
+          setZ(newValue)
+        } else {
+          console.error(`Cannot parse "${data.displayValue}" as a number.`)
+        }
+      }
+    },
+    [setZ]
+  )
+
   return (
     <Field label="Position">
       <div className={styles.multiValueField}>
@@ -122,28 +155,19 @@ const VertexField = () => {
           color={tokens.colorPaletteRedBackground3}
           label="X"
           value={x}
-          onChange={value => {
-            if (value === null || value === undefined) value = 0
-            setX(value)
-          }}
+          onChange={onChangeX}
         />
         <ValueField
           color={tokens.colorPaletteLightGreenBackground3}
           label="Y"
           value={y}
-          onChange={value => {
-            if (value === null || value === undefined) value = 0
-            setY(value)
-          }}
+          onChange={onChangeY}
         />
         <ValueField
           color={tokens.colorCompoundBrandStrokePressed}
           label="Z"
           value={z}
-          onChange={value => {
-            if (value === null || value === undefined) value = 0
-            setZ(value)
-          }}
+          onChange={onChangeZ}
         />
       </div>
     </Field>
