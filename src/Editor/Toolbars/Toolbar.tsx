@@ -71,7 +71,7 @@ function EditorToolbar(props: Props) {
       <ToolbarGroup className={styles.toolbarGroup}>
         <Tooltip content="Home" relationship="label">
           <ToolbarButton
-            icon={<Image src={PpmsLogo}></Image>}
+            icon={<Image src={PpmsLogo} alt="PewPew Mesh Studio logo"></Image>}
             onClick={() => setLocation("/")}
           />
         </Tooltip>

@@ -1,19 +1,11 @@
 import {
   makeStyles,
   shorthands,
-  Card,
-  CardFooter,
-  CardHeader,
-  CardPreview,
-  Body1,
-  Caption1,
   LargeTitle,
-  InputProps,
+  Image,
 } from "@fluentui/react-components"
 
-import { useState } from "react"
-
-import { useLocation } from "wouter"
+import PPMSLogo from "../assets/PPMS_Logo.svg"
 
 import ProjectTable from "./ProjectTable"
 import ImportDialog from "./Dialogs/ImportDialog"
@@ -49,14 +41,28 @@ const useStyles = makeStyles({
     width: "90%",
     ...shorthands.margin("1rem"),
   },
+  heroContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 })
 
 function MainMenu() {
   const styles = useStyles()
-  
+
   return (
     <div className={styles.container}>
-      <LargeTitle>PewPew Mesh Studio</LargeTitle>
+      <div className={styles.heroContainer}>
+        <Image
+          fit="contain"
+          src={PPMSLogo}
+          alt="PewPew Mesh Studio logo"
+          style={{ width: 79, height: 82, marginRight: "1rem" }}
+        ></Image>
+        <LargeTitle>PewPew Mesh Studio</LargeTitle>
+      </div>
       <div className={styles.buttonGroup}>
         <NewProjectDialog />
         <ImportDialog />

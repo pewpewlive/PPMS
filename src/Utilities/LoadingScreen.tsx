@@ -13,7 +13,7 @@ import { randomFact } from "./RandomFact"
 
 const useStyles = makeStyles({
   loadingContainer: {
-    ...shorthands.margin("auto")
+    ...shorthands.margin("auto"),
   },
   centering: {
     display: "flex",
@@ -44,7 +44,11 @@ function LoadingScreen(props: LoadingScreenProps) {
     <div className={loadingContainer} style={{ height: "100vh" }}>
       {props.showLogo && (
         <div style={{ height: 72, width: 69 }}>
-          <Image fit="contain" src={PPMSLogo}></Image>
+          <Image
+            fit="contain"
+            src={PPMSLogo}
+            alt="PewPew Mesh Studio logo"
+          ></Image>
         </div>
       )}
       <ProgressBar thickness="large" className={styles.progressBar} />
