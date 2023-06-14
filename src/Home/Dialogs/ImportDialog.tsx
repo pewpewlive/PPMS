@@ -24,6 +24,8 @@ import {
 import { useState } from "react"
 import { useLocation } from "wouter"
 
+const idCharRegex = /[^a-zA-Z0-9\-]/g
+
 function ImportDialog() {
   const [_, setLocation] = useLocation()
 
@@ -32,12 +34,12 @@ function ImportDialog() {
   const onChangeName: InputProps["onChange"] = (ev, data) => {
     setValue(data.value)
     if (data.value !== "")
-      setValueId(data.value.toLowerCase().replaceAll(" ", "-"))
+      setValueId(data.value.toLowerCase().replaceAll(idCharRegex, "-"))
     else setValueId("-")
   }
   const onChangeId: InputProps["onChange"] = (ev, data) => {
     if (data.value !== "")
-      setValueId(data.value.toLowerCase().replaceAll(" ", "-"))
+      setValueId(data.value.toLowerCase().replaceAll(idCharRegex, "-"))
     else setValueId("-")
   }
 

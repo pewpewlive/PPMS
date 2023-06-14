@@ -74,9 +74,9 @@ function TreeViewDrawer(props: Props) {
                     <Text font="monospace">
                       [{i}]:{" "}
                       {JSON.stringify(e.indices)
-                        .replace("[", "")
-                        .replace("]", "")
-                        .replace(",", " → ")}
+                        .replaceAll("[", "")
+                        .replaceAll("]", "")
+                        .replaceAll(",", " → ")}
                     </Text>
                   </TreeItemLayout>
                 </TreeItem>
