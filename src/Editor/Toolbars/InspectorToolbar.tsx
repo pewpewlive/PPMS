@@ -88,12 +88,19 @@ function ValueField(props: ValueFieldProps) {
 }
 const VertexField = () => {
   const styles = useStyles()
-  const [mesh, setVertexPosX,setVertexPosY,setVertexPosZ] = useMeshStore(state => [state.mesh, state.setVertexPosX, state.setVertexPosY, state.setVertexPosZ])  
+  const [mesh, setVertexPosX, setVertexPosY, setVertexPosZ] = useMeshStore(
+    state => [
+      state.mesh,
+      state.setVertexPosX,
+      state.setVertexPosY,
+      state.setVertexPosZ,
+    ]
+  )
   const [selectedVertex] = selectedVertexStore(state => [state.selectedVertex])
   return (
     <Field label="Position">
-          <div className={styles.multiValueField}>
-            {/*<Field label="X" size="large">
+      <div className={styles.multiValueField}>
+        {/*<Field label="X" size="large">
             <SpinButton defaultValue={10} />
           </Field>
           <Field label="Y" size="large">
@@ -102,35 +109,35 @@ const VertexField = () => {
           <Field label="Z" size="large">
             <SpinButton defaultValue={10} />
           </Field>*/}
-            <ValueField
-              color={tokens.colorPaletteRedBackground3}
-              label="X"
-              value={mesh?.vertices[selectedVertex].position.x}
-              onChange={value => {
-                if (value === null || value === undefined) value = 0
-                setVertexPosX(selectedVertex, value)
-              }}
-            />
-            <ValueField
-              color={tokens.colorPaletteLightGreenBackground3}
-              label="Y"
-              value={mesh?.vertices[selectedVertex].position.y}
-              onChange={value => {
-                if (value === null || value === undefined) value = 0
-                setVertexPosY(selectedVertex, value)
-              }}
-            />
-            <ValueField
-              color={tokens.colorCompoundBrandStrokePressed}
-              label="Z"
-              value={mesh?.vertices[selectedVertex].position.z}
-              onChange={value => {
-                if (value === null || value === undefined) value = 0
-                setVertexPosZ(selectedVertex, value)
-              }}
-            />
-          </div>
-        </Field>
+        <ValueField
+          color={tokens.colorPaletteRedBackground3}
+          label="X"
+          value={mesh?.vertices[selectedVertex].position.x}
+          onChange={value => {
+            if (value === null || value === undefined) value = 0
+            setVertexPosX(selectedVertex, value)
+          }}
+        />
+        <ValueField
+          color={tokens.colorPaletteLightGreenBackground3}
+          label="Y"
+          value={mesh?.vertices[selectedVertex].position.y}
+          onChange={value => {
+            if (value === null || value === undefined) value = 0
+            setVertexPosY(selectedVertex, value)
+          }}
+        />
+        <ValueField
+          color={tokens.colorCompoundBrandStrokePressed}
+          label="Z"
+          value={mesh?.vertices[selectedVertex].position.z}
+          onChange={value => {
+            if (value === null || value === undefined) value = 0
+            setVertexPosZ(selectedVertex, value)
+          }}
+        />
+      </div>
+    </Field>
   )
 }
 export default function InspectorToolbar() {
@@ -166,4 +173,3 @@ export default function InspectorToolbar() {
     </DrawerInline>
   )
 }
-

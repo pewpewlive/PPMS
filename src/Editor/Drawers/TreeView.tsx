@@ -13,6 +13,7 @@ import { Dismiss24Regular } from "@fluentui/react-icons"
 
 import { ResizeableDrawer } from "./Drawer/ResizeableDrawer"
 import { useMeshStore } from "../Meshes/Mesh"
+import { selectedVertexStore } from "../EditorState"
 
 interface Props {
   isDrawerOpen: boolean
@@ -21,6 +22,10 @@ interface Props {
 
 function TreeViewDrawer(props: Props) {
   const mesh = useMeshStore(state => state.mesh)
+  const [selectedVertex, setSelectedVertex] = selectedVertexStore(state => [
+    state.selectedVertex,
+    state.setSelectedVertex,
+  ])
 
   return (
     <ResizeableDrawer isDrawerOpen={props.isDrawerOpen}>
@@ -45,7 +50,11 @@ function TreeViewDrawer(props: Props) {
             <TreeItemLayout>Vertices</TreeItemLayout>
             <Tree>
               {mesh?.vertices.map((e, i) => (
-                <TreeItem itemType="leaf" key={i}>
+                <TreeItem
+                  itemType="leaf"
+                  key={i}
+                  onClick={() => setSelectedVertex(i)}
+                >
                   <TreeItemLayout>
                     <Text font="monospace">
                       [{i}]: X: {e.position.x}, Y: {e.position.y}, Z:{" "}
