@@ -12,6 +12,7 @@ import { Button, Text } from "@fluentui/react-components"
 import { Dismiss24Regular } from "@fluentui/react-icons"
 
 import { ResizeableDrawer } from "./Drawer/ResizeableDrawer"
+import { useMeshStore } from "../Meshes/Mesh"
 
 interface Props {
   isDrawerOpen: boolean
@@ -19,6 +20,8 @@ interface Props {
 }
 
 function TreeViewDrawer(props: Props) {
+  const mesh = useMeshStore(state => state.mesh)
+
   return (
     <ResizeableDrawer isDrawerOpen={props.isDrawerOpen}>
       <DrawerHeader>
@@ -41,51 +44,34 @@ function TreeViewDrawer(props: Props) {
           <TreeItem itemType="branch">
             <TreeItemLayout>Vertices</TreeItemLayout>
             <Tree>
-              <TreeItem itemType="leaf">
-                <TreeItemLayout>
-                  <Text font="monospace">
-                    [0]: X: 0, Y: 0, Z: 50, Color: 0xff00ffff
-                  </Text>
-                </TreeItemLayout>
-              </TreeItem>
-              <TreeItem itemType="leaf">
-                <TreeItemLayout>
-                  <Text font="monospace">
-                    [1]: X: 100, Y: 0, Z: 50, Color: 0xff00ffff
-                  </Text>
-                </TreeItemLayout>
-              </TreeItem>
-              <TreeItem itemType="leaf">
-                <TreeItemLayout>
-                  <Text font="monospace">
-                    [2]: X: 100, Y: 100, Z: 50, Color: 0xff00ffff
-                  </Text>
-                </TreeItemLayout>
-              </TreeItem>
-              <TreeItem itemType="leaf">
-                <TreeItemLayout>
-                  <Text font="monospace">
-                    [3]: X: 0, Y: 100, Z: 50, Color: 0xff00ffff
-                  </Text>
-                </TreeItemLayout>
-              </TreeItem>
+              {mesh?.vertices.map((e, i) => (
+                <TreeItem itemType="leaf" key={i}>
+                  <TreeItemLayout>
+                    <Text font="monospace">
+                      [{i}]: X: {e.position.x}, Y: {e.position.y}, Z:{" "}
+                      {e.position.z}, Color: {e.color.getHexString()}
+                    </Text>
+                  </TreeItemLayout>
+                </TreeItem>
+              ))}
             </Tree>
           </TreeItem>
           <TreeItem itemType="branch">
             <TreeItemLayout>Segments</TreeItemLayout>
             <Tree>
-              <TreeItem itemType="leaf">
-                <TreeItemLayout>
-                  <Text font="monospace">
-                    [0]: 0 -&gt; 1 -&gt; 2 -&gt; 3 -&gt; 0
-                  </Text>
-                </TreeItemLayout>
-              </TreeItem>
-              <TreeItem itemType="leaf">
-                <TreeItemLayout>
-                  <Text font="monospace">[1]: 3 -&gt; 1</Text>
-                </TreeItemLayout>
-              </TreeItem>
+              {mesh?.segments.map((e, i) => (
+                <TreeItem itemType="leaf" key={i}>
+                  <TreeItemLayout>
+                    <Text font="monospace">
+                      [{i}]:{" "}
+                      {JSON.stringify(e.indices)
+                        .replace("[", "")
+                        .replace("]", "")
+                        .replace(",", " → ")}
+                    </Text>
+                  </TreeItemLayout>
+                </TreeItem>
+              ))}
             </Tree>
           </TreeItem>
         </Tree>

@@ -16,30 +16,26 @@ import { Object3D, Color } from "three"
 import { Canvas } from "@react-three/fiber"
 import { useMeshStore } from "../Meshes/Mesh"
 import { selectedVertexStore } from "../EditorState"
-const PointEvent = forwardRef((props: { isSelected?: boolean } & ComponentProps<typeof Point>,ref) => {
-  const {
-    isSelected,
-    color,
-    ...otherProps
-  } = props;
-  const [hovered, setHover] = useState(false)
-  const [clicked, setClick] = useState(false)
-  useEffect(() => {
-    if (isSelected !== undefined) setClick(isSelected)
-  }, [isSelected])
-  return (
-    <Point
-      {...props}
-      ref={ref}
-      color={clicked ? "green" : hovered ? "red" : color}
-      onPointerOver={e => (e.stopPropagation(), setHover(true))}
-      onPointerOut={e => setHover(false)}
-      onPointerDown={e => (e.stopPropagation(), setClick(true))}
-    />
-  )
-})
-
-
+const PointEvent = forwardRef(
+  (props: { isSelected?: boolean } & ComponentProps<typeof Point>, ref) => {
+    const { isSelected, color, ...otherProps } = props
+    const [hovered, setHover] = useState(false)
+    const [clicked, setClick] = useState(false)
+    useEffect(() => {
+      if (isSelected !== undefined) setClick(isSelected)
+    }, [isSelected])
+    return (
+      <Point
+        {...props}
+        ref={ref}
+        color={clicked ? "green" : hovered ? "red" : color}
+        onPointerOver={e => (e.stopPropagation(), setHover(true))}
+        onPointerOut={e => setHover(false)}
+        onPointerDown={e => (e.stopPropagation(), setClick(true))}
+      />
+    )
+  }
+)
 
 export default function Renderer() {
   const segmentRef = useRef<SegmentObject[]>([])
