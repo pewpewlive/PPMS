@@ -69,7 +69,7 @@ function MainMenu() {
       <div className={styles.dataGrid}>
         <ProjectTable />
       </div>
-      <div className={styles.cards}>
+      {/*<div className={styles.cards}>
         {[...Array(10)].map((x, i) => (
           <Card
             onClick={() =>
@@ -77,7 +77,7 @@ function MainMenu() {
             }
             key={i}
           >
-            {/* TODO: Replace Key with useable ID*/}
+            TODO: Replace Key with useable ID
             <CardHeader header={<Body1>Sphere of mass destruction</Body1>} />
             <CardPreview>
               <img src="https://placehold.co/300x200/" />
@@ -87,7 +87,7 @@ function MainMenu() {
             </CardFooter>
           </Card>
         ))}
-      </div>
+        </div>*/}
     </div>
   )
 }

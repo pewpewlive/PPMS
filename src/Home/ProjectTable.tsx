@@ -122,7 +122,7 @@ function ProjectTable() {
           <DataGridRow<Item>
             key={rowId}
             onClick={() =>
-              setLocation(`/editor/project${encodeURIComponent(rowId)}`)
+              setLocation(`/editor/${encodeURIComponent(rowId)}`)
             }
           >
             {({ renderCell }) => (
