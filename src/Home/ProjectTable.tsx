@@ -9,6 +9,7 @@ import {
   TableColumnDefinition,
   createTableColumn,
   Image,
+  Text,
 } from "@fluentui/react-components"
 
 import { useLocation } from "wouter"
@@ -21,12 +22,14 @@ interface LastUpdatedCell {
   label: string
   timestamp: number
 }
+
 interface PreviewCell {
   src: string
 }
 
 interface Item {
   projectName: ProjectCell
+  projectId: string
   preview: PreviewCell
   lastUpdated: LastUpdatedCell
 }
@@ -34,21 +37,25 @@ interface Item {
 const items: Item[] = [
   {
     projectName: { label: "Sphere of mass destruction" },
+    projectId: "sphere-of-mass-destruction",
     preview: { src: "https://placehold.co/300x200/" },
     lastUpdated: { label: "7h ago", timestamp: 1 },
   },
   {
     projectName: { label: "Sample mesh" },
+    projectId: "sample-mesh",
     preview: { src: "https://placehold.co/300x200/" },
     lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
   },
   {
     projectName: { label: "Alpha ship" },
+    projectId: "alpha-ship",
     preview: { src: "https://placehold.co/300x200/" },
     lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
   },
   {
     projectName: { label: "Hybroid" },
+    projectId: "hybroid",
     preview: { src: "https://placehold.co/300x200/" },
     lastUpdated: { label: "Tue at 9:30 AM", timestamp: 3 },
   },
@@ -65,6 +72,22 @@ const columns: TableColumnDefinition<Item>[] = [
     },
     renderCell: item => {
       return <TableCellLayout>{item.projectName.label}</TableCellLayout>
+    },
+  }),
+  createTableColumn<Item>({
+    columnId: "projectId",
+    compare: (a, b) => {
+      return a.projectName.label.localeCompare(b.projectName.label)
+    },
+    renderHeaderCell: () => {
+      return "Project ID"
+    },
+    renderCell: item => {
+      return (
+        <TableCellLayout>
+          <Text font="monospace">{item.projectId}</Text>
+        </TableCellLayout>
+      )
     },
   }),
   createTableColumn<Item>({
@@ -102,7 +125,7 @@ function ProjectTable() {
       items={items}
       columns={columns}
       sortable
-      getRowId={item => item.projectName.label}
+      getRowId={item => item.projectId}
       focusMode="row_unstable"
       size="medium"
     >
@@ -121,9 +144,7 @@ function ProjectTable() {
           /* selectionCell={{ "aria-label": "Select row" }} */
           <DataGridRow<Item>
             key={rowId}
-            onClick={() =>
-              setLocation(`/editor/${encodeURIComponent(rowId)}`)
-            }
+            onClick={() => setLocation(`/editor/${encodeURIComponent(rowId)}`)}
           >
             {({ renderCell }) => (
               <DataGridCell>{renderCell(item)}</DataGridCell>

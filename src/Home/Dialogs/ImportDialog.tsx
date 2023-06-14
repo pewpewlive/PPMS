@@ -27,9 +27,18 @@ import { useLocation } from "wouter"
 function ImportDialog() {
   const [_, setLocation] = useLocation()
 
-  const [value, setValue] = useState<string>("NewProject")
-  const onChange: InputProps["onChange"] = (ev, data) => {
+  const [value, setValue] = useState<string>("New Project")
+  const [valueId, setValueId] = useState<string>("new-project")
+  const onChangeName: InputProps["onChange"] = (ev, data) => {
     setValue(data.value)
+    if (data.value !== "")
+      setValueId(data.value.toLowerCase().replaceAll(" ", "-"))
+    else setValueId("-")
+  }
+  const onChangeId: InputProps["onChange"] = (ev, data) => {
+    if (data.value !== "")
+      setValueId(data.value.toLowerCase().replaceAll(" ", "-"))
+    else setValueId("-")
   }
 
   return (
@@ -61,7 +70,14 @@ function ImportDialog() {
           </DialogTitle>
           <DialogContent>
             <Field label="Project name">
-              <Input onChange={onChange} defaultValue="NewProject" />
+              <Input onChange={onChangeName} defaultValue="New Project" />
+            </Field>
+            <Field label="Project ID">
+              <Input
+                onChange={onChangeId}
+                defaultValue="new-project"
+                value={valueId}
+              />
             </Field>
             <Field label="Project type">
               <RadioGroup>
@@ -136,7 +152,7 @@ function ImportDialog() {
             <DialogTrigger disableButtonEnhancement>
               <Button
                 onClick={() =>
-                  setLocation(`/editor/${encodeURIComponent(value)}`)
+                  setLocation(`/editor/${encodeURIComponent(valueId)}`)
                 }
                 appearance="primary"
               >
