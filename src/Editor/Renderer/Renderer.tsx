@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState, ComponentProps, forwardRef } from "react"
 import {
   GizmoHelper,
   GizmoViewport,
@@ -12,18 +12,43 @@ import {
   Segments,
   TransformControls,
 } from "@react-three/drei"
-import { Object3D } from "three"
+import { Object3D, Color } from "three"
 import { Canvas } from "@react-three/fiber"
 import { useMeshStore } from "../Meshes/Mesh"
 import { selectedVertexStore } from "../EditorState"
+const PointEvent = forwardRef((props: { isSelected?: boolean } & ComponentProps<typeof Point>,ref) => {
+  const {
+    isSelected,
+    color,
+    ...otherProps
+  } = props;
+  const [hovered, setHover] = useState(false)
+  const [clicked, setClick] = useState(false)
+  useEffect(() => {
+    if (isSelected !== undefined) setClick(isSelected)
+  }, [isSelected])
+  return (
+    <Point
+      {...props}
+      ref={ref}
+      color={clicked ? "hotpink" : hovered ? "red" : color}
+      onPointerOver={e => (e.stopPropagation(), setHover(true))}
+      onPointerOut={e => setHover(false)}
+      onPointerDown={e => (e.stopPropagation(), setClick(true))}
+    />
+  )
+})
+
+
+
 export default function Renderer() {
   const segmentRef = useRef<SegmentObject[]>([])
   const pointRef = useRef<Object3D[]>([])
   const mesh = useMeshStore(state => state.mesh)
-  const [setSelectedVertex] = selectedVertexStore(state => [
+  const [selectedVertex, setSelectedVertex] = selectedVertexStore(state => [
+    state.selectedVertex,
     state.setSelectedVertex,
   ])
-
   useEffect(() => {
     mesh?.segments.forEach((segment, index) => {
       segmentRef.current[index]?.start?.set(
@@ -74,13 +99,14 @@ export default function Renderer() {
               depthWrite={false}
             />
             {mesh?.segments.map((segment, index) => (
-              <Point
+              <PointEvent
                 ref={(r: Object3D) => {
                   if (r) pointRef.current[index] = r
                 }}
                 position={mesh?.vertices[segment.indices[0]].position}
                 color="white"
                 onClick={() => setSelectedVertex(index)}
+                isSelected={selectedVertex === index}
                 key={index}
               />
             ))}

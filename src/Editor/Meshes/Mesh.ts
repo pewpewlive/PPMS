@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { GetState, SetState, State, StateCreator, StoreApi, StoreMutatorIdentifier, create } from "zustand"
 import { Color, Vector3, Vector4 } from "three"
 
 export class Mesh {
@@ -80,6 +80,32 @@ export class VertexColor {
 
 // Using zustand to store the mesh
 
+type Logger = <
+  T extends State,
+  Mps extends [StoreMutatorIdentifier, unknown][] = [],
+  Mcs extends [StoreMutatorIdentifier, unknown][] = []
+>(
+  f: StateCreator<T, Mps, Mcs>,
+  name?: string
+) => StateCreator<T, Mps, Mcs>
+
+type LoggerImpl = <T extends State>(
+  f: StateCreator<T, [], []>,
+  name?: string
+) => StateCreator<T, [], []>
+
+const loggerImpl: LoggerImpl = (f, name) => (set, get, store) => {
+  type T = ReturnType<typeof f>
+  const loggedSet: typeof set = (...a) => {
+    set(...a)
+    console.log(...(name ? [`${name}:`] : []), get())
+  }
+  store.setState = loggedSet
+
+  return f(loggedSet, get, store)
+}
+
+export const logger = loggerImpl as unknown as Logger
 interface MeshStore {
   mesh: Mesh
   setMesh: (mesh: Mesh) => void
@@ -92,7 +118,8 @@ interface MeshStore {
   setVertexPosZ: (vertex: number, z: number) => void
 }
 
-export const useMeshStore = create<MeshStore>(set => ({
+
+export const useMeshStore = create<MeshStore>()(logger(set => ({
   mesh: new Mesh(
     [
       new Vertex(new Vector3(0, 0, 0), new Color(1, 1, 1)),
@@ -160,4 +187,4 @@ export const useMeshStore = create<MeshStore>(set => ({
         mesh: new Mesh(state.mesh.vertices, state.mesh.segments),
       }
     }),
-}))
+}), "meshStore"))
