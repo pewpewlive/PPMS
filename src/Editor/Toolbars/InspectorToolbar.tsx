@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
 import {
   DrawerBody,
   DrawerHeader,
@@ -80,7 +80,7 @@ function ValueField(props: ValueFieldProps) {
       <SpinButton
         appearance="filled-darker"
         size="small"
-        defaultValue={props.value}
+        value={props.value}
         onChange={onSpinButtonChange}
       />
     </div>
@@ -97,43 +97,52 @@ const VertexField = () => {
     ]
   )
   const [selectedVertex] = selectedVertexStore(state => [state.selectedVertex])
+  const [x, setX] = useState(mesh?.vertices[selectedVertex].position.x)
+  const [y, setY] = useState(mesh?.vertices[selectedVertex].position.y)
+  const [z, setZ] = useState(mesh?.vertices[selectedVertex].position.z)
+  useEffect(() => {
+    setX(mesh?.vertices[selectedVertex].position.x)
+    setY(mesh?.vertices[selectedVertex].position.y)
+    setZ(mesh?.vertices[selectedVertex].position.z)
+    console.log(
+      mesh?.vertices[selectedVertex].position.x,
+      mesh?.vertices[selectedVertex].position.y,
+      mesh?.vertices[selectedVertex].position.z
+    )
+  }, [selectedVertex])
+  useEffect(() => {
+    setVertexPosX(selectedVertex, x)
+    setVertexPosY(selectedVertex, y)
+    setVertexPosZ(selectedVertex, z)
+  }, [x, y, z])
   return (
     <Field label="Position">
       <div className={styles.multiValueField}>
-        {/*<Field label="X" size="large">
-            <SpinButton defaultValue={10} />
-          </Field>
-          <Field label="Y" size="large">
-            <SpinButton defaultValue={10} />
-          </Field>
-          <Field label="Z" size="large">
-            <SpinButton defaultValue={10} />
-          </Field>*/}
         <ValueField
           color={tokens.colorPaletteRedBackground3}
           label="X"
-          value={mesh?.vertices[selectedVertex].position.x}
+          value={x}
           onChange={value => {
             if (value === null || value === undefined) value = 0
-            setVertexPosX(selectedVertex, value)
+            setX(value)
           }}
         />
         <ValueField
           color={tokens.colorPaletteLightGreenBackground3}
           label="Y"
-          value={mesh?.vertices[selectedVertex].position.y}
+          value={y}
           onChange={value => {
             if (value === null || value === undefined) value = 0
-            setVertexPosY(selectedVertex, value)
+            setY(value)
           }}
         />
         <ValueField
           color={tokens.colorCompoundBrandStrokePressed}
           label="Z"
-          value={mesh?.vertices[selectedVertex].position.z}
+          value={z}
           onChange={value => {
             if (value === null || value === undefined) value = 0
-            setVertexPosZ(selectedVertex, value)
+            setZ(value)
           }}
         />
       </div>
