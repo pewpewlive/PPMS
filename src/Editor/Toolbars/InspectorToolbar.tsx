@@ -86,36 +86,12 @@ function ValueField(props: ValueFieldProps) {
     </div>
   )
 }
-export default function InspectorToolbar() {
+const VertexField = () => {
   const styles = useStyles()
   const [mesh, setVertexPosX,setVertexPosY,setVertexPosZ] = useMeshStore(state => [state.mesh, state.setVertexPosX, state.setVertexPosY, state.setVertexPosZ])  
   const [selectedVertex] = selectedVertexStore(state => [state.selectedVertex])
   return (
-    <DrawerInline separator position="right" open>
-      <DrawerHeader>
-        <DrawerHeaderTitle>Inspector</DrawerHeaderTitle>
-      </DrawerHeader>
-
-      <DrawerBody>
-        <Accordion collapsible>
-          <AccordionItem value="1">
-            <AccordionHeader size="large">Meshes</AccordionHeader>
-            <AccordionPanel>
-              <div>
-                <TabList defaultSelectedValue="mesh0" vertical>
-                  <Tab value="mesh0">Mesh 1</Tab>
-                  <Tab value="mesh1">Mesh 2</Tab>
-                  <Tab value="mesh2">Mesh 3</Tab>
-                  <Tab value="mesh3">Mesh 4</Tab>
-                </TabList>
-              </div>
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
-        <Divider className={styles.inspectorDivider} />
-
-        <Subtitle1>Vertex</Subtitle1>
-        <Field label="Position">
+    <Field label="Position">
           <div className={styles.multiValueField}>
             {/*<Field label="X" size="large">
             <SpinButton defaultValue={10} />
@@ -155,7 +131,39 @@ export default function InspectorToolbar() {
             />
           </div>
         </Field>
+  )
+}
+export default function InspectorToolbar() {
+  const styles = useStyles()
+
+  return (
+    <DrawerInline separator position="right" open>
+      <DrawerHeader>
+        <DrawerHeaderTitle>Inspector</DrawerHeaderTitle>
+      </DrawerHeader>
+
+      <DrawerBody>
+        <Accordion collapsible>
+          <AccordionItem value="1">
+            <AccordionHeader size="large">Meshes</AccordionHeader>
+            <AccordionPanel>
+              <div>
+                <TabList defaultSelectedValue="mesh0" vertical>
+                  <Tab value="mesh0">Mesh 1</Tab>
+                  <Tab value="mesh1">Mesh 2</Tab>
+                  <Tab value="mesh2">Mesh 3</Tab>
+                  <Tab value="mesh3">Mesh 4</Tab>
+                </TabList>
+              </div>
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+        <Divider className={styles.inspectorDivider} />
+
+        <Subtitle1>Vertex</Subtitle1>
+        <VertexField />
       </DrawerBody>
     </DrawerInline>
   )
 }
+
