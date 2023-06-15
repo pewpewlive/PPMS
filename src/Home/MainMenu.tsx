@@ -10,6 +10,7 @@ import PPMSLogo from "../assets/PPMS_Logo.svg"
 import ProjectTable from "./ProjectTable"
 import ImportDialog from "./Dialogs/ImportDialog"
 import NewProjectDialog from "./Dialogs/NewProjectDialog"
+import { useTitle } from "react-use"
 
 const useStyles = makeStyles({
   container: {
@@ -51,6 +52,7 @@ const useStyles = makeStyles({
 
 function MainMenu() {
   const styles = useStyles()
+  useTitle("PewPew Mesh Studio: Home")
 
   return (
     <div className={styles.container}>

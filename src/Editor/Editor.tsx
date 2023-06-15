@@ -1,8 +1,8 @@
 import { makeStyles, shorthands } from "@fluentui/react-components"
-
 import { useRoute } from "wouter"
-
 import { useState } from "react"
+import { useTitle, useBeforeUnload } from "react-use"
+
 import BottomEditorToolbar from "./Toolbars/BottomToolbar"
 import InspectorToolbar from "./Toolbars/InspectorToolbar"
 import EditorToolbar from "./Toolbars/Toolbar"
@@ -36,8 +36,12 @@ const useStyles = makeStyles({
 
 function Editor() {
   const styles = useStyles()
-  const [match, params] = useRoute("/editor/:projectName")
+  const [match, params] = useRoute("/editor/:projectId")
   const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false)
+  // const [isSaved, setIsSaved]= useState<boolean>(false)
+  
+  useTitle(`PewPew Mesh Studio: ${params?.projectId}`)
+  // useBeforeUnload(!isSaved, "You have unsaved changes, are you sure?")
 
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>

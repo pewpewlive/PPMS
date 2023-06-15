@@ -14,7 +14,7 @@ function App() {
     <div style={{ minHeight: "100vh" }}>
       <Switch>
         <Route path="/" component={MainMenu} />
-        <Route path="/editor/:projectName">
+        <Route path="/editor/:projectId">
           <Suspense fallback={<LoadingScreen showFact showLogo />}>
             <Editor />
           </Suspense>
