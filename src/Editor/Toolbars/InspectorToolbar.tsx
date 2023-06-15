@@ -52,12 +52,14 @@ type ValueFieldProps = Omit<SpinButtonProps, "onChange" | "value"> & {
   value: number
   onChange: (value: number) => void
 }
-
+/**
+ * A field with a label and a SpinButton. The SpinButton's value is controlled by the `value` prop. The value functionality is completely self-managed with state.
+ * Also, this changes state while typing, not just when the user presses enter using keyboard events since onChange is not called until the user presses enter.
+ */
 function ValueField({ onChange, color, label, value }: ValueFieldProps) {
   const styles = useStyles()
   const onChangeHandler = useCallback(
     (_ev: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
-      console.log("onSpinButtonChange", data.value, data.displayValue)
       if (data.value !== undefined && data.value !== null) {
         onChange(data.value)
       } else if (data.displayValue !== undefined) {
@@ -71,6 +73,24 @@ function ValueField({ onChange, color, label, value }: ValueFieldProps) {
     },
     [onChange]
   )
+  const keyDownHandler = useCallback(
+    (ev: React.KeyboardEvent<HTMLInputElement>) => {
+      if (
+        !(
+          (ev.key >= "0" && ev.key <= "9") ||
+          ev.key === "." ||
+          ev.key === "-" ||
+          ev.key === "Backspace" ||
+          ev.key === "Delete" ||
+          ev.key === "ArrowLeft" ||
+          ev.key === "ArrowRight"
+        )
+      ) {
+        ev.preventDefault()
+      }
+    },
+    []
+  )
   return (
     <div
       className={styles.valueField}
@@ -82,6 +102,8 @@ function ValueField({ onChange, color, label, value }: ValueFieldProps) {
         size="small"
         value={value}
         onChange={onChangeHandler}
+        max={10000}
+        onKeyDown={keyDownHandler}
       />
     </div>
   )

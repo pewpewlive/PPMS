@@ -101,7 +101,15 @@ export default function Renderer() {
                 }}
                 position={mesh?.vertices[segment.indices[0]].position}
                 color="ivory"
-                onClick={() => setSelectedVertex(index)}
+                onClick={() => {
+                  console.log(index)
+                  console.log(mesh?.vertices.length)
+                  if (index >= mesh?.vertices.length) {
+                    setSelectedVertex(0)
+                  } else {
+                    setSelectedVertex(index)
+                  }
+                }}
                 isSelected={selectedVertex === index}
                 key={index}
               />
