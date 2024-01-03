@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class NewMesh : Button
 {
@@ -9,18 +8,18 @@ public partial class NewMesh : Button
 
 		var vertices = new Vector3[]
 		{
-			new Vector3(0, 1, 0),
-			new Vector3(1, 0, 0),
-			new Vector3(0, 0, 1),
-			new Vector3(0, 1, 0),
+			new Vector3(0, 0.25f, 0),
+			new Vector3(0.6f, 0.2f, 0),
+			new Vector3(0, 5, 2),
+			new Vector3(0, 0.8f, 0),
 		};
 
 		var colors = new Color[]
 		{
-			new Color(0xff0000ff),
-			new Color(0x00ff00ff),
-			new Color(0x0000ffff),
-			new Color(0xff0000ff),
+			new Color(0xff8800ff),
+			new Color(0x00ff88ff),
+			new Color(0x0088ffff),
+			new Color(0xff8800ff),
 		};
 
 		// Initialize the ArrayMesh.
@@ -33,13 +32,15 @@ public partial class NewMesh : Button
 		// Create the Mesh.
 		arrMesh.AddSurfaceFromArrays(Mesh.PrimitiveType.LineStrip, arrays);
 
-        var m = new MeshInstance3D();
-		m.Mesh = arrMesh;
-		m.Position = new Vector3(10, 0, 10);
-
-		var Mat = new ShaderMaterial();
-        Mat.Shader = (Shader)GD.Load("res://MeshShader.gdshader");
-		m.SetSurfaceOverrideMaterial(0, Mat);
-		GetParent().GetParent().GetParent().GetChild(-1).AddChild(m);
-    }
+		var m = new MeshInstance3D
+		{
+			Mesh = arrMesh,
+			MaterialOverride = new ShaderMaterial
+			{
+				Shader = GD.Load<Shader>("res://MeshShader.gdshader")
+			},
+			Position = new Vector3(10, 0, 10)
+		};
+		GetNode("/root/Control/Node3D").AddChild(m);
+	}
 }

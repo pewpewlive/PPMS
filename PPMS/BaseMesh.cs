@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 [Tool]
-public partial class MeshInstance3D : Godot.MeshInstance3D
+public partial class BaseMesh : MeshInstance3D
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -21,10 +21,10 @@ public partial class MeshInstance3D : Godot.MeshInstance3D
 			new Color(0x00ff00ff),
 			new Color(0x0000ffff),
 			new Color(0xff0000ff),
-        };
+		};
 
 		// Initialize the ArrayMesh.
-		var arrMesh = new ArrayMesh();
+		var arrMesh = Mesh as ArrayMesh;
 		var arrays = new Godot.Collections.Array();
 		arrays.Resize((int)Mesh.ArrayType.Max);
 		arrays[(int)Mesh.ArrayType.Vertex] = vertices;
@@ -32,7 +32,6 @@ public partial class MeshInstance3D : Godot.MeshInstance3D
 
 		// Create the Mesh.
 		arrMesh.AddSurfaceFromArrays(Mesh.PrimitiveType.LineStrip, arrays);
-		this.Mesh = arrMesh;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,24 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://dv0lc3qjijvlt"]
+[gd_scene load_steps=9 format=3 uid="uid://dv0lc3qjijvlt"]
 
 [ext_resource type="Script" path="res://inspector.cs" id="1_rek1m"]
 [ext_resource type="Script" path="res://NewMesh.cs" id="2_blg0w"]
 [ext_resource type="Script" path="res://plugin_slot.cs" id="2_llsa5"]
 [ext_resource type="Shader" path="res://MeshShader.gdshader" id="3_c7n61"]
-[ext_resource type="Script" path="res://MeshInstance3D.cs" id="3_h1kr3"]
 [ext_resource type="Script" path="res://CameraController.cs" id="5_46t5n"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_oaa11"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_q2pun"]
 _surfaces = [{
 "aabb": AABB(0, 0, 0, 1, 1.00001, 1),
 "attribute_data": PackedByteArray(255, 0, 0, 255, 0, 255, 0, 255, 0, 0, 255, 255, 255, 0, 0, 255),
 "format": 34359738377,
+"name": "Surface",
 "primitive": 2,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
 "vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0)
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a8wdi"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6bgv7"]
 render_priority = 0
 shader = ExtResource("3_c7n61")
 
@@ -39,7 +39,7 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -257.0
+offset_left = -246.0
 grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("1_rek1m")
@@ -59,22 +59,28 @@ text = "New Mesh"
 script = ExtResource("2_blg0w")
 
 [node name="InspectorSlot" type="VBoxContainer" parent="Inspector"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 391.0
-offset_right = 256.0
-offset_bottom = 649.0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -324.0
+grow_horizontal = 2
+grow_vertical = 0
 script = ExtResource("2_llsa5")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="Inspector/InspectorSlot"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
-mesh = SubResource("ArrayMesh_oaa11")
-surface_material_override/0 = SubResource("ShaderMaterial_a8wdi")
-script = ExtResource("3_h1kr3")
+mesh = SubResource("ArrayMesh_q2pun")
+surface_material_override/0 = SubResource("ShaderMaterial_6bgv7")
 
 [node name="Camera3D" type="Camera3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.84237)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 environment = SubResource("Environment_b3h6j")
-fov = 52.3512
+current = true
 script = ExtResource("5_46t5n")
