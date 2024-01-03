@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch4g77qe68huy"]
+
+[ext_resource type="Texture2D" uid="uid://uhhd3eihg0k6" path="res://White_Logo.svg" id="1_4fk3u"]
+[ext_resource type="Script" path="res://StartButton.cs" id="2_7a0ry"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6omey"]
+font_size = 40
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 15.0
+offset_bottom = 70.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_4fk3u")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = " PewPew Mesh Studio"
+label_settings = SubResource("LabelSettings_6omey")
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = -15.5
+offset_right = 61.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "New Project"
+script = ExtResource("2_7a0ry")
+
+[node name="LinkButton" type="LinkButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 63.0
+grow_vertical = 0
+text = "Website"
+uri = "https://meshstudio.pewpew.live/ppms/"
