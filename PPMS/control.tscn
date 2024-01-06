@@ -294,7 +294,6 @@ mesh = SubResource("QuadMesh_dgsf7")
 surface_material_override/0 = SubResource("ShaderMaterial_mvltd")
 
 [node name="ScaleGizmos" type="Node3D" parent="Node3D"]
-visible = false
 script = ExtResource("6_q7aca")
 hideOtherElementsOnMove = true
 
@@ -524,6 +523,7 @@ transform = Transform3D(-4.37113e-08, -0.999998, 0, 0.999998, -4.37113e-08, 0, 0
 shape = SubResource("BoxShape3D_dtcfr")
 
 [node name="RotationGizmos" type="Node3D" parent="Node3D"]
+visible = false
 script = ExtResource("6_q7aca")
 hideOtherElementsOnMove = true
 
