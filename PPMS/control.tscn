@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dv0lc3qjijvlt"]
+[gd_scene load_steps=35 format=3 uid="uid://dv0lc3qjijvlt"]
 
 [ext_resource type="Script" path="res://inspector.cs" id="1_rek1m"]
 [ext_resource type="Script" path="res://NewMesh.cs" id="2_blg0w"]
@@ -34,72 +34,6 @@ _surfaces = [{
 render_priority = 0
 shader = ExtResource("3_c7n61")
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_ftr3t"]
-margin = 0.0
-height = 1.0
-radius = 0.1
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_dtcfr"]
-size = Vector3(0.5, 0.45, 0.5)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vic25"]
-render_priority = 0
-shader = ExtResource("8_3anxe")
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/outline_width = 0.001
-shader_parameter/constant_width = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ryepw"]
-next_pass = SubResource("ShaderMaterial_vic25")
-shading_mode = 0
-disable_ambient_light = true
-disable_fog = true
-albedo_color = Color(0, 0, 0, 1)
-disable_receive_shadows = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f4p7m"]
-next_pass = SubResource("ShaderMaterial_vic25")
-shading_mode = 0
-disable_ambient_light = true
-disable_fog = true
-albedo_color = Color(0, 0, 0, 1)
-disable_receive_shadows = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uunmr"]
-next_pass = SubResource("ShaderMaterial_vic25")
-shading_mode = 0
-disable_ambient_light = true
-disable_fog = true
-albedo_color = Color(0, 0, 0, 1)
-disable_receive_shadows = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cnqrv"]
-next_pass = SubResource("ShaderMaterial_vic25")
-shading_mode = 0
-disable_ambient_light = true
-disable_fog = true
-albedo_color = Color(0, 0, 0, 1)
-disable_receive_shadows = true
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_jjyia"]
-height = 0.0268118
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0d1t2"]
-next_pass = SubResource("ShaderMaterial_vic25")
-shading_mode = 0
-disable_ambient_light = true
-disable_fog = true
-albedo_color = Color(0, 0, 0, 1)
-disable_receive_shadows = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_855s1"]
-next_pass = SubResource("ShaderMaterial_vic25")
-shading_mode = 0
-disable_ambient_light = true
-disable_fog = true
-albedo_color = Color(0, 0, 0, 1)
-disable_receive_shadows = true
-
 [sub_resource type="Environment" id="Environment_b3h6j"]
 background_mode = 1
 background_color = Color(0, 0, 0, 0)
@@ -121,6 +55,87 @@ shader_parameter/majorLineThickness = 2.0
 shader_parameter/minorLineThickness = 1.0
 shader_parameter/minorLineAlpha = 0.3
 shader_parameter/centerOffset = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vic25"]
+render_priority = 0
+shader = ExtResource("8_3anxe")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 0.001
+shader_parameter/constant_width = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nkspw"]
+next_pass = SubResource("ShaderMaterial_vic25")
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0, 0, 0, 1)
+disable_receive_shadows = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ftr3t"]
+margin = 0.0
+height = 1.0
+radius = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dtcfr"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mmwvm"]
+render_priority = 0
+shader = ExtResource("8_3anxe")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 0.001
+shader_parameter/constant_width = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ryepw"]
+next_pass = SubResource("ShaderMaterial_mmwvm")
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0, 0, 0, 1)
+disable_receive_shadows = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f4p7m"]
+next_pass = SubResource("ShaderMaterial_mmwvm")
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0, 0, 0, 1)
+disable_receive_shadows = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uunmr"]
+next_pass = SubResource("ShaderMaterial_mmwvm")
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0, 0, 0, 1)
+disable_receive_shadows = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cnqrv"]
+next_pass = SubResource("ShaderMaterial_mmwvm")
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0, 0, 0, 1)
+disable_receive_shadows = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jjyia"]
+height = 0.0268118
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0d1t2"]
+next_pass = SubResource("ShaderMaterial_mmwvm")
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0, 0, 0, 1)
+disable_receive_shadows = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_855s1"]
+next_pass = SubResource("ShaderMaterial_mmwvm")
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0, 0, 0, 1)
+disable_receive_shadows = true
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -261,193 +276,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.608, 0, 0)
 mesh = SubResource("ArrayMesh_q2pun")
 surface_material_override/0 = SubResource("ShaderMaterial_6bgv7")
 
-[node name="TranslationGizmos" type="Node3D" parent="Node3D/MeshInstance3D"]
-script = ExtResource("6_q7aca")
-
-[node name="GizmosArrowY" type="Node3D" parent="Node3D/MeshInstance3D/TranslationGizmos"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-script = ExtResource("8_a22ts")
-idleColor = Color(0.301961, 1, 0.360784, 1)
-activeColor = Color(0.643137, 1, 0.67451, 1)
-workingAxis = Vector3(0, 1, 0)
-
-[node name="StickMesh" type="MeshInstance3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowY"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-layers = 2
-cast_shadow = 0
-mesh = ExtResource("9_nx65f")
-surface_material_override/0 = ExtResource("10_x4bbo")
-
-[node name="HeadMesh" type="MeshInstance3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowY"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1, 0, 0)
-layers = 2
-cast_shadow = 0
-mesh = ExtResource("11_bxip7")
-surface_material_override/0 = ExtResource("10_x4bbo")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowY"]
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowY/StaticBody3D"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.5, 0, 0)
-shape = SubResource("CylinderShape3D_ftr3t")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowY/StaticBody3D"]
-transform = Transform3D(-4.37113e-08, -0.999998, 0, 0.999998, -4.37113e-08, 0, 0, 0, 1, -1.18242, 0, 0)
-shape = SubResource("BoxShape3D_dtcfr")
-
-[node name="GizmosArrowX" type="Node3D" parent="Node3D/MeshInstance3D/TranslationGizmos"]
-transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
-script = ExtResource("8_a22ts")
-workingAxis = Vector3(1, 0, 0)
-
-[node name="StickMesh" type="MeshInstance3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowX"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-layers = 2
-cast_shadow = 0
-mesh = ExtResource("9_nx65f")
-surface_material_override/0 = SubResource("StandardMaterial3D_ryepw")
-
-[node name="HeadMesh" type="MeshInstance3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowX"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1, 0, 0)
-layers = 2
-cast_shadow = 0
-mesh = ExtResource("11_bxip7")
-surface_material_override/0 = SubResource("StandardMaterial3D_f4p7m")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowX"]
-disable_mode = 1
-collision_mask = 2
-mass = 0.01
-gravity_scale = 0.0
-sleeping = true
-freeze = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowX/RigidBody3D"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.5, 0, 0)
-shape = SubResource("CylinderShape3D_ftr3t")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowX/RigidBody3D"]
-transform = Transform3D(-4.37113e-08, -0.999998, 0, 0.999998, -4.37113e-08, 0, 0, 0, 1, -1.18242, -2.98296e-08, 0)
-shape = SubResource("BoxShape3D_dtcfr")
-
-[node name="GizmosArrowZ" type="Node3D" parent="Node3D/MeshInstance3D/TranslationGizmos"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-script = ExtResource("8_a22ts")
-workingAxis = Vector3(0, 0, 1)
-
-[node name="StickMesh" type="MeshInstance3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowZ"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-layers = 2
-cast_shadow = 0
-mesh = ExtResource("9_nx65f")
-surface_material_override/0 = SubResource("StandardMaterial3D_uunmr")
-
-[node name="HeadMesh" type="MeshInstance3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowZ"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1, 0, 0)
-layers = 2
-cast_shadow = 0
-mesh = ExtResource("11_bxip7")
-surface_material_override/0 = SubResource("StandardMaterial3D_cnqrv")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowZ"]
-disable_mode = 1
-collision_mask = 2
-mass = 0.01
-gravity_scale = 0.0
-sleeping = true
-freeze = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowZ/RigidBody3D"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.5, 0, 0)
-shape = SubResource("CylinderShape3D_ftr3t")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Node3D/MeshInstance3D/TranslationGizmos/GizmosArrowZ/RigidBody3D"]
-transform = Transform3D(-4.37113e-08, -0.999998, 0, 0.999998, -4.37113e-08, 0, 0, 0, 1, -1.18242, -2.98296e-08, 0)
-shape = SubResource("BoxShape3D_dtcfr")
-
-[node name="RotationGizmos" type="Node3D" parent="Node3D/MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.13783, 0, 0)
-visible = false
-script = ExtResource("6_q7aca")
-
-[node name="GizmosCircleY" type="Node3D" parent="Node3D/MeshInstance3D/RotationGizmos"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-script = ExtResource("8_hcybx")
-idleColor = Color(0.301961, 1, 0.360784, 1)
-activeColor = Color(0.643137, 1, 0.67451, 1)
-workingAxis = Vector3(0, 1, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/MeshInstance3D/RotationGizmos/GizmosCircleY"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-layers = 2
-cast_shadow = 0
-mesh = ExtResource("9_4cn67")
-surface_material_override/0 = ExtResource("10_x4bbo")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Node3D/MeshInstance3D/RotationGizmos/GizmosCircleY"]
-disable_mode = 1
-collision_mask = 2
-mass = 0.01
-gravity_scale = 0.0
-sleeping = true
-freeze = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/MeshInstance3D/RotationGizmos/GizmosCircleY/RigidBody3D"]
-transform = Transform3D(-8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("CylinderShape3D_jjyia")
-
-[node name="GizmosCircleX" type="Node3D" parent="Node3D/MeshInstance3D/RotationGizmos"]
-script = ExtResource("8_hcybx")
-idleColor = Color(1, 0.298039, 0.298039, 1)
-activeColor = Color(1, 0.52549, 0.52549, 1)
-workingAxis = Vector3(1, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/MeshInstance3D/RotationGizmos/GizmosCircleX"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-layers = 2
-cast_shadow = 0
-mesh = ExtResource("9_4cn67")
-surface_material_override/0 = SubResource("StandardMaterial3D_0d1t2")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Node3D/MeshInstance3D/RotationGizmos/GizmosCircleX"]
-disable_mode = 1
-collision_mask = 2
-mass = 0.01
-gravity_scale = 0.0
-sleeping = true
-freeze = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/MeshInstance3D/RotationGizmos/GizmosCircleX/RigidBody3D"]
-transform = Transform3D(-8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("CylinderShape3D_jjyia")
-
-[node name="GizmosCircleZ" type="Node3D" parent="Node3D/MeshInstance3D/RotationGizmos"]
-transform = Transform3D(4.37114e-08, 3.82137e-15, 1, 8.74228e-08, -1, 0, 1, 8.74228e-08, -4.37114e-08, 0, 0, 0)
-script = ExtResource("8_hcybx")
-idleColor = Color(0.286275, 0.54902, 1, 1)
-activeColor = Color(0.631373, 0.768627, 1, 1)
-workingAxis = Vector3(0, 0, 1)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/MeshInstance3D/RotationGizmos/GizmosCircleZ"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-layers = 2
-cast_shadow = 0
-mesh = ExtResource("9_4cn67")
-surface_material_override/0 = SubResource("StandardMaterial3D_855s1")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Node3D/MeshInstance3D/RotationGizmos/GizmosCircleZ"]
-disable_mode = 1
-collision_mask = 2
-mass = 0.01
-gravity_scale = 0.0
-sleeping = true
-freeze = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/MeshInstance3D/RotationGizmos/GizmosCircleZ/RigidBody3D"]
-transform = Transform3D(-8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("CylinderShape3D_jjyia")
-
 [node name="Camera" type="Node3D" parent="Node3D"]
 
 [node name="MeshCamera" type="Camera3D" parent="Node3D/Camera"]
@@ -467,10 +295,13 @@ surface_material_override/0 = SubResource("ShaderMaterial_mvltd")
 
 [node name="ScaleGizmos" type="Node3D" parent="Node3D"]
 script = ExtResource("6_q7aca")
+hideOtherElementsOnMove = true
 
-[node name="GizmosArrowY" type="Node3D" parent="Node3D/ScaleGizmos"]
+[node name="GizmosArrowY" type="Node3D" parent="Node3D/ScaleGizmos" node_paths=PackedStringArray("headMesh")]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("8_a22ts")
+scaleAndNotMove = true
+headMesh = NodePath("HeadMesh")
 idleColor = Color(0.639216, 0.898039, 0, 1)
 activeColor = Color(0.815686, 0.921569, 0.552941, 1)
 workingAxis = Vector3(0, 1, 0)
@@ -480,7 +311,7 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 
 layers = 2
 cast_shadow = 0
 mesh = ExtResource("9_nx65f")
-surface_material_override/0 = ExtResource("10_x4bbo")
+surface_material_override/0 = SubResource("StandardMaterial3D_nkspw")
 
 [node name="HeadMesh" type="MeshInstance3D" parent="Node3D/ScaleGizmos/GizmosArrowY"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1, 0, 0)
@@ -500,9 +331,11 @@ shape = SubResource("CylinderShape3D_ftr3t")
 transform = Transform3D(-4.37113e-08, -0.999998, 0, 0.999998, -4.37113e-08, 0, 0, 0, 1, -1, 0, 0)
 shape = SubResource("BoxShape3D_dtcfr")
 
-[node name="GizmosArrowX" type="Node3D" parent="Node3D/ScaleGizmos"]
+[node name="GizmosArrowX" type="Node3D" parent="Node3D/ScaleGizmos" node_paths=PackedStringArray("headMesh")]
 transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("8_a22ts")
+scaleAndNotMove = true
+headMesh = NodePath("HeadMesh")
 idleColor = Color(0.960784, 0.227451, 0.388235, 1)
 activeColor = Color(0.941176, 0.596078, 0.670588, 1)
 workingAxis = Vector3(1, 0, 0)
@@ -537,9 +370,11 @@ shape = SubResource("CylinderShape3D_ftr3t")
 transform = Transform3D(-4.37113e-08, -0.999998, 0, 0.999998, -4.37113e-08, 0, 0, 0, 1, -1, 0, 0)
 shape = SubResource("BoxShape3D_dtcfr")
 
-[node name="GizmosArrowZ" type="Node3D" parent="Node3D/ScaleGizmos"]
+[node name="GizmosArrowZ" type="Node3D" parent="Node3D/ScaleGizmos" node_paths=PackedStringArray("headMesh")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("8_a22ts")
+scaleAndNotMove = true
+headMesh = NodePath("HeadMesh")
 idleColor = Color(0.364706, 0.670588, 0.960784, 1)
 activeColor = Color(0.654902, 0.792157, 0.921569, 1)
 workingAxis = Vector3(0, 0, 1)
@@ -578,9 +413,10 @@ shape = SubResource("BoxShape3D_dtcfr")
 visible = false
 script = ExtResource("6_q7aca")
 
-[node name="GizmosArrowY" type="Node3D" parent="Node3D/TranslationGizmos"]
+[node name="GizmosArrowY" type="Node3D" parent="Node3D/TranslationGizmos" node_paths=PackedStringArray("headMesh")]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("8_a22ts")
+headMesh = NodePath("HeadMesh")
 idleColor = Color(0.639216, 0.898039, 0, 1)
 activeColor = Color(0.815686, 0.921569, 0.552941, 1)
 workingAxis = Vector3(0, 1, 0)
@@ -610,9 +446,10 @@ shape = SubResource("CylinderShape3D_ftr3t")
 transform = Transform3D(-4.37113e-08, -0.999998, 0, 0.999998, -4.37113e-08, 0, 0, 0, 1, -1.18242, 0, 0)
 shape = SubResource("BoxShape3D_dtcfr")
 
-[node name="GizmosArrowX" type="Node3D" parent="Node3D/TranslationGizmos"]
+[node name="GizmosArrowX" type="Node3D" parent="Node3D/TranslationGizmos" node_paths=PackedStringArray("headMesh")]
 transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("8_a22ts")
+headMesh = NodePath("HeadMesh")
 idleColor = Color(0.960784, 0.227451, 0.388235, 1)
 activeColor = Color(0.941176, 0.596078, 0.670588, 1)
 workingAxis = Vector3(1, 0, 0)
@@ -647,9 +484,10 @@ shape = SubResource("CylinderShape3D_ftr3t")
 transform = Transform3D(-4.37113e-08, -0.999998, 0, 0.999998, -4.37113e-08, 0, 0, 0, 1, -1.18242, -2.98296e-08, 0)
 shape = SubResource("BoxShape3D_dtcfr")
 
-[node name="GizmosArrowZ" type="Node3D" parent="Node3D/TranslationGizmos"]
+[node name="GizmosArrowZ" type="Node3D" parent="Node3D/TranslationGizmos" node_paths=PackedStringArray("headMesh")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("8_a22ts")
+headMesh = NodePath("HeadMesh")
 idleColor = Color(0.364706, 0.670588, 0.960784, 1)
 activeColor = Color(0.654902, 0.792157, 0.921569, 1)
 workingAxis = Vector3(0, 0, 1)
@@ -687,6 +525,7 @@ shape = SubResource("BoxShape3D_dtcfr")
 [node name="RotationGizmos" type="Node3D" parent="Node3D"]
 visible = false
 script = ExtResource("6_q7aca")
+hideOtherElementsOnMove = true
 
 [node name="GizmosCircleY" type="Node3D" parent="Node3D/RotationGizmos"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
