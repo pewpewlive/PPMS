@@ -28,38 +28,57 @@ public partial class GizmoRotatable : GizmosInteractable
             material.AlbedoColor = activeColor;
             mesh.MaterialOverride = material;
 
-            var mp = GetViewport().GetMousePosition();
+            Vector2 mp = GetViewport().GetMousePosition();
 
-            var start = parentCenter.AngleToPoint(dragStartPosition);
+            float start = parentCenter.AngleToPoint(dragStartPosition);
 
-            var angle = parentCenter.AngleToPoint(mp);
+            float angle = parentCenter.AngleToPoint(mp);
 
-            var direction = (GetViewport().GetCamera3D().GlobalTransform.Origin - ((Node3D)GetParent()).GlobalTransform.Origin);
+            Vector3 direction = (GetViewport().GetCamera3D().GlobalTransform.Origin - parentGizmo.GlobalTransform.Origin);
 
             direction = direction.Normalized();
 
             Vector3 face = workingAxis switch
             {
-                Vector3(1, 0, 0) => ((Node3D)GetParent()).GlobalTransform.Basis.X,
-                Vector3(0, 1, 0) => ((Node3D)GetParent()).GlobalTransform.Basis.Y,
-                Vector3(0, 0, 1) => ((Node3D)GetParent()).GlobalTransform.Basis.Z,
+                Vector3(1, 0, 0) => parentGizmo.GlobalTransform.Basis.X,
+                Vector3(0, 1, 0) => parentGizmo.GlobalTransform.Basis.Y,
+                Vector3(0, 0, 1) => parentGizmo.GlobalTransform.Basis.Z,
                 _ => new Vector3(0, 0, 0),
             };
 
-            ((Node3D)GetParent()).GlobalTransform = originalTransform;
+            parentGizmo.GlobalTransform = originalTransform;
+            parentGizmo.FitToScreen();
 
             if (Mathf.RadToDeg(face.Dot(direction)) > 0)
             {
-                ((Node3D)GetParent()).RotateObjectLocal(workingAxis, start - angle);
+                parentGizmo.RotateObjectLocal(workingAxis, start - angle);
+
+                Vector3 diff = workingAxis switch
+                {
+                    Vector3(1, 0, 0) => new Vector3(start - angle, 0, 0),
+                    Vector3(0, 1, 0) => new Vector3(0, start - angle, 0),
+                    Vector3(0, 0, 1) => new Vector3(0, 0, start - angle),
+                    _ => new Vector3(0, 0, 0),
+                };
+                OnManipulate?.Invoke(diff);
             }
             else
             {
-                ((Node3D)GetParent()).RotateObjectLocal(workingAxis, angle - start);
+                parentGizmo.RotateObjectLocal(workingAxis, angle - start);
+
+                Vector3 diff = workingAxis switch
+                {
+                    Vector3(1, 0, 0) => new Vector3(angle - start, 0, 0),
+                    Vector3(0, 1, 0) => new Vector3(0, angle - start, 0),
+                    Vector3(0, 0, 1) => new Vector3(0, 0, angle - start),
+                    _ => new Vector3(0, 0, 0),
+                };
+                OnManipulate?.Invoke(diff);
             }
         }
     }
 
-    public override void Manipulate(Camera3D camera, Vector2 clickPosition)
+    public override void Activate(Camera3D camera, Vector2 clickPosition)
     {
         if (!interactable)
             return;
@@ -70,8 +89,8 @@ public partial class GizmoRotatable : GizmosInteractable
         dragged = true;
         parentGizmo.OnActivated(this);
 
-        originalTransform = ((Node3D)GetParent()).GlobalTransform;
-        parentCenter = camera.UnprojectPosition(((Node3D)GetParent()).GlobalTransform.Origin);
+        originalTransform = parentGizmo.GlobalTransform;
+        parentCenter = camera.UnprojectPosition(parentGizmo.GlobalTransform.Origin);
 
         dragStartPosition = clickPosition;
     }

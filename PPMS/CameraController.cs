@@ -60,8 +60,7 @@ public partial class CameraController : Camera3D
             GizmosInteractable gi = node.GetParent() as GizmosInteractable;
             if (Input.IsMouseButtonPressed(MouseButton.Left))
             {
-                //rayCast.
-                gi.Manipulate(this, mousePos);
+                gi.Activate(this, mousePos);
             }
             else
             {

@@ -1,14 +1,15 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public partial class PPMSGizmos : Node3D
 {
     private Camera3D cam;
-    private List<GizmosInteractable> yes = new List<GizmosInteractable>();
+    private List<GizmosInteractable> elements = new List<GizmosInteractable>();
 
     [Export]
     public bool resetTransform;
+    [Export]
+    public bool hideOtherElementsOnMove;
 
     public override void _Ready()
     {
@@ -23,16 +24,18 @@ public partial class PPMSGizmos : Node3D
 
     public void RegisterGizmo(GizmosInteractable gizmo)
     {
-        yes.Add(gizmo);
+        elements.Add(gizmo);
     }
 
     public void OnActivated(GizmosInteractable activated)
     {
-        foreach (GizmosInteractable node in yes)
+        foreach (GizmosInteractable node in elements)
         {
             if (node != activated)
             {
-                node.Hide();
+                if (hideOtherElementsOnMove)
+                    node.Hide();
+                    
                 node.interactable = false;
             }
         }
@@ -40,7 +43,7 @@ public partial class PPMSGizmos : Node3D
 
     public void OnDeactivated(GizmosInteractable deactivated)
     {
-        foreach (GizmosInteractable node in yes)
+        foreach (GizmosInteractable node in elements)
         {
             node.Show();
             node.interactable = true;
@@ -49,7 +52,7 @@ public partial class PPMSGizmos : Node3D
         FitToScreen();
     }
 
-    private void FitToScreen()
+    public void FitToScreen()
     {
         float offset = (cam.Position - Position).Length();
 
