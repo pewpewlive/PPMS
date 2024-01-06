@@ -32,6 +32,14 @@ public partial class CameraController : Camera3D
         {
             Position = new Vector3(Position.X + 10f * fdelta, Position.Y, Position.Z);
         }
+        if(Input.IsKeyPressed(Key.Space))
+        {
+            Position = new Vector3(Position.X, Position.Y + 10f * fdelta, Position.Z);
+        }
+        if(Input.IsKeyPressed(Key.Shift))
+        {
+            Position = new Vector3(Position.X, Position.Y - 10f * fdelta, Position.Z);
+        }
 
         Vector2 mousePos = GetViewport().GetMousePosition();
         Vector3 from = ProjectRayOrigin(mousePos);
@@ -52,7 +60,6 @@ public partial class CameraController : Camera3D
             GizmosInteractable gi = node.GetParent() as GizmosInteractable;
             if (Input.IsMouseButtonPressed(MouseButton.Left))
             {
-                //rayCast.
                 gi.Activate(this, mousePos);
             }
             else

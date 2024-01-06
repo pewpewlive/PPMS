@@ -35,6 +35,7 @@ public partial class PPMSGizmos : Node3D
             {
                 if (hideOtherElementsOnMove)
                     node.Hide();
+                    
                 node.interactable = false;
             }
         }

@@ -34,9 +34,7 @@ public partial class GizmoSlidable : GizmosInteractable
         if (dragged && !Input.IsMouseButtonPressed(MouseButton.Left))
         {
             dragged = false;
-
             
-
             parentGizmo.OnDeactivated(this);
         }
 
@@ -52,7 +50,6 @@ public partial class GizmoSlidable : GizmosInteractable
             Camera3D cam = GetViewport().GetCamera3D();
 
             Vector2 mousePosition = GetViewport().GetMousePosition();
-
             Vector2 dd = cam.UnprojectPosition(GlobalTransform.Origin + workingAxis) - cam.UnprojectPosition(parentGizmo.GlobalTransform.Origin);
 
             parentGizmo.GlobalTransform = originalTransform;

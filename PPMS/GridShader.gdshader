@@ -72,6 +72,7 @@ void fragment() {
 	// final alpha
 	//vec4 gridColorBetter = straight_line(posWorld.xy, majorLineThickness, false, true) + straight_line(posWorld.xy, majorLineThickness, true, false);
 	float alphaGrid = line * gridColor.a;// + gridColorBetter.a;
+  
 	ALPHA = clamp(alphaGrid, 0.0, 1.0) * fadeFactor;
 	// eliminate grid above the horizon
 	ALPHA *= step(t, 0.0);
@@ -79,5 +80,4 @@ void fragment() {
 	//vec3 newColor = gridColorBetter.rgb + gridColor.rgb;
 	// final color (premultiplied alpha blend)
 	ALBEDO = (1.0 - alphaGrid) + (gridColor.rgb * alphaGrid);// - gridColorBetter.a);
-	
 }

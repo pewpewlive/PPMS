@@ -27,7 +27,7 @@ public partial class GizmosInteractable : Node3D
 
     //cosmetic
     protected bool hideOnUse = false;
-
+    
 	public override void _Ready()
 	{
         mesh = GetChild<MeshInstance3D>(0);
