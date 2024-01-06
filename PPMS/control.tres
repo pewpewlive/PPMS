@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dius2a13dseqi"]
+
+[ext_resource type="Shader" path="res://GizmoOutline.gdshader" id="1_45nju"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vic25"]
+render_priority = 0
+shader = ExtResource("1_45nju")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 0.001
+shader_parameter/constant_width = true
+
+[resource]
+next_pass = SubResource("ShaderMaterial_vic25")
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0, 0, 0, 1)
+disable_receive_shadows = true
