@@ -8,7 +8,7 @@ public partial class GizmosInteractable : Node3D
     protected Vector2 dragStartPosition = new Vector2(0, 0);
 
     protected Action OnActivate;
-    protected Action OnManipulate;
+    protected Action<Vector3> OnManipulate;
     protected Action OnDeactivate;
 
     protected bool dragged;
@@ -25,6 +25,9 @@ public partial class GizmosInteractable : Node3D
     [Export]
     protected Vector3 workingAxis;
 
+    //cosmetic
+    protected bool hideOnUse = false;
+
 	public override void _Ready()
 	{
         mesh = GetChild<MeshInstance3D>(0);
@@ -37,18 +40,44 @@ public partial class GizmosInteractable : Node3D
 
 	public override void _Process(double delta)
 	{
-        
-    }
+        if (!interactable)
+            return;
 
-    public virtual void Manipulate(Camera3D camera, Vector2 clickPosition) 
-    {
-        
-    }
-
-    public void Highlight()
-    {
         StandardMaterial3D material = (StandardMaterial3D)mesh.GetSurfaceOverrideMaterial(0);
-        material.AlbedoColor = activeColor;
+        material.AlbedoColor = idleColor;
         mesh.MaterialOverride = material;
+
+        if (dragged && !Input.IsMouseButtonPressed(MouseButton.Left))
+        {
+            dragged = false;
+
+            if (hideOnUse)
+                Show();
+
+            OnDeactivate?.Invoke();
+
+            parentGizmo.OnDeactivated(this);
+        }
+
+        if (dragged)
+        {
+            if (hideOnUse)
+            {
+                Hide();
+            }
+        }
+
+        //float dot = Mathf.Atan2( (GetViewport().GetCamera3D().Position - Position);
+        //if ()
+    }
+
+    public virtual void Activate(Camera3D camera, Vector2 clickPosition) 
+    {
+        OnActivate?.Invoke();
+    }
+
+    public virtual void Highlight()
+    {
+        
     }
 }

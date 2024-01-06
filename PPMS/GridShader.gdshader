@@ -20,6 +20,7 @@ float grid(vec2 pos, float unit, float thickness){
 }
 
 vec4 straight_line(vec2 pos, float thickness, bool is_x, bool is_y){
+	vec2 threshold = fwidth(pos) * thickness * .5;
 	float satur = 0.05;
 	vec2 p3 = pos;
 	
@@ -69,14 +70,14 @@ void fragment() {
 	DEPTH = pp.z / pp.w;
 	
 	// final alpha
-	vec4 gridColorBetter = straight_line(posWorld.xy, majorLineThickness, false, true) + straight_line(posWorld.xy, majorLineThickness, true, false);
-	float alphaGrid = line * gridColor.a + gridColorBetter.a;
+	//vec4 gridColorBetter = straight_line(posWorld.xy, majorLineThickness, false, true) + straight_line(posWorld.xy, majorLineThickness, true, false);
+	float alphaGrid = line * gridColor.a;// + gridColorBetter.a;
 	ALPHA = clamp(alphaGrid, 0.0, 1.0) * fadeFactor;
 	// eliminate grid above the horizon
 	ALPHA *= step(t, 0.0);
 	
-	vec3 newColor = gridColorBetter.rgb + gridColor.rgb;
+	//vec3 newColor = gridColorBetter.rgb + gridColor.rgb;
 	// final color (premultiplied alpha blend)
-	ALBEDO = (1.0 - alphaGrid) + (newColor.rgb * alphaGrid - gridColorBetter.a);
+	ALBEDO = (1.0 - alphaGrid) + (gridColor.rgb * alphaGrid);// - gridColorBetter.a);
 	
 }

@@ -53,7 +53,7 @@ public partial class CameraController : Camera3D
             if (Input.IsMouseButtonPressed(MouseButton.Left))
             {
                 //rayCast.
-                gi.Manipulate(this, mousePos);
+                gi.Activate(this, mousePos);
             }
             else
             {
