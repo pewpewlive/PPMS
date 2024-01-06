@@ -86,7 +86,7 @@ public partial class CameraController : Camera3D
             return;
         }
         mousePosDelta = mousePosDelta.Normalized();
-        Vector3 moveDirection = -Transform.Basis.X *mousePosDelta.X + Transform.Basis.Y*mousePosDelta.Y;
-        Position = Position+moveDirection*speed*delta;
+        moveVector = -Transform.Basis.X *mousePosDelta.X + Transform.Basis.Y*mousePosDelta.Y;
+        Position = Position+moveVector*speed*delta;
     }
 }
