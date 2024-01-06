@@ -77,7 +77,7 @@ height = 1.0
 radius = 0.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dtcfr"]
-size = Vector3(0.5, 0.45, 0.5)
+size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mmwvm"]
 render_priority = 0
@@ -294,6 +294,7 @@ mesh = SubResource("QuadMesh_dgsf7")
 surface_material_override/0 = SubResource("ShaderMaterial_mvltd")
 
 [node name="ScaleGizmos" type="Node3D" parent="Node3D"]
+visible = false
 script = ExtResource("6_q7aca")
 hideOtherElementsOnMove = true
 
@@ -523,7 +524,6 @@ transform = Transform3D(-4.37113e-08, -0.999998, 0, 0.999998, -4.37113e-08, 0, 0
 shape = SubResource("BoxShape3D_dtcfr")
 
 [node name="RotationGizmos" type="Node3D" parent="Node3D"]
-visible = false
 script = ExtResource("6_q7aca")
 hideOtherElementsOnMove = true
 
