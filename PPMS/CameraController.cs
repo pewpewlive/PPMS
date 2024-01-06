@@ -6,6 +6,10 @@ public partial class CameraController : Camera3D
     private RayCast3D rayCast;
     private MeshInstance3D gridPlane;
 
+    private Vector2 mousePos;
+    private Vector3 moveVector;
+    private float speed = 5f;
+
 	public override void _Ready()
 	{
         rayCast = GetNode<RayCast3D>("CameraGizmosRaycast");
@@ -16,34 +20,34 @@ public partial class CameraController : Camera3D
 	{
 		var fdelta = (float)delta;
 
-        if (Input.IsActionPressed("move_forward"))
-		{
-            Position = new Vector3(Position.X, Position.Y, Position.Z - 10f * fdelta);
-        }
-        if (Input.IsActionPressed("move_backward"))
-        {
-            Position = new Vector3(Position.X, Position.Y, Position.Z + 10f * fdelta);
-        }
-        if (Input.IsActionPressed("move_left"))
-        {
-            Position = new Vector3(Position.X - 10f * fdelta, Position.Y, Position.Z);
-        }
-        if (Input.IsActionPressed("move_right"))
-        {
-            Position = new Vector3(Position.X + 10f * fdelta, Position.Y, Position.Z);
-        }
-        if(Input.IsKeyPressed(Key.Space))
-        {
-            Position = new Vector3(Position.X, Position.Y + 10f * fdelta, Position.Z);
-        }
-        if(Input.IsKeyPressed(Key.Shift))
-        {
-            Position = new Vector3(Position.X, Position.Y - 10f * fdelta, Position.Z);
-        }
+        // if (Input.IsActionPressed("move_forward"))
+		// {
+        //     Position = new Vector3(Position.X, Position.Y, Position.Z - 10f * fdelta);
+        // }
+        // if (Input.IsActionPressed("move_backward"))
+        // {
+        //     Position = new Vector3(Position.X, Position.Y, Position.Z + 10f * fdelta);
+        // }
+        // if (Input.IsActionPressed("move_left"))
+        // {
+        //     Position = new Vector3(Position.X - 10f * fdelta, Position.Y, Position.Z);
+        // }
+        // if (Input.IsActionPressed("move_right"))
+        // {
+        //     Position = new Vector3(Position.X + 10f * fdelta, Position.Y, Position.Z);
+        // }
+        // if(Input.IsKeyPressed(Key.Space))
+        // {
+        //     Position = new Vector3(Position.X, Position.Y + 10f * fdelta, Position.Z);
+        // }
+        // if(Input.IsKeyPressed(Key.Shift))
+        // {
+        //     Position = new Vector3(Position.X, Position.Y - 10f * fdelta, Position.Z);
+        // }
 
-        Vector2 mousePos = GetViewport().GetMousePosition();
-        Vector3 from = ProjectRayOrigin(mousePos);
-        Vector3 to = from + ProjectRayNormal(mousePos) * 100000;
+        Vector2 newMousePos = GetViewport().GetMousePosition();
+        Vector3 from = ProjectRayOrigin(newMousePos);
+        Vector3 to = from + ProjectRayNormal(newMousePos) * 100000;
 
         //var spaceState = GetWorld3D().DirectSpaceState;
         //var query = PhysicsRayQueryParameters3D.Create(GlobalPosition, GlobalPosition + to);
@@ -60,12 +64,29 @@ public partial class CameraController : Camera3D
             GizmosInteractable gi = node.GetParent() as GizmosInteractable;
             if (Input.IsMouseButtonPressed(MouseButton.Left))
             {
-                gi.Activate(this, mousePos);
+                gi.Activate(this, newMousePos);
             }
             else
             {
                 gi.Highlight();
             }
         }
+
+        //movement
+        if (Input.IsMouseButtonPressed(MouseButton.Right)){
+            MoveCamera(newMousePos, fdelta);
+        }
+
+        mousePos = newMousePos;
+    }
+
+    private void MoveCamera(Vector2 newMousePos, float delta){
+        Vector2 mousePosDelta = newMousePos-mousePos;
+        if (mousePosDelta == Vector2.Zero){
+            return;
+        }
+        mousePosDelta = mousePosDelta.Normalized();
+        Vector3 moveDirection = -Transform.Basis.X *mousePosDelta.X + Transform.Basis.Y*mousePosDelta.Y;
+        Position = Position+moveDirection*speed*delta;
     }
 }
