@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dv0lc3qjijvlt"]
+[gd_scene load_steps=32 format=3 uid="uid://dv0lc3qjijvlt"]
 
 [ext_resource type="Script" path="res://inspector.cs" id="1_rek1m"]
 [ext_resource type="Script" path="res://NewMesh.cs" id="2_blg0w"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bjn5js6y10fw5" path="res://vector_3_picker.tscn" id="3_b0tux"]
 [ext_resource type="Shader" path="res://MeshShader.gdshader" id="3_c7n61"]
 [ext_resource type="Script" path="res://CameraController.cs" id="5_46t5n"]
+[ext_resource type="Texture2D" uid="uid://uhhd3eihg0k6" path="res://White_Logo.svg" id="5_da7xp"]
 [ext_resource type="Script" path="res://PPMSGizmos.cs" id="6_q7aca"]
 [ext_resource type="Shader" path="res://GridShader.gdshader" id="6_vbjmg"]
 [ext_resource type="Shader" path="res://GizmoOutline.gdshader" id="8_3anxe"]
@@ -130,14 +131,17 @@ grow_vertical = 2
 
 [node name="Inspector" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 11
+anchors_preset = -1
 anchor_left = 1.0
+anchor_top = -0.0185185
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -292.0
+offset_top = 58.0
 grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("1_rek1m")
+metadata/_edit_use_anchors_ = true
 
 [node name="InspectorItems" type="VBoxContainer" parent="Inspector"]
 layout_mode = 0
@@ -172,6 +176,82 @@ script = ExtResource("2_llsa5")
 [node name="Label" type="Label" parent="Inspector/InspectorSlot"]
 layout_mode = 2
 text = "Plugin widgets:"
+
+[node name="Menu" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 41.0
+offset_bottom = 37.0
+texture = ExtResource("5_da7xp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="MenuBar" type="MenuBar" parent="Menu"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 5.0
+offset_right = 1146.0
+offset_bottom = 36.0
+
+[node name="File" type="PopupMenu" parent="Menu/MenuBar"]
+title = "File"
+item_count = 6
+item_0/text = "New Project"
+item_0/id = 0
+item_1/text = "Open Project"
+item_1/id = 1
+item_2/text = "Save Project"
+item_2/id = 2
+item_3/text = "Save as..."
+item_3/id = 3
+item_4/text = ""
+item_4/id = 4
+item_4/separator = true
+item_5/text = "Quit"
+item_5/id = 5
+
+[node name="Edit" type="PopupMenu" parent="Menu/MenuBar"]
+title = "Edit"
+item_count = 5
+item_0/text = "Undo"
+item_0/id = 0
+item_1/text = "Redo"
+item_1/id = 1
+item_2/text = ""
+item_2/id = 2
+item_2/separator = true
+item_3/text = "Settings"
+item_3/id = 3
+item_4/text = "About"
+item_4/id = 4
+
+[node name="Add Item" type="PopupMenu" parent="Menu/MenuBar"]
+title = "Add Item"
+item_count = 7
+item_0/text = "Meshes"
+item_0/id = 0
+item_0/separator = true
+item_1/text = "New Empty Mesh"
+item_1/id = 1
+item_2/text = "Import Lua"
+item_2/id = 2
+item_3/text = "Import OBJ"
+item_3/id = 3
+item_4/text = "Import SVG"
+item_4/id = 4
+item_5/text = "Other"
+item_5/id = 5
+item_5/separator = true
+item_6/text = "Add Reference Image"
+item_6/id = 6
 
 [node name="Node3D" type="Node3D" parent="."]
 
