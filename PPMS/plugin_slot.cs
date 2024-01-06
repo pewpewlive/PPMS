@@ -33,6 +33,6 @@ public partial class plugin_slot : Node
             Text = title,
         };
         button.Pressed += () => function.Call();
-        GetNode("HFlowContainer").AddChild(button);
+        AddChild(button);
     }
 }

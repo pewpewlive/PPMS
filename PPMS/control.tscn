@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://dv0lc3qjijvlt"]
+[gd_scene load_steps=31 format=3 uid="uid://dv0lc3qjijvlt"]
 
 [ext_resource type="Script" path="res://inspector.cs" id="1_rek1m"]
 [ext_resource type="Script" path="res://NewMesh.cs" id="2_blg0w"]
 [ext_resource type="Script" path="res://plugin_slot.cs" id="2_llsa5"]
+[ext_resource type="PackedScene" uid="uid://bjn5js6y10fw5" path="res://vector_3_picker.tscn" id="3_b0tux"]
 [ext_resource type="Shader" path="res://MeshShader.gdshader" id="3_c7n61"]
 [ext_resource type="Script" path="res://CameraController.cs" id="5_46t5n"]
 [ext_resource type="Script" path="res://PPMSGizmos.cs" id="6_q7aca"]
@@ -133,7 +134,7 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -246.0
+offset_left = -292.0
 grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("1_rek1m")
@@ -145,12 +146,17 @@ offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="Inspector/InspectorItems"]
 layout_mode = 2
-text = "Inspector"
+text = "Inspector
+"
 
 [node name="Button" type="Button" parent="Inspector/InspectorItems"]
 layout_mode = 2
+tooltip_text = "Creates a new mesh."
 text = "New Mesh"
 script = ExtResource("2_blg0w")
+
+[node name="Vector3 Picker" parent="Inspector/InspectorItems" instance=ExtResource("3_b0tux")]
+layout_mode = 2
 
 [node name="InspectorSlot" type="VBoxContainer" parent="Inspector"]
 layout_mode = 1
@@ -163,9 +169,9 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("2_llsa5")
 
-[node name="HFlowContainer" type="HFlowContainer" parent="Inspector/InspectorSlot"]
+[node name="Label" type="Label" parent="Inspector/InspectorSlot"]
 layout_mode = 2
-size_flags_vertical = 3
+text = "Plugin widgets:"
 
 [node name="Node3D" type="Node3D" parent="."]
 
