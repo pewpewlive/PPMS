@@ -27,14 +27,14 @@ public partial class GizmosInteractable : Node3D
 
 	//cosmetic
 	protected bool hideOnUse = false;
-	
+
 	public override void _Ready()
 	{
 		mesh = GetChild<MeshInstance3D>(0);
 		StandardMaterial3D material = (StandardMaterial3D)mesh.GetSurfaceOverrideMaterial(0);
 		material.AlbedoColor = idleColor;
 		mesh.MaterialOverride = material;
-		parentGizmo = GetParent<PPMSGizmos>();  
+		parentGizmo = GetParent<PPMSGizmos>();
 		parentGizmo.RegisterGizmo(this);
 	}
 
@@ -71,13 +71,13 @@ public partial class GizmosInteractable : Node3D
 		//if ()
 	}
 
-	public virtual void Activate(Camera3D camera, Vector2 clickPosition) 
+	public virtual void Activate(Camera3D camera, Vector2 clickPosition)
 	{
 		OnActivate?.Invoke();
 	}
 
 	public virtual void Highlight()
 	{
-		
+
 	}
 }

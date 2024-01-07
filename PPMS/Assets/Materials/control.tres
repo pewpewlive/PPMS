@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dius2a13dseqi"]
 
-[ext_resource type="Shader" path="res://GizmoOutline.gdshader" id="1_45nju"]
+[ext_resource type="Shader" path="res://Shaders/GizmoOutline.gdshader" id="1_45nju"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vic25"]
 render_priority = 0

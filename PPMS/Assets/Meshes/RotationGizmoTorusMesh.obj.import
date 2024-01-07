@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cb1sak10qo2m5"
+path="res://.godot/imported/RotationGizmoTorusMesh.obj-a0973b5e35d9cd2f3709ab585f7a649d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/RotationGizmoTorusMesh.obj-a0973b5e35d9cd2f3709ab585f7a649d.mesh"]
+
+source_file="res://Assets/Meshes/RotationGizmoTorusMesh.obj"
+dest_files=["res://.godot/imported/RotationGizmoTorusMesh.obj-a0973b5e35d9cd2f3709ab585f7a649d.mesh", "res://.godot/imported/RotationGizmoTorusMesh.obj-a0973b5e35d9cd2f3709ab585f7a649d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

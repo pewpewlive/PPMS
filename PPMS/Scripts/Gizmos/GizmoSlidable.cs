@@ -7,7 +7,6 @@ public partial class GizmoSlidable : GizmosInteractable
     private bool faceTheCamera;
     private bool dissapearWhenFacingCamera;
 
-    [Export]
     private MeshInstance3D headMesh;
     private Transform3D headOriginalTransform;
     private Transform3D stickOriginalTransform;
@@ -15,6 +14,7 @@ public partial class GizmoSlidable : GizmosInteractable
     public override void _Ready()
     {
         base._Ready();
+        headMesh = GetNode<MeshInstance3D>("HeadMesh");
         headOriginalTransform = headMesh.Transform;
         stickOriginalTransform = mesh.Transform;
     }
@@ -34,7 +34,7 @@ public partial class GizmoSlidable : GizmosInteractable
         if (dragged && !Input.IsMouseButtonPressed(MouseButton.Left))
         {
             dragged = false;
-            
+
             parentGizmo.OnDeactivated(this);
         }
 

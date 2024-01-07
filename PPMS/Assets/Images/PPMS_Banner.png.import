@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ny6upxqwux0q"
-path="res://.godot/imported/PPMS_Banner.png-ee091b77630a10d2f65b1bc069212994.ctex"
+path="res://.godot/imported/PPMS_Banner.png-086347507ae8f726cd42f2867ad5b587.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://PPMS_Banner.png"
-dest_files=["res://.godot/imported/PPMS_Banner.png-ee091b77630a10d2f65b1bc069212994.ctex"]
+source_file="res://Assets/Images/PPMS_Banner.png"
+dest_files=["res://.godot/imported/PPMS_Banner.png-086347507ae8f726cd42f2867ad5b587.ctex"]
 
 [params]
 

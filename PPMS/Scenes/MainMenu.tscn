@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ch4g77qe68huy"]
 
-[ext_resource type="Texture2D" uid="uid://uhhd3eihg0k6" path="res://White_Logo.svg" id="1_4fk3u"]
-[ext_resource type="Script" path="res://StartButton.cs" id="2_7a0ry"]
+[ext_resource type="Texture2D" uid="uid://uhhd3eihg0k6" path="res://Assets/Images/White_Logo.svg" id="1_4fk3u"]
+[ext_resource type="Script" path="res://Scripts/Main Menu/StartButton.cs" id="2_7a0ry"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6omey"]
 font_size = 40

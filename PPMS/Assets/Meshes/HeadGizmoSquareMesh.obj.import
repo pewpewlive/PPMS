@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://l5rsclf0en7p"
+path="res://.godot/imported/HeadGizmoSquareMesh.obj-69f632e463951eb5080d2bcd942195bc.mesh"
+
+[deps]
+
+files=["res://.godot/imported/HeadGizmoSquareMesh.obj-69f632e463951eb5080d2bcd942195bc.mesh"]
+
+source_file="res://Assets/Meshes/HeadGizmoSquareMesh.obj"
+dest_files=["res://.godot/imported/HeadGizmoSquareMesh.obj-69f632e463951eb5080d2bcd942195bc.mesh", "res://.godot/imported/HeadGizmoSquareMesh.obj-69f632e463951eb5080d2bcd942195bc.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

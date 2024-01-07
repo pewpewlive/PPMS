@@ -2,13 +2,13 @@ using Godot;
 
 public partial class GizmoRotatable : GizmosInteractable
 {
-	public override void _Ready()
-	{
-		base._Ready();
-	}
+    public override void _Ready()
+    {
+        base._Ready();
+    }
 
-	public override void _Process(double delta)
-	{
+    public override void _Process(double delta)
+    {
         if (!interactable)
             return;
 
@@ -34,7 +34,7 @@ public partial class GizmoRotatable : GizmosInteractable
 
             float angle = parentCenter.AngleToPoint(mp);
 
-            Vector3 direction = (GetViewport().GetCamera3D().GlobalTransform.Origin - parentGizmo.GlobalTransform.Origin);
+            Vector3 direction = GetViewport().GetCamera3D().GlobalTransform.Origin - parentGizmo.GlobalTransform.Origin;
 
             direction = direction.Normalized();
 
