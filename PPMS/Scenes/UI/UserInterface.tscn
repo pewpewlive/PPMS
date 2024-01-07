@@ -136,3 +136,16 @@ item_5/id = 5
 item_5/separator = true
 item_6/text = "Add Reference Image"
 item_6/id = 6
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 44.0
+offset_right = 180.0
+offset_bottom = 75.0
+item_count = 2
+selected = 0
+popup/item_0/text = "Object mode"
+popup/item_0/id = 0
+popup/item_1/text = "Edit mode"
+popup/item_1/id = 1
