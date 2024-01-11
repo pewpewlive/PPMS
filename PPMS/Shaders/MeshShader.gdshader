@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode blend_mix, unshaded;
 
 void vertex() {
 	// Called for every vertex the material is visible on.

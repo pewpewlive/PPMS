@@ -1,28 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgoicuk0og4y5"]
+[gd_scene load_steps=15 format=3 uid="uid://bgoicuk0og4y5"]
 
 [ext_resource type="PackedScene" uid="uid://db434rqqj3bxi" path="res://Scenes/UI/UserInterface.tscn" id="1_uy28t"]
+[ext_resource type="Script" path="res://Scripts/EditorMesh.cs" id="2_m6fg1"]
 [ext_resource type="PackedScene" uid="uid://b1pg3ceribpn1" path="res://Scenes/Gizmos/ScaleGizmo.tscn" id="5_afv1h"]
 [ext_resource type="PackedScene" uid="uid://ba4mnuvmsm7sj" path="res://Scenes/Gizmos/TranslateGizmo.tscn" id="6_bupx0"]
 [ext_resource type="Shader" path="res://Shaders/MeshShader.gdshader" id="6_kbuh1"]
 [ext_resource type="PackedScene" uid="uid://bai87174pj24b" path="res://Scenes/Gizmos/RotateGizmo.tscn" id="7_7bbj7"]
+[ext_resource type="Script" path="res://Scripts/EditorScene.cs" id="7_801li"]
 [ext_resource type="Script" path="res://Scripts/Camera/CameraController.cs" id="7_e1xwf"]
 [ext_resource type="Shader" path="res://Shaders/GridShader.gdshader" id="8_k2knh"]
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_q2pun"]
-_surfaces = [{
-"aabb": AABB(0, 0, 0, 1, 1.00001, 1),
-"attribute_data": PackedByteArray(255, 0, 0, 255, 0, 255, 0, 255, 0, 0, 255, 255, 255, 0, 0, 255),
-"format": 34359738377,
-"name": "Surface",
-"primitive": 2,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0)
-}]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6bgv7"]
-render_priority = 0
-shader = ExtResource("6_kbuh1")
 
 [sub_resource type="Environment" id="Environment_b3h6j"]
 background_mode = 1
@@ -37,14 +23,31 @@ ambient_light_energy = 0.0
 render_priority = 0
 shader = ExtResource("8_k2knh")
 shader_parameter/gridColor = Color(1, 1, 1, 0.027451)
-shader_parameter/fadeStart = 10.0
-shader_parameter/fadeEnd = 15.0
-shader_parameter/unitSize = 1.0
-shader_parameter/subdivisions = 5
+shader_parameter/fadeStart = 3.0
+shader_parameter/fadeEnd = 6.0
+shader_parameter/unitSize = 10.0
+shader_parameter/subdivisions = 10
 shader_parameter/majorLineThickness = 2.0
 shader_parameter/minorLineThickness = 1.0
 shader_parameter/minorLineAlpha = 0.3
 shader_parameter/centerOffset = Vector3(0, 0, 0)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_y0mx5"]
+_surfaces = [{
+"aabb": AABB(0, 0, 0, 1, 1.00001, 1),
+"attribute_data": PackedByteArray(255, 0, 0, 255, 0, 255, 0, 255, 0, 0, 255, 255),
+"format": 34359742473,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 1, 0, 2, 0, 2, 0, 0, 0),
+"primitive": 1,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 3,
+"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63)
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_paegx"]
+render_priority = 0
+shader = ExtResource("6_kbuh1")
 
 [node name="Editor" type="Node3D"]
 
@@ -53,11 +56,6 @@ shader_parameter/centerOffset = Vector3(0, 0, 0)
 [node name="UserInterface" parent="CanvasLayer" instance=ExtResource("1_uy28t")]
 
 [node name="Node3D" type="Node3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.608, 0, 0)
-mesh = SubResource("ArrayMesh_q2pun")
-surface_material_override/0 = SubResource("ShaderMaterial_6bgv7")
 
 [node name="Camera" type="Node3D" parent="Node3D"]
 
@@ -84,3 +82,13 @@ visible = false
 
 [node name="RotationGizmos" parent="Node3D" instance=ExtResource("7_7bbj7")]
 visible = false
+
+[node name="EditorObjects" type="Node3D" parent="Node3D"]
+script = ExtResource("7_801li")
+
+[node name="Mesh1" type="Node3D" parent="Node3D/EditorObjects"]
+script = ExtResource("2_m6fg1")
+
+[node name="Mesh" type="MeshInstance3D" parent="Node3D/EditorObjects/Mesh1"]
+mesh = SubResource("ArrayMesh_y0mx5")
+surface_material_override/0 = SubResource("ShaderMaterial_paegx")
