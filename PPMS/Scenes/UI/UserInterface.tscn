@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://db434rqqj3bxi"]
 
 [ext_resource type="Script" path="res://Scripts/Editor UI/inspector.cs" id="1_8jghj"]
-[ext_resource type="Script" path="res://Scripts/Editor UI/NewMesh.cs" id="2_2ul85"]
 [ext_resource type="PackedScene" uid="uid://bjn5js6y10fw5" path="res://Scenes/UI/Widgets/vector_3_picker.tscn" id="3_cggl7"]
 [ext_resource type="Script" path="res://Scripts/Editor UI/plugin_slot.cs" id="4_diy87"]
+[ext_resource type="Script" path="res://Scripts/Editor UI/Menu Bar/AddItem.cs" id="5_3ks1y"]
 [ext_resource type="Texture2D" uid="uid://uhhd3eihg0k6" path="res://Assets/Images/White_Logo.svg" id="5_g81qa"]
 
 [node name="UserInterface" type="Control"]
@@ -36,12 +36,6 @@ offset_bottom = 40.0
 layout_mode = 2
 text = "Inspector
 "
-
-[node name="Button" type="Button" parent="Inspector/InspectorItems"]
-layout_mode = 2
-tooltip_text = "Creates a new mesh."
-text = "New Mesh"
-script = ExtResource("2_2ul85")
 
 [node name="Vector3 Picker" parent="Inspector/InspectorItems" instance=ExtResource("3_cggl7")]
 layout_mode = 2
@@ -119,23 +113,20 @@ item_4/id = 4
 
 [node name="Add Item" type="PopupMenu" parent="Menu/MenuBar"]
 title = "Add Item"
-item_count = 7
+item_count = 5
 item_0/text = "Meshes"
 item_0/id = 0
 item_0/separator = true
 item_1/text = "New Empty Mesh"
 item_1/id = 1
-item_2/text = "Import Lua"
+item_2/text = "Import Lua Mesh"
 item_2/id = 2
-item_3/text = "Import OBJ"
+item_3/text = "Other"
 item_3/id = 3
-item_4/text = "Import SVG"
+item_3/separator = true
+item_4/text = "Add Reference Image"
 item_4/id = 4
-item_5/text = "Other"
-item_5/id = 5
-item_5/separator = true
-item_6/text = "Add Reference Image"
-item_6/id = 6
+script = ExtResource("5_3ks1y")
 
 [node name="OptionButton" type="OptionButton" parent="."]
 layout_mode = 0
@@ -149,3 +140,5 @@ popup/item_0/text = "Object mode"
 popup/item_0/id = 0
 popup/item_1/text = "Edit mode"
 popup/item_1/id = 1
+
+[node name="FileDialog" type="FileDialog" parent="."]
