@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://db434rqqj3bxi"]
+[gd_scene load_steps=7 format=3 uid="uid://db434rqqj3bxi"]
 
 [ext_resource type="Script" path="res://Scripts/Editor UI/inspector.cs" id="1_8jghj"]
 [ext_resource type="PackedScene" uid="uid://bjn5js6y10fw5" path="res://Scenes/UI/Widgets/vector_3_picker.tscn" id="3_cggl7"]
 [ext_resource type="Script" path="res://Scripts/Editor UI/plugin_slot.cs" id="4_diy87"]
 [ext_resource type="Script" path="res://Scripts/Editor UI/Menu Bar/AddItem.cs" id="5_3ks1y"]
 [ext_resource type="Texture2D" uid="uid://uhhd3eihg0k6" path="res://Assets/Images/White_Logo.svg" id="5_g81qa"]
+[ext_resource type="Script" path="res://Scripts/Editor UI/Menu Bar/File.cs" id="5_qhwo4"]
 
 [node name="UserInterface" type="Control"]
 layout_mode = 3
@@ -81,7 +82,7 @@ offset_bottom = 36.0
 
 [node name="File" type="PopupMenu" parent="Menu/MenuBar"]
 title = "File"
-item_count = 6
+item_count = 7
 item_0/text = "New Project"
 item_0/id = 0
 item_1/text = "Open Project"
@@ -93,8 +94,11 @@ item_3/id = 3
 item_4/text = ""
 item_4/id = 4
 item_4/separator = true
-item_5/text = "Quit"
+item_5/text = "Exit to Main Menu"
 item_5/id = 5
+item_6/text = "Quit"
+item_6/id = 6
+script = ExtResource("5_qhwo4")
 
 [node name="Edit" type="PopupMenu" parent="Menu/MenuBar"]
 title = "Edit"
