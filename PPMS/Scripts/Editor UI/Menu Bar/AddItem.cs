@@ -27,6 +27,10 @@ public partial class AddItem : PopupMenu
 					FileMode = FileDialog.FileModeEnum.OpenFiles,
 					Access = FileDialog.AccessEnum.Filesystem,
 					Filters = new string[] { "*.lua ; Lua meshes" },
+#if GODOT_ANDROID
+					RootSubfolder = "/sdcard/",
+#endif
+					MinSize = new Vector2I(300, 500),
 					UseNativeDialog = true
 				};
 				GetNode("/root/Editor/CanvasLayer/UserInterface").AddChild(fd);
