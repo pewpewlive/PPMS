@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=3 uid="uid://ctbnyvgp88825"]
+
+[ext_resource type="FontFile" uid="uid://drbfxyofmvwo0" path="res://Assets/Fonts/NotoSans-Regular.ttf" id="1_qp53x"]
+[ext_resource type="Texture2D" uid="uid://uhhd3eihg0k6" path="res://Assets/Images/White_Logo.svg" id="2_0t637"]
+[ext_resource type="Script" path="res://Scripts/Editor UI/About.cs" id="2_e605a"]
+[ext_resource type="FontFile" uid="uid://cqbr2k2m3juj8" path="res://Assets/Fonts/SpaceGrotesk-Regular.ttf" id="3_ya5x5"]
+
+[sub_resource type="Theme" id="Theme_m5kgx"]
+default_font = ExtResource("1_qp53x")
+
+[sub_resource type="LabelSettings" id="LabelSettings_wx2my"]
+font = ExtResource("3_ya5x5")
+font_size = 38
+
+[sub_resource type="LabelSettings" id="LabelSettings_7kj54"]
+font = ExtResource("3_ya5x5")
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_o5jsv"]
+font = ExtResource("3_ya5x5")
+
+[sub_resource type="LabelSettings" id="LabelSettings_qvv38"]
+font = ExtResource("3_ya5x5")
+
+[node name="About" type="Window"]
+title = "About PPMS"
+initial_position = 4
+size = Vector2i(600, 300)
+always_on_top = true
+theme = SubResource("Theme_m5kgx")
+script = ExtResource("2_e605a")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 15.0
+offset_bottom = 70.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_0t637")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Control/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = " PewPew Mesh Studio"
+label_settings = SubResource("LabelSettings_wx2my")
+
+[node name="Label2" type="Label" parent="Control/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "v0.0.1"
+label_settings = SubResource("LabelSettings_7kj54")
+
+[node name="Authors" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 74.0
+offset_right = 387.0
+offset_bottom = 287.0
+text = "© PPMS Team.
+Licensed under Apache 2.0 license.
+
+Authors:
+• Tasty Kiwi
+• MnHs
+• SKPG-Tech
+• MutoXicated
+• Arjun"
+label_settings = SubResource("LabelSettings_o5jsv")
+
+[node name="Label" type="Label" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -6.0
+offset_right = 56.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Huge thanks:
+• ArtemiyKra
+• JF
+• ModEngineer"
+label_settings = SubResource("LabelSettings_qvv38")

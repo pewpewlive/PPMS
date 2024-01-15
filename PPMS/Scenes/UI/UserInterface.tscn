@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://db434rqqj3bxi"]
+[gd_scene load_steps=10 format=3 uid="uid://db434rqqj3bxi"]
 
 [ext_resource type="FontFile" uid="uid://drbfxyofmvwo0" path="res://Assets/Fonts/NotoSans-Regular.ttf" id="1_2wquj"]
 [ext_resource type="Script" path="res://Scripts/Editor UI/inspector.cs" id="1_8jghj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/Editor UI/Menu Bar/AddItem.cs" id="5_3ks1y"]
 [ext_resource type="Texture2D" uid="uid://uhhd3eihg0k6" path="res://Assets/Images/White_Logo.svg" id="5_g81qa"]
 [ext_resource type="Script" path="res://Scripts/Editor UI/Menu Bar/File.cs" id="5_qhwo4"]
+[ext_resource type="Script" path="res://Scripts/Editor UI/Menu Bar/Edit.cs" id="7_sk4wt"]
 
 [sub_resource type="Theme" id="Theme_0i3lh"]
 default_font = ExtResource("1_2wquj")
@@ -119,6 +120,7 @@ item_3/text = "Settings"
 item_3/id = 3
 item_4/text = "About"
 item_4/id = 4
+script = ExtResource("7_sk4wt")
 
 [node name="Add Item" type="PopupMenu" parent="Menu/MenuBar"]
 title = "Add Item"
@@ -164,5 +166,3 @@ popup/item_0/text = "Object mode"
 popup/item_0/id = 0
 popup/item_1/text = "Edit mode"
 popup/item_1/id = 1
-
-[node name="FileDialog" type="FileDialog" parent="."]
