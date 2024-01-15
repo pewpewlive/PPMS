@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctbnyvgp88825"]
+[gd_scene load_steps=11 format=3 uid="uid://ctbnyvgp88825"]
 
 [ext_resource type="FontFile" uid="uid://drbfxyofmvwo0" path="res://Assets/Fonts/NotoSans-Regular.ttf" id="1_qp53x"]
 [ext_resource type="Texture2D" uid="uid://uhhd3eihg0k6" path="res://Assets/Images/White_Logo.svg" id="2_0t637"]
@@ -16,16 +16,18 @@ font_size = 38
 font = ExtResource("3_ya5x5")
 font_size = 12
 
-[sub_resource type="LabelSettings" id="LabelSettings_o5jsv"]
+[sub_resource type="LabelSettings" id="LabelSettings_y1w5d"]
 font = ExtResource("3_ya5x5")
 
+[sub_resource type="LabelSettings" id="LabelSettings_o5jsv"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_qvv38"]
-font = ExtResource("3_ya5x5")
+font = ExtResource("1_qp53x")
 
 [node name="About" type="Window"]
 title = "About PPMS"
 initial_position = 4
-size = Vector2i(600, 300)
+size = Vector2i(600, 320)
 always_on_top = true
 theme = SubResource("Theme_m5kgx")
 script = ExtResource("2_e605a")
@@ -74,16 +76,30 @@ size_flags_vertical = 8
 text = "v0.0.1"
 label_settings = SubResource("LabelSettings_7kj54")
 
-[node name="Authors" type="Label" parent="Control/Panel"]
-layout_mode = 0
+[node name="PPMS Team" type="Label" parent="Control/Panel"]
 offset_left = 5.0
 offset_top = 74.0
 offset_right = 387.0
 offset_bottom = 287.0
-text = "© PPMS Team.
-Licensed under Apache 2.0 license.
+text = "© PPMS Team."
+label_settings = SubResource("LabelSettings_y1w5d")
 
-Authors:
+[node name="Licensed under Apache" type="Label" parent="Control/Panel"]
+offset_left = 5.0
+offset_top = 74.0
+offset_right = 387.0
+offset_bottom = 287.0
+text = "
+Licensed under Apache 2.0 license."
+label_settings = SubResource("LabelSettings_o5jsv")
+
+[node name="Authors" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 134.0
+offset_right = 387.0
+offset_bottom = 347.0
+text = "Authors:
 • Tasty Kiwi
 • MnHs
 • SKPG-Tech
@@ -91,7 +107,7 @@ Authors:
 • Arjun"
 label_settings = SubResource("LabelSettings_o5jsv")
 
-[node name="Label" type="Label" parent="Control/Panel"]
+[node name="Huge Thanks" type="Label" parent="Control/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -99,9 +115,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -56.0
-offset_top = -6.0
+offset_top = -26.0
 offset_right = 56.0
-offset_bottom = 95.0
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Huge thanks:
@@ -109,3 +125,29 @@ text = "Huge thanks:
 • JF
 • ModEngineer"
 label_settings = SubResource("LabelSettings_qvv38")
+
+[node name="WebsiteButton" type="LinkButton" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 63.0
+grow_vertical = 0
+text = "Website"
+uri = "https://meshstudio.pewpew.live/ppms/"
+
+[node name="GitHub" type="LinkButton" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -54.0
+offset_top = -23.0
+offset_bottom = 17.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "GitHub"
+uri = "https://github.com/pewpewlive/PPMS"
