@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://bgoicuk0og4y5"]
+[gd_scene load_steps=17 format=3 uid="uid://bgoicuk0og4y5"]
 
 [ext_resource type="PackedScene" uid="uid://db434rqqj3bxi" path="res://Scenes/UI/UserInterface.tscn" id="1_uy28t"]
 [ext_resource type="Script" path="res://Scripts/EditorMesh.cs" id="2_m6fg1"]
+[ext_resource type="FontFile" uid="uid://drbfxyofmvwo0" path="res://Assets/Fonts/NotoSans-Regular.ttf" id="2_xvdpg"]
 [ext_resource type="PackedScene" uid="uid://b1pg3ceribpn1" path="res://Scenes/Gizmos/ScaleGizmo.tscn" id="5_afv1h"]
 [ext_resource type="PackedScene" uid="uid://ba4mnuvmsm7sj" path="res://Scenes/Gizmos/TranslateGizmo.tscn" id="6_bupx0"]
 [ext_resource type="Shader" path="res://Shaders/MeshShader.gdshader" id="6_kbuh1"]
@@ -9,6 +10,9 @@
 [ext_resource type="Script" path="res://Scripts/EditorScene.cs" id="7_801li"]
 [ext_resource type="Script" path="res://Scripts/Camera/CameraController.cs" id="7_e1xwf"]
 [ext_resource type="Shader" path="res://Shaders/GridShader.gdshader" id="8_k2knh"]
+
+[sub_resource type="Theme" id="Theme_n1aqe"]
+default_font = ExtResource("2_xvdpg")
 
 [sub_resource type="Environment" id="Environment_b3h6j"]
 background_mode = 1
@@ -54,6 +58,7 @@ shader = ExtResource("6_kbuh1")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UserInterface" parent="CanvasLayer" instance=ExtResource("1_uy28t")]
+theme = SubResource("Theme_n1aqe")
 
 [node name="Node3D" type="Node3D" parent="."]
 
