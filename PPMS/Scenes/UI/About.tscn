@@ -77,6 +77,7 @@ text = "v0.0.1"
 label_settings = SubResource("LabelSettings_7kj54")
 
 [node name="PPMS Team" type="Label" parent="Control/Panel"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 74.0
 offset_right = 387.0
@@ -85,6 +86,7 @@ text = "© PPMS Team."
 label_settings = SubResource("LabelSettings_y1w5d")
 
 [node name="Licensed under Apache" type="Label" parent="Control/Panel"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 74.0
 offset_right = 387.0

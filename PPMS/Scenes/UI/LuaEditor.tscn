@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://wyfwlmarxe2t"]
+
+[ext_resource type="FontFile" uid="uid://dbhp6i61p571" path="res://Assets/Fonts/FiraMono-Regular.ttf" id="1_xr26r"]
+[ext_resource type="Script" path="res://Scripts/Editor UI/LuaEdit.cs" id="2_mxqbt"]
+
+[node name="LuaEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CodeEdit" type="CodeEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_xr26r")
+minimap_draw = true
+highlight_all_occurrences = true
+line_length_guidelines = Array[int]([80])
+gutters_draw_bookmarks = true
+gutters_draw_line_numbers = true
+code_completion_enabled = true
+indent_size = 2
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+script = ExtResource("2_mxqbt")
