@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://jtn1nxw50232"]
+
+[ext_resource type="Script" path="res://Scripts/LuaRepl.cs" id="1_1c2dt"]
+[ext_resource type="FontFile" uid="uid://dbhp6i61p571" path="res://Assets/Fonts/FiraMono-Regular.ttf" id="1_jhoo1"]
+
+[node name="LuaRepl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1c2dt")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExpressionInput" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.952
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.104004
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_jhoo1")
+placeholder_text = "Enter Lua expression..."
+
+[node name="ExpressionOutput" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.946
+offset_bottom = -0.00799561
+grow_horizontal = 2
+theme_override_colors/font_readonly_color = Color(0.858824, 0.858824, 0.858824, 1)
+theme_override_fonts/font = ExtResource("1_jhoo1")
+text = "Interactive Lua Console for PPMS
+Type `Repl.Help()` for help.
+Use `return` keyword for output to the console.
+
+"
+editable = false
+context_menu_enabled = false
